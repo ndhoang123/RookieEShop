@@ -42,7 +42,7 @@ namespace RookieEShop.FrontEnd
 				.AddCookie("Cookies")
 				.AddOpenIdConnect("oidc", options =>
 				{
-					options.Authority = "https://localhost:5001";
+					options.Authority = "https://localhost:44368";
 					options.RequireHttpsMetadata = false;
 					options.GetClaimsFromUserInfoEndpoint = true;
 
@@ -56,11 +56,11 @@ namespace RookieEShop.FrontEnd
 					options.Scope.Add("profile");
 					options.Scope.Add("rookieEShop.API");
 
-					//options.TokenValidationParameters = new TokenValidationParameters
-					//{
-					//	NameClaimType = "name",
-					//	RoleClaimType = "role"
-					//};
+					options.TokenValidationParameters = new TokenValidationParameters
+					{
+						NameClaimType = "name",
+						RoleClaimType = "role"
+					};
 				});
 
 			
