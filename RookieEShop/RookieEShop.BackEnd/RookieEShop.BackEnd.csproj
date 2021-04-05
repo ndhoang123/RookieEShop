@@ -20,4 +20,7 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="F:\Coding\Demo\RookieEShop\RookieEShop\RookieEShop\RookieEShop.Shared\RookieEShop.Shared.csproj" />
+  </ItemGroup>
 </Project>
