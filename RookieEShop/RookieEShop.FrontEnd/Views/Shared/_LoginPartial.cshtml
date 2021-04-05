@@ -31,13 +31,13 @@
 			<span class="navbar-text text-dark">Hello <a class="text-dark" asp-controller="Account" asp-action="MyProfile">@User.Identity.Name</a></span>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link text-dark" asp-controller="Account" asp-action="SignOut">Logout</a>
+			<a class="nav-link text-dark" asp-controller="Account" asp-action="SignOut">Sign out</a>
 		</li>
 	}
 	else
 	{
 		<li class="nav-item">
-			<a class="nav-link text-dark" asp-controller="Account" asp-action="SignIn">Login</a>
+			<a class="nav-link text-dark" asp-controller="Account" asp-action="SignIn">Sign in</a>
 		</li>
 	}
 </ul>
