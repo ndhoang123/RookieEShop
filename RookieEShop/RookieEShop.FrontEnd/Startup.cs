@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,6 +25,15 @@ namespace RookieEShop.FrontEnd
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddControllersWithViews();
+
+			JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+
+			services.AddHttpClient("owner", configureClient =>
+			{
+				configureClient.BaseAddress = new Uri("https://localhost:5001/");
+			});
+
 			services.AddAuthentication(options =>
 			{
 				options.DefaultScheme = "Cookies";
@@ -42,18 +52,18 @@ namespace RookieEShop.FrontEnd
 
 					options.SaveTokens = true;
 
-					//options.Scope.Add("openid");
-					//options.Scope.Add("profile");
-					//options.Scope.Add("rookieEShop.API");
+					options.Scope.Add("openid");
+					options.Scope.Add("profile");
+					options.Scope.Add("rookieEShop.API");
 
-					options.TokenValidationParameters = new TokenValidationParameters
-					{
-						NameClaimType = "name",
-						RoleClaimType = "role"
-					};
+					//options.TokenValidationParameters = new TokenValidationParameters
+					//{
+					//	NameClaimType = "name",
+					//	RoleClaimType = "role"
+					//};
 				});
 
-			services.AddControllersWithViews();
+			
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
