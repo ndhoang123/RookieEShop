@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RookieEShop.FrontEnd", "Roo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4AspNetIdentity", "IdentityServer4AspNetIdentity\IdentityServer4AspNetIdentity.csproj", "{F6E2B561-D1E5-4F29-8325-98BB639BF2B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RookieEShop.Shared", "RookieEShop.Shared\RookieEShop.Shared.csproj", "{9F99DBFD-C78D-45FB-9702-3F6EBEDD5248}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RookieEShop.BackEnd", "RookieEShop.BackEnd\RookieEShop.BackEnd.csproj", "{DD43B043-F2E7-4021-A057-ECFBA29C245D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{F6E2B561-D1E5-4F29-8325-98BB639BF2B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6E2B561-D1E5-4F29-8325-98BB639BF2B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6E2B561-D1E5-4F29-8325-98BB639BF2B6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F99DBFD-C78D-45FB-9702-3F6EBEDD5248}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F99DBFD-C78D-45FB-9702-3F6EBEDD5248}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F99DBFD-C78D-45FB-9702-3F6EBEDD5248}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F99DBFD-C78D-45FB-9702-3F6EBEDD5248}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD43B043-F2E7-4021-A057-ECFBA29C245D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD43B043-F2E7-4021-A057-ECFBA29C245D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD43B043-F2E7-4021-A057-ECFBA29C245D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD43B043-F2E7-4021-A057-ECFBA29C245D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
