@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RookieEShop.BackEnd.Data;
+using RookieEShop.BackEnd.IdentityServer;
+using RookieEShop.BackEnd.Models;
 
 namespace RookieEShop.BackEnd
 {
@@ -23,6 +25,23 @@ namespace RookieEShop.BackEnd
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(
 					Configuration.GetConnectionString("DefaultConnection")));
+
+			services.AddIdentityServer(options =>
+			{
+				options.Events.RaiseErrorEvents = true;
+				options.Events.RaiseInformationEvents = true;
+				options.Events.RaiseFailureEvents = true;
+				options.Events.RaiseSuccessEvents = true;
+				options.EmitStaticAudienceClaim = true;
+			})
+			   .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
+			   .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
+			   .AddInMemoryClients(IdentityServerConfig.Clients)
+			   .AddAspNetIdentity<User>()
+			   .AddDeveloperSigningCredential(); // not recommended for production - you need to store your key material somewhere secure
+
+
+			services.AddControllersWithViews();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +62,7 @@ namespace RookieEShop.BackEnd
 
 			app.UseRouting();
 
+			app.UseIdentityServer();
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>
