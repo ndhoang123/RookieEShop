@@ -10,6 +10,8 @@ using RookieEShop.BackEnd.Models;
 using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
 using System;
+using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Identity;
 
 namespace RookieEShop.BackEnd
 {
@@ -28,6 +30,10 @@ namespace RookieEShop.BackEnd
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(
 					Configuration.GetConnectionString("DefaultConnection")));
+
+			services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+				.AddRoles<IdentityRole>()
+				.AddEntityFrameworkStores<ApplicationDbContext>();
 
 			services.AddIdentityServer(options =>
 			{

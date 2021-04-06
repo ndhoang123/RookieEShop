@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace RookieEShop.SharedView
+namespace RookieEShop.Shared
 {
 	public class BrandCreateRequest
 	{

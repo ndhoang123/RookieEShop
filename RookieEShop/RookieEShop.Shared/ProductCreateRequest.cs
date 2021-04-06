@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace RookieEShop.SharedView
+namespace RookieEShop.Shared
 {
 	public class ProductCreateRequest
 	{

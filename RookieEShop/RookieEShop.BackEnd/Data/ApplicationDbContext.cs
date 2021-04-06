@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RookieEShop.BackEnd.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace RookieEShop.BackEnd.Data
 {
-	public class ApplicationDbContext : DbContext
+	public class ApplicationDbContext : IdentityDbContext<User>
 	{
 
 		public DbSet<Brand> Brands { get; set; }

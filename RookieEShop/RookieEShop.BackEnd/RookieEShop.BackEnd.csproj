@@ -8,6 +8,8 @@
     <PackageReference Include="IdentityServer4" Version="4.1.2" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="4.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.4">
       <PrivateAssets>all</PrivateAssets>
@@ -19,9 +21,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="F:\Coding\Demo\RookieEShop\RookieEShop\RookieEShop\RookieEShop.SharedView\RookieEShop.SharedView.csproj" />
+    <ProjectReference Include="F:\Coding\Demo\RookieEShop\RookieEShop\RookieEShop\RookieEShop.Shared\RookieEShop.Shared.csproj" />
   </ItemGroup>
 </Project>
