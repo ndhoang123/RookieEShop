@@ -4,7 +4,7 @@ using RookieEShop.BackEnd.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RookieEShop.Shared;
+using RookieEShop.SharedView;
 using RookieEShop.BackEnd.Models;
 using Microsoft.EntityFrameworkCore;
 

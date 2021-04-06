@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RookieEShop.Shared
+namespace RookieEShop.SharedView
 {
-	public class CategoryVm
+	public class BrandVm
 	{
 		public int Id { get; set; }
 

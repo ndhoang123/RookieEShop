@@ -18,9 +18,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="F:\Coding\Demo\RookieEShop\RookieEShop\RookieEShop\RookieEShop.Shared\RookieEShop.Shared.csproj" />
+    <ProjectReference Include="F:\Coding\Demo\RookieEShop\RookieEShop\RookieEShop\RookieEShop.SharedView\RookieEShop.SharedView.csproj" />
   </ItemGroup>
 </Project>

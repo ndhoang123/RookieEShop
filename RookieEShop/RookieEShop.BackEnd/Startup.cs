@@ -7,6 +7,9 @@ using Microsoft.Extensions.Hosting;
 using RookieEShop.BackEnd.Data;
 using RookieEShop.BackEnd.IdentityServer;
 using RookieEShop.BackEnd.Models;
+using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
+using System;
 
 namespace RookieEShop.BackEnd
 {
@@ -42,6 +45,35 @@ namespace RookieEShop.BackEnd
 
 
 			services.AddControllersWithViews();
+
+
+			services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Rookie Shop API", Version = "v1" });
+				c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+				{
+					Type = SecuritySchemeType.OAuth2,
+					Flows = new OpenApiOAuthFlows
+					{
+						AuthorizationCode = new OpenApiOAuthFlow
+						{
+							TokenUrl = new Uri("/connect/token", UriKind.Relative),
+							AuthorizationUrl = new Uri("/connect/authorize", UriKind.Relative),
+							Scopes = new Dictionary<string, string> { { "rookieshop.api", "Rookie Shop API" } }
+						},
+					},
+				});
+				c.AddSecurityRequirement(new OpenApiSecurityRequirement
+				{
+					{
+						new OpenApiSecurityScheme
+						{
+							Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+						},
+						new List<string>{ "rookieshop.api" }
+					}
+				});
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +96,15 @@ namespace RookieEShop.BackEnd
 
 			app.UseIdentityServer();
 			app.UseAuthorization();
+
+			app.UseSwagger();
+			app.UseSwaggerUI(c =>
+			{
+				c.OAuthClientId("swagger");
+				c.OAuthClientSecret("secret");
+				c.OAuthUsePkce();
+				c.SwaggerEndpoint("/swagger/v1/swagger.json", "Rookie Shop API V1");
+			});
 
 			app.UseEndpoints(endpoints =>
 			{
