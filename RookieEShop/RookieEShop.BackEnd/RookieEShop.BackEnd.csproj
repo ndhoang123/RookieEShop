@@ -23,4 +23,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.1" />
     <ProjectReference Include="F:\Coding\Demo\RookieEShop\RookieEShop\RookieEShop\RookieEShop.Shared\RookieEShop.Shared.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Image\" />
+  </ItemGroup>
 </Project>

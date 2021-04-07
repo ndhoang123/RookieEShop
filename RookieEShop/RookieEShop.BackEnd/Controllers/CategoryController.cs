@@ -69,7 +69,7 @@ namespace RookieEShop.BackEnd.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CategoryVm>> PostCategory(CategoryCreateRequest categoryCreateRequest)
+        public async Task<ActionResult<CategoryVm>> PostCategory([FromForm]CategoryCreateRequest categoryCreateRequest)
         {
             var category = new Category
             {

@@ -1,0 +1,116 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using RookieEShop.BackEnd.Data;
+using RookieEShop.BackEnd.Models;
+using RookieEShop.BackEnd.Services;
+using RookieEShop.Shared;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+
+namespace RookieEShop.BackEnd.Controllers
+{
+	[Route("api/[controller]")]
+	[ApiController]
+	public class ProductController : ControllerBase
+	{
+		private readonly ApplicationDbContext _context;
+		private readonly IStorageService _storageService;
+		public ProductController(ApplicationDbContext context, IStorageService storageService)
+		{
+			_context = context;
+			_storageService = storageService;
+		}
+
+		[HttpGet]
+		[AllowAnonymous]
+		public async Task<ActionResult<IEnumerable<ProductVm>>> GetProduct()
+		{
+			return await _context.Products
+				.Select(x => new ProductVm { Id = x.Id,
+					Description = x.Description,
+					Name = x.Name,
+					Price = x.Price,
+					ThumbnailImageUrl = _storageService.GetFileUrl(x.ImageFileName)
+				})
+				.ToListAsync();
+		}
+		
+		[HttpGet("{id}")]
+		[AllowAnonymous]
+		public async Task<ActionResult<ProductVm>> GetProduct(int id)
+		{
+			var product = await _context.Products.FindAsync(id);
+
+			if (product == null)
+			{
+				return NotFound();
+			}
+
+			var ProductVm = new ProductVm
+			{
+				Id = product.Id,
+				Description = product.Description,
+				Name = product.Name,
+				Price = product.Price
+			};
+
+			ProductVm.ThumbnailImageUrl = _storageService.GetFileUrl(product.ImageFileName);
+			return ProductVm;
+		}
+
+		[HttpPost]
+		public async Task<ActionResult<ProductVm>> PostProduct([FromForm]ProductCreateRequest productCreateRequest)
+		{
+
+			var product = new Product
+			{
+				Name = productCreateRequest.Name,
+				Description = productCreateRequest.Description,
+				Price = productCreateRequest.Price,
+				BrandId = productCreateRequest.BrandId,
+			};
+
+			if (productCreateRequest.ThumbnailImage != null)
+			{
+				product.ImageFileName = await SaveFile(productCreateRequest.ThumbnailImage);
+			}
+
+			_context.Products.Add(product);
+			await _context.SaveChangesAsync();
+
+			return CreatedAtAction("GetProduct", new { id = product.Id }, null);
+		}
+
+		[HttpDelete("{id}")]
+		public async Task<IActionResult> DeleteProduct(int id)
+		{
+			var product = await _context.Products.FindAsync(id);
+			if (product == null)
+			{
+				return NotFound();
+			}
+
+			_context.Products.Remove(product);
+			await _context.SaveChangesAsync();
+
+			return NoContent();
+		}
+
+		private async Task<string> SaveFile(IFormFile file)
+		{
+			var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+			var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+			await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
+			return fileName;
+		}
+		
+	}
+}

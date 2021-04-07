@@ -67,7 +67,7 @@ namespace RookieEShop.BackEnd.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BrandVm>> PostBrand(BrandCreateRequest brandCreateRequest)
+        public async Task<ActionResult<BrandVm>> PostBrand([FromForm]BrandCreateRequest brandCreateRequest)
         {
             var brand = new Brand
             {

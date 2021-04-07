@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Identity;
+using RookieEShop.BackEnd.Services;
 
 namespace RookieEShop.BackEnd
 {
@@ -30,6 +31,7 @@ namespace RookieEShop.BackEnd
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(
 					Configuration.GetConnectionString("DefaultConnection")));
+			services.AddTransient<IStorageService, FileStorageService>();
 
 			services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
 				.AddRoles<IdentityRole>()
