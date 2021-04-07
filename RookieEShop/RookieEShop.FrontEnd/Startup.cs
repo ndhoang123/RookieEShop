@@ -26,6 +26,7 @@ namespace RookieEShop.FrontEnd
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllersWithViews();
+			services.AddHttpClient();
 
 			JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
