@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RookieEShop.FrontEnd.Models;
+using RookieEShop.FrontEnd.Services;
 using RookieEShop.Shared;
 using System;
 using System.Collections.Generic;
@@ -15,28 +16,18 @@ namespace RookieEShop.FrontEnd.Controllers
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
-		private IHttpClientFactory _factory;
+		private readonly IProductApiClient _productClient;
 
-		public HomeController(ILogger<HomeController> logger, IHttpClientFactory factory)
+		public HomeController(ILogger<HomeController> logger, IProductApiClient productClient)
 		{
 			_logger = logger;
-			_factory = factory;
+			_productClient = productClient;
 		}
 
 		public async Task< IActionResult> Index()
 		{
-			HttpClient client = _factory.CreateClient();
-			//string baseUrl = "https://localhost:5001";
-			client.BaseAddress = new Uri("https://localhost:5001/");
-			//string endpointProduct = "/api/Product";
-			//string endpointBrand = "/api/Brand";
-			//string url = baseUrl + endpointProduct;
-			var reponseProduct = await client.GetAsync("api/Product");
-			var reponseBrand = await client.GetAsync("api/Brand");
-			string jsonDataProduct = await reponseProduct.Content.ReadAsStringAsync();
-			List<ProductVm> data = JsonSerializer.Deserialize<List<ProductVm>>(jsonDataProduct, new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
-		
-			return View(data);
+			var products = await _productClient.GetProducts();
+			return View(products);
 		}
 
 		public IActionResult Privacy()

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using RookieEShop.FrontEnd.Services;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -25,15 +26,13 @@ namespace RookieEShop.FrontEnd
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddControllersWithViews();
-			services.AddHttpClient();
+	
+			//services.AddHttpClient();
 
 			JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
-			services.AddHttpClient("owner", configureClient =>
-			{
-				configureClient.BaseAddress = new Uri("https://localhost:5001/");
-			});
+			services.AddTransient<IProductApiClient, ProductApiClient>();
+			services.AddTransient<ICategoryApiClient, CategoryApiClient>();
 
 			services.AddAuthentication(options =>
 			{
@@ -43,7 +42,7 @@ namespace RookieEShop.FrontEnd
 				.AddCookie("Cookies")
 				.AddOpenIdConnect("oidc", options =>
 				{
-					options.Authority = "http://localhost:44368";
+					options.Authority = "http://localhost:5001";
 					options.RequireHttpsMetadata = false;
 					options.GetClaimsFromUserInfoEndpoint = true;
 
@@ -62,9 +61,12 @@ namespace RookieEShop.FrontEnd
 						NameClaimType = "name",
 						RoleClaimType = "role"
 					};
+				}); 
+			services.AddHttpClient("owner", configureClient =>
+				{
+					configureClient.BaseAddress = new Uri("https://localhost:5001/");
 				});
-
-			
+			services.AddControllersWithViews();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
