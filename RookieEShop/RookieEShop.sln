@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RookieEShop.FrontEnd", "RookieEShop.FrontEnd\RookieEShop.FrontEnd.csproj", "{E714299A-74B2-4295-8127-648D6D3C395E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RookieEShop.Shared", "RookieEShop.Shared\RookieEShop.Shared.csproj", "{F5A1165A-B435-480E-861B-7E14F4AFB11D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RookieEShop.Shared", "RookieEShop.Shared\RookieEShop.Shared.csproj", "{F5A1165A-B435-480E-861B-7E14F4AFB11D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RookieEShop.BackEnd", "RookieEShop.BackEnd\RookieEShop.BackEnd.csproj", "{CE6EDACB-D7D1-4595-973A-3BEA00704A36}"
 EndProject

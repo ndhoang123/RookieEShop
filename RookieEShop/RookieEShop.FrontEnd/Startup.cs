@@ -43,7 +43,7 @@ namespace RookieEShop.FrontEnd
 				.AddCookie("Cookies")
 				.AddOpenIdConnect("oidc", options =>
 				{
-					options.Authority = "https://localhost:44368";
+					options.Authority = "http://localhost:44368";
 					options.RequireHttpsMetadata = false;
 					options.GetClaimsFromUserInfoEndpoint = true;
 

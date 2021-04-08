@@ -26,13 +26,15 @@ namespace RookieEShop.FrontEnd.Controllers
 		public async Task< IActionResult> Index()
 		{
 			HttpClient client = _factory.CreateClient();
-			string baseUrl = "https://localhost:5001";
-			//client.BaseAddress = new Uri("https://localhost:5001/");
-			string endpoint = "/api/Product";
-			string url = baseUrl + endpoint;
-			var reponse = await client.GetAsync(url);
-			string jsonData = await reponse.Content.ReadAsStringAsync();
-			List<ProductVm> data = JsonSerializer.Deserialize<List<ProductVm>>(jsonData, new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
+			//string baseUrl = "https://localhost:5001";
+			client.BaseAddress = new Uri("https://localhost:5001/");
+			//string endpointProduct = "/api/Product";
+			//string endpointBrand = "/api/Brand";
+			//string url = baseUrl + endpointProduct;
+			var reponseProduct = await client.GetAsync("api/Product");
+			var reponseBrand = await client.GetAsync("api/Brand");
+			string jsonDataProduct = await reponseProduct.Content.ReadAsStringAsync();
+			List<ProductVm> data = JsonSerializer.Deserialize<List<ProductVm>>(jsonDataProduct, new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
 		
 			return View(data);
 		}

@@ -11,15 +11,16 @@ namespace RookieEShop.BackEnd.IdentityServer
     public static class IdentityServerConfig
     {
         public static IEnumerable<IdentityResource> IdentityResources =>
-            new IdentityResource[]
+            new List<IdentityResource>
             { 
-                new IdentityResources.OpenId()
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile(),
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
             new List<ApiScope>
             {
-                new ApiScope("RookieEShop.api", "My api")
+                new ApiScope("RookieEShop.api", "Rookie EShop API")
             };
 
         public static IEnumerable<Client> Clients =>
@@ -29,14 +30,9 @@ namespace RookieEShop.BackEnd.IdentityServer
                 new Client
 				{
                     ClientId = "client",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
                     // no interactive user, use the clientid/secret for authentication
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-
-                    // secret for authentication
-                    ClientSecrets =
-					{
-                        new Secret("sceret".Sha256())
-					},
 
                     // scopes that client has access to
                     AllowedScopes = { "RookieEShop.api" }

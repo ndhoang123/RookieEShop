@@ -37,6 +37,11 @@ namespace RookieEShop.BackEnd
 				.AddRoles<IdentityRole>()
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 
+			services.ConfigureApplicationCookie(options =>
+			{
+				options.LoginPath = "";
+			});
+
 			services.AddIdentityServer(options =>
 			{
 				options.Events.RaiseErrorEvents = true;
