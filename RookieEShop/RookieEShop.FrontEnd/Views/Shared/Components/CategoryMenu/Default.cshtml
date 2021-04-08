@@ -1,0 +1,9 @@
+﻿@model IList<RookieEShop.Shared.CategoryVm>
+
+
+@foreach (var category in Model)
+{
+	<li class="nav-item">
+		<a class="nav-link text-dark">@category.Name</a>
+	</li>
+}
