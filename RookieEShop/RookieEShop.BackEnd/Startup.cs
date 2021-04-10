@@ -34,13 +34,13 @@ namespace RookieEShop.BackEnd
 			services.AddTransient<IStorageService, FileStorageService>();
 
 			services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
-				.AddRoles<IdentityRole>()
+				.AddRoles<IdentityRole>().AddDefaultUI()
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 
-			services.ConfigureApplicationCookie(options =>
-			{
-				options.LoginPath = "";
-			});
+			//services.ConfigureApplicationCookie(options =>
+			//{
+			//	options.LoginPath = "";
+			//});
 
 			services.AddIdentityServer(options =>
 			{

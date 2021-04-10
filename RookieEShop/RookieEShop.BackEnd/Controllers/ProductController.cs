@@ -35,9 +35,12 @@ namespace RookieEShop.BackEnd.Controllers
 		{
 			return await _context.Products
 				.Select(x => new ProductVm { Id = x.Id,
-					Description = x.Description,
 					Name = x.Name,
 					Price = x.Price,
+					Author = x.Author,
+					Year = x.Year,
+					Publisher = x.Publisher,
+					Description = x.Description,
 					ThumbnailImageUrl = _storageService.GetFileUrl(x.ImageFileName)
 				})
 				.ToListAsync();
@@ -59,23 +62,54 @@ namespace RookieEShop.BackEnd.Controllers
 				Id = product.Id,
 				Description = product.Description,
 				Name = product.Name,
-				Price = product.Price
+				Price = product.Price,
+				Publisher = product.Publisher,
+				Year = product.Year,
+				Author = product.Author,
+				ThumbnailImageUrl = _storageService.GetFileUrl(product.ImageFileName)
 			};
 
-			ProductVm.ThumbnailImageUrl = _storageService.GetFileUrl(product.ImageFileName);
+			return ProductVm;
+		}
+		[HttpGet("(categoryid)")]
+		[AllowAnonymous]
+		public async Task<ActionResult<IList<ProductVm>>> GetProductByCategory(int categoryiD)
+		{
+			var product = await _context.Products.Where(x => x.CategoryID == categoryiD).ToListAsync();
+
+			if (product == null)
+			{
+				return NotFound();
+			}
+
+			var ProductVm = product.Select(x => new ProductVm
+			{
+				Id = x.Id,
+				Description = x.Description,
+				Name = x.Name,
+				Price = x.Price,
+				Publisher = x.Publisher,
+				Year = x.Year,
+				Author = x.Author,
+				ThumbnailImageUrl = _storageService.GetFileUrl(x.ImageFileName)
+			}).ToList();
 			return ProductVm;
 		}
 
 		[HttpPost]
 		public async Task<ActionResult<ProductVm>> PostProduct([FromForm]ProductCreateRequest productCreateRequest)
 		{
-
+			var checkCategory = _context.Categories.Find(productCreateRequest.CategoryId);
+			if (checkCategory == null) return BadRequest();
 			var product = new Product
 			{
 				Name = productCreateRequest.Name,
-				Description = productCreateRequest.Description,
 				Price = productCreateRequest.Price,
-				BrandId = productCreateRequest.BrandId,
+				Author = productCreateRequest.Author,
+				Publisher = productCreateRequest.Publisher,
+				Year = productCreateRequest.Year,
+				Description = productCreateRequest.Description,
+				CategoryID = productCreateRequest.CategoryId
 			};
 
 			if (productCreateRequest.ThumbnailImage != null)

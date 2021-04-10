@@ -8,6 +8,6 @@ namespace RookieEShop.BackEnd.Models
 
 		public string Name { get; set; }
 
-		public IList<ProductCategory> ProductCategories { get; private set; } = new List<ProductCategory>();
+		public IList<Product> products { get; set; }
 	}
 }

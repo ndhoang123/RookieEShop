@@ -6,12 +6,11 @@ namespace RookieEShop.BackEnd.Data
 {
 	public class ApplicationDbContext : IdentityDbContext<User>
 	{
-
-		public DbSet<Brand> Brands { get; set; }
-
 		public DbSet<Category> Categories { get; set; }
 
 		public DbSet<Product> Products { get; set; }
+		
+		public DbSet<Rating> Ratings { get; set; }
 
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)
@@ -19,25 +18,15 @@ namespace RookieEShop.BackEnd.Data
 
 		}
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ProductCategory>()
-                .HasKey(pc => new { pc.ProductId, pc.CategoryId });
+			modelBuilder.Entity<Product>()
+				.Property(p => p.Price).HasColumnType("decimal");
 
-            modelBuilder.Entity<ProductCategory>()
-                .HasOne(pc => pc.Product)
-                .WithMany(p => p.ProductCategories)
-                .HasForeignKey(pc => pc.ProductId);
-
-            modelBuilder.Entity<ProductCategory>()
-                .HasOne(pc => pc.Category)
-                .WithMany(c => c.ProductCategories)
-                .HasForeignKey(pc => pc.CategoryId);
-
-            modelBuilder.Entity<User>()
-                .ToTable("AspNetUsers");
-        }
-    }
+			modelBuilder.Entity<User>()
+				.ToTable("AspNetUsers");
+		}
+	}
 }

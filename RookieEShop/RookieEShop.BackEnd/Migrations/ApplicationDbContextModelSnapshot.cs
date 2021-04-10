@@ -176,6 +176,9 @@ namespace RookieEShop.BackEnd.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Author")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
@@ -190,6 +193,12 @@ namespace RookieEShop.BackEnd.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal");
+
+                    b.Property<string>("Publisher")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -54,7 +54,7 @@ namespace RookieEShop.FrontEnd
 
 					options.Scope.Add("openid");
 					options.Scope.Add("profile");
-					options.Scope.Add("rookieEShop.API");
+					options.Scope.Add("rookieEShop.api");
 
 					options.TokenValidationParameters = new TokenValidationParameters
 					{

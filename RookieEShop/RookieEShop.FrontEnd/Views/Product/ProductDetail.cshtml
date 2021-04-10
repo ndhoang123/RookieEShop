@@ -1,7 +1,4 @@
-﻿
-@model IList<RookieEShop.Shared.ProductVm>
-
-@*@{ var backendUrl = Configuration.GetServiceUri("backend"); }*@
+﻿@model IList<RookieEShop.Shared.ProductVm>
 
 @{ ViewData["Title"] = "Home Page"; }
 
@@ -13,8 +10,11 @@
 				<img class="bd-placeholder-img card-img-top" src="https://localhost:5001/@product.ThumbnailImageUrl" />
 				<div class="card-body">
 					<h3 class="card-text">@product.Name</h3>
-					<p class="card-text">@product.Price VND</p>
-					<button type="button" class="btn btn-secondary">View</button>
+					<p class="card-text">Author: @product.Author</p>
+					<p class="card-text">Year: @product.Year</p>
+					<p class="card-text">Publisher: @product.Publisher</p>
+					<h3 class="card-text">@product.Price VND</h3>
+					<p class="card-text">@product.Description</p>
 				</div>
 			</div>
 		</div>}

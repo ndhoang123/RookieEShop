@@ -7,5 +7,6 @@ namespace RookieEShop.FrontEnd.Services
 	public interface ICategoryApiClient
 	{
 		Task<IList<CategoryVm>> GetCategories();
+		Task<IList<CategoryVm>> GetCategoriesById(int id);
 	}
 }

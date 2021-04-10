@@ -22,5 +22,12 @@ namespace RookieEShop.FrontEnd.Services
 			response.EnsureSuccessStatusCode();
 			return await response.Content.ReadAsAsync<IList<CategoryVm>>();
 		}
+		public async Task<IList<CategoryVm>> GetCategoriesById(int id)
+		{
+			var client = _factory.CreateClient();
+			var response = await client.GetAsync("https://localhost:5001/api/category/" + id.ToString());
+			response.EnsureSuccessStatusCode();
+			return await response.Content.ReadAsAsync<IList<CategoryVm>>();
+		}
 	}
 }

@@ -37,7 +37,6 @@ namespace RookieEShop.BackEnd.Controllers
         public async Task<ActionResult<CategoryVm>> GetCategory(int id)
         {
             var category = await _context.Categories.FindAsync(id);
-
             if (category == null)
             {
                 return NotFound();

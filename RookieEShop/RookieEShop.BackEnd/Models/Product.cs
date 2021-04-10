@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RookieEShop.BackEnd.Models
 {
@@ -11,14 +12,20 @@ namespace RookieEShop.BackEnd.Models
 
 		public decimal Price { get; set; }
 
+		public string Author { get; set; }
+
+		public int Year { get; set; }
+
+		public string Publisher { get; set; }
+
 		public string Description { get; set; }
 
 		public string ImageFileName { get; set; }
 
-		public int BrandId { get; set; }
+		[ForeignKey("Category")]
+		public int CategoryID { get; set; }
 
-		public Brand Brand { get; set; }
+		public Category Category { get; set; }
 
-		public IList<ProductCategory> ProductCategories { get; private set; } = new List<ProductCategory>();
 	}
 }
