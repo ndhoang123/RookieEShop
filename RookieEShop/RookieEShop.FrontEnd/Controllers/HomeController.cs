@@ -2,13 +2,7 @@
 using Microsoft.Extensions.Logging;
 using RookieEShop.FrontEnd.Models;
 using RookieEShop.FrontEnd.Services;
-using RookieEShop.Shared;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace RookieEShop.FrontEnd.Controllers

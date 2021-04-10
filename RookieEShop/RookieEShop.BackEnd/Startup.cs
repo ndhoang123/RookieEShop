@@ -1,18 +1,17 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using RookieEShop.BackEnd.Data;
 using RookieEShop.BackEnd.IdentityServer;
 using RookieEShop.BackEnd.Models;
-using Microsoft.OpenApi.Models;
-using System.Collections.Generic;
-using System;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.Identity;
 using RookieEShop.BackEnd.Services;
+using System;
+using System.Collections.Generic;
 
 namespace RookieEShop.BackEnd
 {
