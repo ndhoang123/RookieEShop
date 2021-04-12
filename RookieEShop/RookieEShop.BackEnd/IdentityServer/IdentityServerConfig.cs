@@ -20,7 +20,7 @@ namespace RookieEShop.BackEnd.IdentityServer
         public static IEnumerable<ApiScope> ApiScopes =>
             new List<ApiScope>
             {
-                new ApiScope("RookieEShop.api", "Rookie EShop API")
+                new ApiScope("rookieEShop.API", "Rookie EShop API")
             };
 
         public static IEnumerable<Client> Clients =>
@@ -28,14 +28,14 @@ namespace RookieEShop.BackEnd.IdentityServer
             {
                 // machine to machine client
                 new Client
-				{
+                {
                     ClientId = "client",
                     ClientSecrets = { new Secret("secret".Sha256()) },
                     // no interactive user, use the clientid/secret for authentication
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
 
                     // scopes that client has access to
-                    AllowedScopes = { "RookieEShop.api" }
+                    AllowedScopes = { "rookieEShop.API" }
                 },
 
                  // interactive ASP.NET Core MVC client
@@ -54,7 +54,7 @@ namespace RookieEShop.BackEnd.IdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "RookieEShop.api"
+                        "rookieEShop.API" //testplace
                     }
                 },
 
@@ -75,7 +75,7 @@ namespace RookieEShop.BackEnd.IdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "RookieEShop.api"
+                        "rookieEShop.API"
                     }
                 },
             };

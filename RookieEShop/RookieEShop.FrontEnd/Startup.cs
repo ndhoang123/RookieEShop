@@ -38,8 +38,9 @@ namespace RookieEShop.FrontEnd
 				.AddCookie("Cookies")
 				.AddOpenIdConnect("oidc", options =>
 				{
-					options.Authority = "http://localhost:5001";
-					options.RequireHttpsMetadata = false;
+					options.Authority = "https://localhost:44305";
+					//options.RequireHttpsMetadata = false;
+					options.RequireHttpsMetadata = true;
 					options.GetClaimsFromUserInfoEndpoint = true;
 
 					options.ClientId = "mvc";
@@ -50,7 +51,7 @@ namespace RookieEShop.FrontEnd
 
 					options.Scope.Add("openid");
 					options.Scope.Add("profile");
-					options.Scope.Add("rookieEShop.api");
+					options.Scope.Add("rookieEShop.API");
 
 					options.TokenValidationParameters = new TokenValidationParameters
 					{
@@ -60,7 +61,7 @@ namespace RookieEShop.FrontEnd
 				}); 
 			services.AddHttpClient("owner", configureClient =>
 				{
-					configureClient.BaseAddress = new Uri("https://localhost:5001/");
+					configureClient.BaseAddress = new Uri("https://localhost:44305/");
 				});
 			services.AddControllersWithViews();
 		}
