@@ -21,12 +21,12 @@ namespace RookieEShop.FrontEnd.Services
 			response.EnsureSuccessStatusCode();
 			return await response.Content.ReadAsAsync<IList<ProductVm>>();
 		}
-		public async Task<IList<ProductVm>> GetProductsById(int productId)
+		public async Task<ProductVm> GetProductsById(int id)
 		{
 			var client = _factory.CreateClient();
-			var response = await client.GetAsync("https://localhost:5001/api/Product/" + productId.ToString());
+			var response = await client.GetAsync("https://localhost:5001/api/Product/(Id)?id=" + id.ToString());
 			response.EnsureSuccessStatusCode();
-			return await response.Content.ReadAsAsync<IList<ProductVm>>();
+			return await response.Content.ReadAsAsync<ProductVm>();
 		}
 		public async Task<IList<ProductVm>> GetProductsByCategories(int categoryId)
 		{
