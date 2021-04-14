@@ -54,13 +54,14 @@ namespace RookieEShop.BackEnd
 			   .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
 			   .AddInMemoryClients(IdentityServerConfig.Clients)
 			   .AddAspNetIdentity<User>()
+			   .AddProfileService<CustomProfileService>()
 			   .AddDeveloperSigningCredential(); // not recommended for production - you need to store your key material somewhere secure
 
 
 			services.AddAuthentication()
                 .AddLocalApi("Bearer", option =>
                 {
-                    option.ExpectedScope = "rookieshop.api";
+                    option.ExpectedScope = "rookieEShop.API";
                 });
 
             services.AddAuthorization(options =>
@@ -88,7 +89,7 @@ namespace RookieEShop.BackEnd
 						{
 							TokenUrl = new Uri("/connect/token", UriKind.Relative),
 							AuthorizationUrl = new Uri("/connect/authorize", UriKind.Relative),
-							Scopes = new Dictionary<string, string> { { "rookieshop.api", "Rookie Shop API" } }
+							Scopes = new Dictionary<string, string> { { "rookieEShop.API", "Rookie Shop API" } }
 						},
 					},
 				});
@@ -99,7 +100,7 @@ namespace RookieEShop.BackEnd
 						{
 							Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
 						},
-						new List<string>{ "rookieshop.api" }
+						new List<string>{ "rookieEShop.API" }
 					}
 				});
 			});

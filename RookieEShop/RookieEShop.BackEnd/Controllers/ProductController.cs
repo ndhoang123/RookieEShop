@@ -96,6 +96,7 @@ namespace RookieEShop.BackEnd.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = "admin")]
 		public async Task<ActionResult<ProductVm>> PostProduct([FromForm]ProductCreateRequest productCreateRequest)
 		{
 			var checkCategory = _context.Categories.Find(productCreateRequest.CategoryId);
@@ -123,6 +124,7 @@ namespace RookieEShop.BackEnd.Controllers
 		}
 
 		[HttpDelete("{id}")]
+		[Authorize(Roles = "admin")]
 		public async Task<IActionResult> DeleteProduct(int id)
 		{
 			var product = await _context.Products.FindAsync(id);
