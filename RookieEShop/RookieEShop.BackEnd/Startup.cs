@@ -38,7 +38,8 @@ namespace RookieEShop.BackEnd
 
 			//services.ConfigureApplicationCookie(options =>
 			//{
-			//	options.LoginPath = "";
+			//	options.LoginPath = "/Account/Login";
+			//	options.LogoutPath = "/Account/Logout";
 			//});
 
 			services.AddIdentityServer(options =>
@@ -57,6 +58,7 @@ namespace RookieEShop.BackEnd
 
 
 			services.AddControllersWithViews();
+			services.AddRazorPages();
 
 
 			services.AddSwaggerGen(c =>
@@ -120,9 +122,11 @@ namespace RookieEShop.BackEnd
 
 			app.UseEndpoints(endpoints =>
 			{
-				endpoints.MapControllerRoute(
-					name: "default",
-					pattern: "{controller=Home}/{action=Index}/{id?}");
+				//endpoints.MapControllerRoute(
+				//	name: "default",
+				//	pattern: "{controller=Home}/{action=Index}/{id?}");
+				endpoints.MapDefaultControllerRoute();
+				endpoints.MapRazorPages();
 			});
 		}
 	}
