@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -7,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using RookieEShop.FrontEnd.Services;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http.Headers;
 
 namespace RookieEShop.FrontEnd
 {
@@ -29,6 +32,8 @@ namespace RookieEShop.FrontEnd
 
 			services.AddTransient<IProductApiClient, ProductApiClient>();
 			services.AddTransient<ICategoryApiClient, CategoryApiClient>();
+			services.AddTransient<IRatingApiClient, RatingApiClient>();
+			services.AddHttpContextAccessor();
 
 			services.AddAuthentication(options =>
 			{
@@ -58,10 +63,16 @@ namespace RookieEShop.FrontEnd
 						NameClaimType = "name",
 						RoleClaimType = "role"
 					};
-				}); 
+				});
 			services.AddHttpClient("owner", configureClient =>
 				{
 					configureClient.BaseAddress = new Uri("https://localhost:44305/");
+				}).ConfigureHttpClient(async (serProvider, Httpclient)=>
+				{
+					var httpContext = serProvider.GetRequiredService<IHttpContextAccessor>().HttpContext;
+					var accessToken = await httpContext.GetTokenAsync("access_token");
+					if (accessToken != null)
+						Httpclient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 				});
 			services.AddControllersWithViews();
 		}
