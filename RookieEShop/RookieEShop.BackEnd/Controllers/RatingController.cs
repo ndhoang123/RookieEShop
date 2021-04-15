@@ -15,6 +15,7 @@ namespace RookieEShop.BackEnd.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize("Bearer")]
 	public class RatingController : Controller
 	{
 		private readonly ApplicationDbContext _context;
