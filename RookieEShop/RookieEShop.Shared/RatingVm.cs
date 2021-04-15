@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace RookieEShop.Shared
 {
-	class RatingVm
+	public class RatingVm
 	{
 		public int Id { get; set; }
+
 		public int Val { get; set; }
 		
 	}

@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace RookieEShop.Shared
 {
-	class RatingCreateRequest
+	public class RatingCreateRequest
 	{
-		public int Id { get; set; }
+		public int Val { get; set; }
+
 		public int ProductId { get; set; }
+
+		public string UserId { get; set; }
 	}
 }
