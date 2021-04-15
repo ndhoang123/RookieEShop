@@ -67,9 +67,9 @@ namespace RookieEShop.BackEnd.IdentityServer
                     RequireConsent = false,
                     RequirePkce = true,
 
-                    RedirectUris =           { $"https://localhost:44341/swagger/oauth2-redirect.html" },
-                    PostLogoutRedirectUris = { $"https://localhost:44341/swagger/oauth2-redirect.html" },
-                    AllowedCorsOrigins =     { $"https://localhost:44341" },
+                    RedirectUris =           { $"https://localhost:44305/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"https://localhost:44305/swagger/oauth2-redirect.html" },
+                    AllowedCorsOrigins =     { $"https://localhost:44305" },
 
                     AllowedScopes = new List<string>
                     {
