@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RookieEShop.BackEnd.Models;
+using System.Security.Claims;
 
 namespace RookieEShop.BackEnd.Controllers
 {
@@ -19,9 +20,11 @@ namespace RookieEShop.BackEnd.Controllers
 	public class RatingController : Controller
 	{
 		private readonly ApplicationDbContext _context;
-		public RatingController(ApplicationDbContext context, IStorageService storageService)
+		private readonly IHttpContextAccessor _httpContextAccessor;
+		public RatingController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
 		{
 			_context = context;
+			_httpContextAccessor = httpContextAccessor;
 		}
 
 		[HttpGet]
@@ -58,18 +61,18 @@ namespace RookieEShop.BackEnd.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<RatingVm>> PostRating([FromForm] RatingCreateRequest ratingCreateRequest)
+		[Authorize("Bearer")]
+		public async Task<ActionResult<RatingVm>> PostRating(RatingCreateRequest ratingCreateRequest)
 		{
-			var checkProduct = _context.Products.Find(ratingCreateRequest.ProductId);
-			if (checkProduct == null) return BadRequest();
+			var userId = _httpContextAccessor.HttpContext.User.FindFirstValue("sub");
 			var rating = new Rating
 			{
 				Val = ratingCreateRequest.Val,
 				ProductId = ratingCreateRequest.ProductId,
-				UserId = ratingCreateRequest.UserId
+				UserId = userId
 			};
 
-			_context.Ratings.Add(rating);
+			await _context.Ratings.AddAsync(rating);
 			await _context.SaveChangesAsync();
 
 			return CreatedAtAction("GetRating", new { id = rating.Id }, null);

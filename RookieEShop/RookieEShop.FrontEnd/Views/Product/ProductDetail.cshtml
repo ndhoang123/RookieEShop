@@ -5,7 +5,7 @@
 <div class="row mt-4">
 	<div class="col-md-4">
 		<div class="card mb-4 shadow-sm">
-			<img class="bd-placeholder-img card-img-top" src="https://localhost:5001/@Model.ThumbnailImageUrl" />
+			<img class="bd-placeholder-img card-img-top" src="https://localhost:44305/@Model.ThumbnailImageUrl" />
 			<div class="card-body">
 				<p class="card-text">Author: @Model.Author</p>
 				<h3 class="card-text">@Model.Name</h3>
@@ -14,15 +14,20 @@
 				<h3 class="card-text"><strong>Price:</strong> @Model.Price VND</h3>
 				<p class="card-text"><strong>Description:</strong> @Model.Description</p>
 				<form asp-controller="Product" asp-action="ProductRating" method="post">
+					<input type="hidden" name="productId" value="@Model.Id" />
 					<b>Choose your rating: </b>
-					<fieldset class="rate">
-						<input type="radio" id="rating5" name="Rating" value="5" /><label for="rating5" title="5 stars"><i class="fas fa-star"></i></label>
-						<input type="radio" id="rating4" name="Rating" value="4" /><label for="rating4" title="4 stars"><i class="fas fa-star"></i></label>
-						<input type="radio" id="rating3" name="Rating" value="3" /><label for="rating3" title="3 stars"><i class="fas fa-star"></i></label>
-						<input type="radio" id="rating2" name="Rating" value="2" /><label for="rating2" title="2 star"><i class="fas fa-star"></i></label>
-						<input type="radio" id="rating1" name="Rating" value="1" /><label for="rating1" title="1 star"><i class="fas fa-star"></i></label>
-					</fieldset>
-					<button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+					<ul class="rate-area">
+						<input type="submit" id="5-star" name="val" value="5" />5 stars
+						<label for="5-star" title="Amazing"></label>
+						<input type="submit" id="4-star" name="val" value="4" />4 stars
+						<label for="4-star" title="Good"></label>
+						<input type="submit" id="3-star" name="val" value="3" />3 stars
+						<label for="3-star" title="Average"></label>
+						<input type="submit" id="2-star" name="val" value="2" />2 stars
+						<label for="2-star" title="Not Good"></label>
+						<input type="submit" id="1-star" name="val" value="1" />1 stars
+						<label for="1-star" title="Bad"></label>
+					</ul>
 				</form>
 			</div>
 		</div>

@@ -5,6 +5,7 @@ using RookieEShop.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace RookieEShop.FrontEnd.Controllers
@@ -30,14 +31,14 @@ namespace RookieEShop.FrontEnd.Controllers
 			return View(products);
 		}
 
+		[Authorize]
 		[HttpPost("[controller]/{id}")]
-		public async Task<IActionResult> ProductRating(int val, int productId, string userId)
+		public async Task<IActionResult> ProductRating(int val, int productId)
 		{
 			RatingCreateRequest ratingCreateRequest = new RatingCreateRequest
 			{
 				Val = val,
 				ProductId = productId,
-				UserId = userId
 			};
 
 			var productRating = await _ratingApiClient.PostRating(ratingCreateRequest);
