@@ -25,14 +25,12 @@ namespace RookieEShop.FrontEnd
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-	
-			//services.AddHttpClient();
+
+			services.AddHttpClient();
 
 			JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
-			services.AddTransient<IProductApiClient, ProductApiClient>();
-			services.AddTransient<ICategoryApiClient, CategoryApiClient>();
-			services.AddTransient<IRatingApiClient, RatingApiClient>();
+			
 			services.AddHttpContextAccessor();
 
 			services.AddAuthentication(options =>
@@ -74,6 +72,11 @@ namespace RookieEShop.FrontEnd
 					if (accessToken != null)
 						Httpclient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 				});
+
+			services.AddTransient<IProductApiClient, ProductApiClient>();
+			services.AddTransient<ICategoryApiClient, CategoryApiClient>();
+			services.AddTransient<IRatingApiClient, RatingApiClient>();
+
 			services.AddControllersWithViews();
 		}
 
