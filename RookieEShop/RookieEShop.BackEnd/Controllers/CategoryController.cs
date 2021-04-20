@@ -67,7 +67,6 @@ namespace RookieEShop.BackEnd.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
         public async Task<ActionResult<CategoryVm>> PostCategory([FromForm]CategoryCreateRequest categoryCreateRequest)
         {
             var category = new Category
@@ -82,7 +81,6 @@ namespace RookieEShop.BackEnd.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             var category = await _context.Categories.FindAsync(id);
