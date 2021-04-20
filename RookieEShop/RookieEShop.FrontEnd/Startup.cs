@@ -41,7 +41,7 @@ namespace RookieEShop.FrontEnd
 				.AddCookie("Cookies")
 				.AddOpenIdConnect("oidc", options =>
 				{
-					options.Authority = "https://localhost:44305";
+					options.Authority = "https://rookieeshop.azurewebsites.net/";
 					//options.RequireHttpsMetadata = false;
 					options.RequireHttpsMetadata = true;
 					options.GetClaimsFromUserInfoEndpoint = true;
@@ -64,7 +64,7 @@ namespace RookieEShop.FrontEnd
 				});
 			services.AddHttpClient("owner", configureClient =>
 				{
-					configureClient.BaseAddress = new Uri("https://localhost:44305/");
+					configureClient.BaseAddress = new Uri("https://rookieeshop.azurewebsites.net/");
 				}).ConfigureHttpClient(async (serProvider, Httpclient)=>
 				{
 					var httpContext = serProvider.GetRequiredService<IHttpContextAccessor>().HttpContext;

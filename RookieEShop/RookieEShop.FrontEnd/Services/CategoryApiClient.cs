@@ -16,14 +16,14 @@ namespace RookieEShop.FrontEnd.Services
 		public async Task<IList<CategoryVm>> GetCategories()
 		{
 			var client = _factory.CreateClient();
-			var response = await client.GetAsync("https://localhost:44305/api/category");
+			var response = await client.GetAsync("https://rookieeshop.azurewebsites.net/api/category");
 			response.EnsureSuccessStatusCode();
 			return await response.Content.ReadAsAsync<IList<CategoryVm>>();
 		}
 		public async Task<IList<CategoryVm>> GetCategoriesById(int id)
 		{
 			var client = _factory.CreateClient();
-			var response = await client.GetAsync("https://localhost:44305/api/category/" + id.ToString());
+			var response = await client.GetAsync("https://rookieeshop.azurewebsites.net/api/category/" + id.ToString());
 			response.EnsureSuccessStatusCode();
 			return await response.Content.ReadAsAsync<IList<CategoryVm>>();
 		}
