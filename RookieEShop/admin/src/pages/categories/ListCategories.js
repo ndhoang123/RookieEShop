@@ -1,6 +1,8 @@
 import React from 'react';
-import { Table, Button, NavLink } from 'reactstrap';
-import CategoryService from './categories'
+import { Table, Button } from 'reactstrap';
+import CategoryService from './categories';
+import { Link } from 'react-router-dom';
+import EditCategory from "./EditCategories";
 
 const ListCategories = () => {
     const [Categories, setCategories] = React.useState([]);
@@ -19,6 +21,9 @@ const ListCategories = () => {
                     <tr>
                         <th>STT</th>
                         <th>Category Name</th>
+                        <td className="text-right">
+                            <Button color="primary">Create</Button>
+                        </td>
                         <th></th>
                     </tr>
                 </thead>
@@ -29,12 +34,8 @@ const ListCategories = () => {
                                 <th scope="row">{i}</th>
                                 <td>{item.name}</td>
                                 <td className="text-right">
-                                    <Button color="link"> Edit</Button>
-                                    <Button
-                                    color="link"
-                                    className="text-danger"
-                                    > Remove
-                                    </Button>
+                                    <Link to={`/EditCategory/${item.id}`} class="btn btn-primary">Edit</Link>{' '}
+                                    <Button color="danger"> Delete</Button>
                                 </td>
                             </tr>
                             );

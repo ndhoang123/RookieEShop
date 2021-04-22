@@ -8,12 +8,18 @@ import Sidebar from "./components/Sidebar";
 import PageLayout from "./containers/PageLayout";
 import Router from "./Routers";
 import ListCategory from "./pages/categories/ListCategories"
+import EditCategories from "./pages/categories/EditCategories";
+
 
 const App = () => (
   <BrowserRouter>
     <Switch>
       <Route exact path="/">
         <ListCategory />
+      </Route>
+
+      <Route exact path="/EditCategory/:id">
+        <EditCategories />
       </Route>
     </Switch>
   </BrowserRouter>
