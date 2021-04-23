@@ -1,14 +1,35 @@
 // in src/App.js
 import * as React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
+import { Router, Route, Switch } from "react-router-dom";
+import history from './helpers/history';
+import { LIST_CATEGORY } from "./constants/page";
+import "bootstrap/dist/css/bootstrap.min.css";
+import ListCategory from "./pages/categories/ListCategories";
+import EditCategories from "./pages/categories/EditCategories";
+import ListProduct from "./pages/products/ListProducts";
+import EditProducts from "./pages/products/EditProducts";
+
 
 const App = () => (
-  <BrowserRouter>
-      <Header />
-      <Sidebar />
-  </BrowserRouter>
+  <Router history={history}>
+    <Switch>
+      <Route exact path="/">
+        <ListCategory />
+      </Route>
+
+      <Route exact path={["/EditCategory/:id", "/NewCategory"]}>
+        <EditCategories />
+      </Route>
+      
+      <Route exact path="/Product">
+        <ListProduct />
+      </Route>
+
+      <Route exact path={["/EditProduct/:id", "/NewProduct"]}>
+        <EditProducts />
+      </Route>
+    </Switch>
+  </Router>
 )
 
 export default App;
