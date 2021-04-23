@@ -14,6 +14,15 @@ const ListCategories = () => {
         CategoryService.getList().then(({ data }) => setCategories(data));
     };
 
+    const handleDelete = (itemId) => {
+        let result = window.confirm("Delete this category?");
+        if (result) {
+          CategoryService.delete(itemId).then(() => {
+            setCategories(Categories.filter((item) => item.id !== itemId));
+          });
+        }
+      };
+
     return (
         <div>
             <Table>
@@ -35,7 +44,7 @@ const ListCategories = () => {
                                 <td>{item.name}</td>
                                 <td className="text-right">
                                     <Link to={`/EditCategory/${item.id}`} class="btn btn-primary">Edit</Link>{' '}
-                                    <Button color="danger"> Delete</Button>
+                                    <Button onClick={() => handleDelete(item.id)} color="danger"> Delete</Button>
                                 </td>
                             </tr>
                             );

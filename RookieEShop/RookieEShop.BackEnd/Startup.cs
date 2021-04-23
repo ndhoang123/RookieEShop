@@ -122,7 +122,11 @@ namespace RookieEShop.BackEnd
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 
-			app.UseCors(options => options.AllowAnyOrigin());
+			app.UseCors(options => {
+				options.AllowAnyOrigin();
+				options.AllowAnyHeader();
+				options.AllowAnyMethod();
+			});
 
 			app.UseRouting();
 
