@@ -7,7 +7,7 @@ import history from '../../helpers/history';
 
 const EditCategories = ({ match }) => {
 
-  const [categoryId,setCategoryId] = useState(match.params.id);
+  const [categoryId, setCategoryId] = useState(match.params.id);
 
   const [Category, setCategory] = useState({});
   
