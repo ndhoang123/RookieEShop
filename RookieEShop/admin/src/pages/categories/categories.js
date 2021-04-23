@@ -20,7 +20,7 @@ class categories {
   }
 
   create(objectNew) {
-    return http.post(this.pathSer, objectNew);
+    return http.post(this.pathSer, objectNew).then(res =>{ return res.data});
   }
 }
 

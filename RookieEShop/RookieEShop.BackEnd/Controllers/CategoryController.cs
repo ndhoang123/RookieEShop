@@ -68,7 +68,6 @@ namespace RookieEShop.BackEnd.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
         [AllowAnonymous]
         public async Task<ActionResult<CategoryVm>> PostCategory([FromForm]CategoryCreateRequest categoryCreateRequest)
         {
@@ -84,7 +83,7 @@ namespace RookieEShop.BackEnd.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         [AllowAnonymous]
         public async Task<IActionResult> DeleteCategory(int id)
         {

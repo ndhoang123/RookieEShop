@@ -19,15 +19,20 @@ const EditCategories = ({ match }) => {
     },
 
     onSubmit: async (values) => {
+
       let result = window.confirm("Are you sure?");
-      console.log(values);
+
       if (result) {
+
         let isCreate = categoryId === undefined ? true : false;
-        console.log(isCreate);
+
         if(isCreate){
-          await categories.create(values);
+          const form = new FormData();
+          form.append("Name", values.name);
+          await categories.create(form);
           history.goBack();
         }
+
         else {
           await categories.edit(categoryId, values);
           history.goBack();
@@ -37,24 +42,29 @@ const EditCategories = ({ match }) => {
   });
 
   useEffect(() => {
+
     async function fetchdate(){
+
     setCategoryId(match.params.id);
-    console.log("a" + categoryId);
+
     if (categoryId !== undefined) {
       await fetchCategory(categoryId);
       console.log(formik.initialValues);
-    } else {
     }
     
   }
+
   fetchdate();
+
   }, [match.params.id]);
 
   const fetchCategory = async (itemId) => {
+
     console.log(categories.get(itemId));
+
     setCategory(await (await categories.get(itemId)).data)
+
   };
-  console.log(Category);
   
   return (
     <Form onSubmit={formik.handleSubmit}>
