@@ -1,18 +1,15 @@
 // in src/App.js
 import * as React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import { LIST_CATEGORY } from "./constants/page";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
-import PageLayout from "./containers/PageLayout";
-import Router from "./Routers";
 import ListCategory from "./pages/categories/ListCategories"
 import EditCategories from "./pages/categories/EditCategories";
+import history from './helpers/history';
 
 
 const App = () => (
-  <BrowserRouter>
+  <Router history={history}>
     <Switch>
       <Route exact path="/">
         <ListCategory />
@@ -21,8 +18,12 @@ const App = () => (
       <Route exact path="/EditCategory/:id">
         <EditCategories />
       </Route>
+
+      <Route exact path="/NewCategory">
+        <EditCategories />
+      </Route>
     </Switch>
-  </BrowserRouter>
+  </Router>
 )
 
 export default App;
