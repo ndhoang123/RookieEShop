@@ -96,7 +96,8 @@ namespace RookieEShop.BackEnd.Controllers
 		}
 
 		[HttpPost]
-		[Authorize(Roles = "admin")]
+		//[Authorize(Roles = "admin")]
+		[AllowAnonymous]
 		public async Task<ActionResult<ProductVm>> PostProduct([FromForm]ProductCreateRequest productCreateRequest)
 		{
 			var checkCategory = _context.Categories.Find(productCreateRequest.CategoryId);
@@ -123,8 +124,31 @@ namespace RookieEShop.BackEnd.Controllers
 			return CreatedAtAction("GetProduct", new { id = product.Id }, null);
 		}
 
+		[HttpPut("{id}")]
+		[AllowAnonymous]
+		public async Task<IActionResult> PutProduct(int id, [FromForm]ProductCreateRequest productRequest)
+		{
+			var product = await _context.Products.FindAsync(id);
+
+			if (product == null)
+			{
+				return NotFound();
+			}
+
+			product.Name = productRequest.Name;
+			product.Price = productRequest.Price;
+			product.Author = productRequest.Author;
+			product.Publisher = productRequest.Publisher;
+			product.Year = productRequest.Year;
+			product.Description = productRequest.Description;
+
+			await _context.SaveChangesAsync();
+
+			return NoContent();
+		}
+
 		[HttpDelete("{id}")]
-		[Authorize(Roles = "admin")]
+		[AllowAnonymous]
 		public async Task<IActionResult> DeleteProduct(int id)
 		{
 			var product = await _context.Products.FindAsync(id);

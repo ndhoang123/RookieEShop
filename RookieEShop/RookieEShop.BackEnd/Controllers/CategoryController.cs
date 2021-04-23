@@ -51,6 +51,7 @@ namespace RookieEShop.BackEnd.Controllers
         }
 
         [HttpPut("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> PutCategory(int id, CategoryCreateRequest categoryCreateRequest)
         {
             var category = await _context.Categories.FindAsync(id);
@@ -68,6 +69,7 @@ namespace RookieEShop.BackEnd.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin")]
+        [AllowAnonymous]
         public async Task<ActionResult<CategoryVm>> PostCategory([FromForm]CategoryCreateRequest categoryCreateRequest)
         {
             var category = new Category
@@ -83,6 +85,7 @@ namespace RookieEShop.BackEnd.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
+        [AllowAnonymous]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             var category = await _context.Categories.FindAsync(id);
