@@ -17,23 +17,15 @@ const App = () => (
         <ListCategory />
       </Route>
 
-      <Route exact path="/EditCategory/:id">
+      <Route exact path={["/EditCategory/:id", "/NewCategory"]}>
         <EditCategories />
       </Route>
-
-      <Route exact path="/NewCategory">
-        <EditCategories />
-      </Route>
-
+      
       <Route exact path="/Product">
         <ListProduct />
       </Route>
 
-      <Route exact path="/EditProduct/:id">
-        <EditProducts />
-      </Route>
-
-      <Route exact path="/NewProduct">
+      <Route exact path={["/EditProduct/:id", "/NewProduct"]}>
         <EditProducts />
       </Route>
     </Switch>

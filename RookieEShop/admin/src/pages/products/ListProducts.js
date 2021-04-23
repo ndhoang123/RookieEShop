@@ -4,7 +4,7 @@ import ProductService from './products';
 import { Link } from 'react-router-dom';
 import ProductImage from 'E:/Coding/RookieEShop/admin/src/components/ProductImage';
 
-const Example = () => {
+const ListProduct = () => {
     const [Products, setProducts] = React.useState([]);
 
     React.useEffect(() => {
@@ -69,4 +69,4 @@ const Example = () => {
     );
 }
 
-export default Example;
+export default ListProduct;

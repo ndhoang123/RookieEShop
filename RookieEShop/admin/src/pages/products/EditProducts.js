@@ -57,7 +57,7 @@ const EditProducts = ({ match }) => {
                     }
 
                     else {
-                        await products.edit(productId, values);
+                        await products.edit(productId, formData);
                         history.goBack();
                     }
             }
