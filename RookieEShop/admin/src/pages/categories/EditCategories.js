@@ -14,8 +14,8 @@ const EditCategories = ({ match }) => {
   const formik = useFormik({
     enableReinitialize : true,
     initialValues: {
-      parentId: Category.ID,
-      name: Category.categoryName
+      Id: Category.Id,
+      name: Category.Name
     },
 
     onSubmit: async (values) => {
@@ -39,7 +39,7 @@ const EditCategories = ({ match }) => {
   useEffect(() => {
     async function fetchdate(){
     setCategoryId(match.params.id);
-    console.log(categoryId);
+    console.log("a" + categoryId);
     if (categoryId !== undefined) {
       await fetchCategory(categoryId);
       console.log(formik.initialValues);
@@ -59,10 +59,10 @@ const EditCategories = ({ match }) => {
   return (
     <Form onSubmit={formik.handleSubmit}>
       <Label htmlFor="exampleAddress">ID</Label>
-      <Input type="number" name="ID" id="ID" onChange={formik.handleChange} value={categoryId} disabled/>
+      <Input type="number" name="Id" id="ID" onChange={formik.handleChange} value={categoryId} disabled/>
 
       <Label htmlFor="exampleAddress2">Category name</Label>
-      <Input type="text" name="categoryname" id="categoryname" onChange={formik.handleChange} value={formik.values.name}/>
+      <Input type="text" name="name" id="name" onChange={formik.handleChange} value={formik.values.name}/>
       <button type="submit">
         Submit
       </button>
