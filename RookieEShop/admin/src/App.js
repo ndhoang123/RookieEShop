@@ -8,6 +8,7 @@ import ListCategory from "./pages/categories/ListCategories";
 import EditCategories from "./pages/categories/EditCategories";
 import ListProduct from "./pages/products/ListProducts";
 import EditProducts from "./pages/products/EditProducts";
+import ListUser from "./pages/users/ListUsers"
 
 
 const App = () => (
@@ -27,6 +28,10 @@ const App = () => (
 
       <Route exact path={["/EditProduct/:id", "/NewProduct"]}>
         <EditProducts />
+      </Route>
+
+      <Route exact path="/User">
+        <ListUser />
       </Route>
     </Switch>
   </Router>
