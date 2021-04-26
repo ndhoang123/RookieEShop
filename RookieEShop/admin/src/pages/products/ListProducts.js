@@ -28,7 +28,7 @@ const ListProduct = () => {
 
     return (
         
-        <Table>
+        <Table bordered>
             <thead>
                 <tr>
                     <th>#</th>
@@ -42,7 +42,6 @@ const ListProduct = () => {
                     <td className="text-right">
                         <Link to={"/NewProduct"} class="btn btn-primary"><i class="fas fa-plus-square">Create</i></Link>
                     </td>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>

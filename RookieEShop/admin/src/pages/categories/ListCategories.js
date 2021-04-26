@@ -25,15 +25,14 @@ const ListCategories = () => {
 
     return (
         <div>
-            <Table>
+            <Table bordered>
                 <thead>
                     <tr>
-                        <th>STT</th>
+                        <th>#</th>
                         <th>Category Name</th>
                         <td className="text-right">
                         <Link to={"/NewCategory"} class="btn btn-primary"><i class="fas fa-plus-square">Create</i></Link>
                         </td>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

@@ -16,10 +16,10 @@ const ListUser = () => {
   console.log(Users);
   return (
     <div>
-      <Table>
+      <Table bordered>
         <thead>
           <tr>
-            <th>STT</th>
+            <th>#</th>
             <th>User Name</th>
             <th>Email</th>
           </tr>

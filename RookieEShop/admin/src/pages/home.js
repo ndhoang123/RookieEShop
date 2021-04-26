@@ -23,7 +23,7 @@ const sidebar = () => {
       <div>
         <div className="d-flex" id="wrapper">
           <div className="bg-light border-right" id="sidebar-wrapper">
-            <div className="sidebar-heading">RookieEShop </div>
+            <div className="sidebar-heading">RookieEShop.Admin </div>
             <div className="list-group list-group-flush">
               <Link
                 to={HOME_PAGE}
