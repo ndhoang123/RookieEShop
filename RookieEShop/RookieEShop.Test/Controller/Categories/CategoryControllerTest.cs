@@ -36,5 +36,19 @@ namespace RookieEShop.BackEnd.Tests.Controller.Categories
             Assert.Equal("Test category", returnValue.Name);
 
         }
+
+        [Fact]
+        public async Task GetCategory_Success()
+		{
+            var dbContext = _fixture.Context;
+            dbContext.Categories.Add(new Category { Name = "Test category" });
+            await dbContext.SaveChangesAsync();
+
+            var controller = new CategoryController(dbContext);
+            var result = await controller.GetCategories();
+
+            var actionResult = Assert.IsType<ActionResult<IEnumerable<CategoryVm>>>(result);
+            Assert.NotEmpty(actionResult.Value);
+        }
     }
 }
