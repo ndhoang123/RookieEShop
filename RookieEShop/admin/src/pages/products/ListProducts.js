@@ -40,7 +40,7 @@ const ListProduct = () => {
                     <th>Publisher</th>
                     <th>Description</th>
                     <td className="text-right">
-                        <Link to={"/NewProduct"} class="btn btn-primary">Create</Link>
+                        <Link to={"/NewProduct"} class="btn btn-primary"><i class="fas fa-plus-square">Create</i></Link>
                     </td>
                     <th></th>
                 </tr>
@@ -58,8 +58,8 @@ const ListProduct = () => {
                         <td>{item.publisher}</td>
                         <td>{item.description}</td>
                         <td className="text-right">
-                            <Link to={`/EditProduct/${item.id}`} class="btn btn-primary">Edit</Link>{' '}
-                            <Button onClick={() => handleDelete(item.id)} color="danger"> Delete</Button>
+                            <Link to={`/EditProduct/${item.id}`} class="btn btn-primary"><i class="fas fa-edit">Edit</i></Link>{' '}
+                            <Button onClick={() => handleDelete(item.id)} color="danger"><i class="fas fa-eraser">Delete</i></Button>
                         </td>
                     </tr>
                     );

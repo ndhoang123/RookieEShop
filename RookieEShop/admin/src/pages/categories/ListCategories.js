@@ -31,7 +31,7 @@ const ListCategories = () => {
                         <th>STT</th>
                         <th>Category Name</th>
                         <td className="text-right">
-                        <Link to={"/NewCategory"} class="btn btn-primary">Create</Link>
+                        <Link to={"/NewCategory"} class="btn btn-primary"><i class="fas fa-plus-square">Create</i></Link>
                         </td>
                         <th></th>
                     </tr>
@@ -43,8 +43,8 @@ const ListCategories = () => {
                                 <th scope="row">{i}</th>
                                 <td>{item.name}</td>
                                 <td className="text-right">
-                                    <Link to={`/EditCategory/${item.id}`} class="btn btn-primary">Edit</Link>{' '}
-                                    <Button onClick={() => handleDelete(item.id)} color="danger"> Delete</Button>
+                                    <Link to={`/EditCategory/${item.id}`} class="btn btn-primary"><i class="fas fa-edit">Edit</i></Link>{' '}
+                                    <Button onClick={() => handleDelete(item.id)} color="danger"><i class="fas fa-eraser">Delete</i></Button>
                                 </td>
                             </tr>
                             );
