@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RookieEShop.Shared", "Rooki
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RookieEShop.BackEnd", "RookieEShop.BackEnd\RookieEShop.BackEnd.csproj", "{CE6EDACB-D7D1-4595-973A-3BEA00704A36}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RookieEShop.BackEnd.Tests", "RookieEShop.Test\RookieEShop.BackEnd.Tests.csproj", "{D088D239-D53D-4E95-8621-D0F7A60D12A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CE6EDACB-D7D1-4595-973A-3BEA00704A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE6EDACB-D7D1-4595-973A-3BEA00704A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE6EDACB-D7D1-4595-973A-3BEA00704A36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D088D239-D53D-4E95-8621-D0F7A60D12A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D088D239-D53D-4E95-8621-D0F7A60D12A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D088D239-D53D-4E95-8621-D0F7A60D12A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D088D239-D53D-4E95-8621-D0F7A60D12A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
