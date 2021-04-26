@@ -45,7 +45,7 @@ namespace RookieEShop.BackEnd.Controllers
 				.ToListAsync();
 		}
 		
-		[HttpGet("(Id)")]
+		[HttpGet("{id}")]
 		[AllowAnonymous]
 		public async Task<ActionResult<ProductVm>> GetProduct(int id)
 		{
