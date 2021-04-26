@@ -1,5 +1,5 @@
-import Axios from 'axios'
-import host from '../config';
+import Axios from 'axios';
+import { host } from "../config";
 
 const anxiosConfig = Axios.create({
     baseURL: host,
