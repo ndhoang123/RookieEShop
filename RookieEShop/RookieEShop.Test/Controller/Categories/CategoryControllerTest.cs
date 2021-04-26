@@ -50,5 +50,22 @@ namespace RookieEShop.BackEnd.Tests.Controller.Categories
             var actionResult = Assert.IsType<ActionResult<IEnumerable<CategoryVm>>>(result);
             Assert.NotEmpty(actionResult.Value);
         }
+
+        [Fact]
+        public async Task PutCategory_Success()
+		{
+            var dbContext = _fixture.Context;
+            dbContext.Categories.Add(new Category { Name = "Test category" });
+            await dbContext.SaveChangesAsync();
+
+            var oldCategory = await dbContext.Categories.OrderByDescending(x => x.Id).FirstAsync();
+            var category = new CategoryCreateRequest { Name = "Test put category" };
+
+            var controller = new CategoryController(dbContext);
+            var result = await controller.PutCategory(oldCategory.Id, category);
+
+            var returnValue = await dbContext.Categories.OrderByDescending(x => x.Id).FirstAsync();
+            Assert.Equal("Test put category", returnValue.Name);
+        }
     }
 }
