@@ -2,7 +2,7 @@ import React from 'react';
 import { Table, Button } from 'reactstrap';
 import ProductService from './products';
 import { Link } from 'react-router-dom';
-import ProductImage from 'E:/Coding/RookieEShop/admin/src/components/ProductImage';
+import ProductImage from '../../components/ProductImage';
 
 const ListProduct = () => {
     const [Products, setProducts] = React.useState([]);

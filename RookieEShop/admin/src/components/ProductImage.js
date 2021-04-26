@@ -1,5 +1,5 @@
 import React from "react";
-import { productRes } from "../pages/config";
+import { productRes } from "../config";
 
 export default function ProductImage({ src, item }) {
   return (

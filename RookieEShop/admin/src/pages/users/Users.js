@@ -1,4 +1,4 @@
-import http from "../config";
+import http from "../anxiosConfig";
 
 class users {
   pathSer = "api/User";

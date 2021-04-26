@@ -7,9 +7,6 @@ import history from '../../helpers/history';
 import ProductService from './products';
 
 const EditProducts = ({ match }) => {
-    const [categoryItems, setCategoryItem] = useState([]);
-
-   
     const [product, setProduct] = useState({
         name:"",
         price:0,
@@ -32,17 +29,26 @@ const EditProducts = ({ match }) => {
         fetchProductbyID(productId);
     }, [productId])
 
-    console.log(product);
     const formik = useFormik({
+
         enableReinitialize: true,
+
         initialValues: {
+
             name: product.name ? product.name:'',
+
             price: product.price ? product.price: 0,
+
             author: product.author ? product.author: '',
+
             year: product.year ? product.year : 0,
+
             description: product.description ? product.description : '',
+
             publisher: product.publisher ? product.publisher : '',
+
             ThumbnailImage: product.ThumbnailImage? product.ThumbnailImage : null,
+
             categoryId: product.categoryId ? product.categoryId : '',
         },
         
@@ -53,7 +59,6 @@ const EditProducts = ({ match }) => {
             };
 
             action.setSubmitting(true);
-            console.log(values);
 
             var formData = new FormData();
 
@@ -62,6 +67,7 @@ const EditProducts = ({ match }) => {
             });
 
             let result = window.confirm("Are you sure?");
+            
             if(result) {
                 let isCreate = productId === undefined ? true : false;
 
