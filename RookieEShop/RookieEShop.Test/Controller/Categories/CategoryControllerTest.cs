@@ -67,5 +67,21 @@ namespace RookieEShop.BackEnd.Tests.Controller.Categories
             var returnValue = await dbContext.Categories.OrderByDescending(x => x.Id).FirstAsync();
             Assert.Equal("Test put category", returnValue.Name);
         }
+
+        [Fact]
+        public async Task DeleteCategory_Success() 
+        {
+            var dbContext = _fixture.Context;
+            dbContext.Categories.Add(new Category { Name = "Test category" });
+            await dbContext.SaveChangesAsync();
+
+            var oldCategory = await dbContext.Categories.OrderByDescending(x => x.Id).FirstAsync();
+
+            var controller = new CategoryController(dbContext);
+            var result = await controller.DeleteCategory(oldCategory.Id);
+
+            var returnValue = await dbContext.Categories.ToListAsync();
+            Assert.Empty(returnValue);
+        }
     }
 }
