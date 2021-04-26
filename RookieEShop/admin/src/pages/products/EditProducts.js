@@ -4,32 +4,46 @@ import { useFormik } from "formik";
 import products from './products';
 import { withRouter } from "react-router-dom";
 import history from '../../helpers/history';
+import ProductService from './products';
 
 const EditProducts = ({ match }) => {
     const [categoryItems, setCategoryItem] = useState([]);
 
-    const [product, setProduct] = useState(null);
+   
+    const [product, setProduct] = useState({
+        name:"",
+        price:0,
+        author: '',
+        year: 0,
+        description: '',
+        publisher: '',
+        ThumbnailImage: null,
+        categoryId: ''
+    })
 
     const [productId, setProductId] = useState(match.params.id);
 
-    useEffect(() => {
+    const fetchProductbyID = (productId) => {
+        ProductService.get(productId).then(({ data }) => setProduct(data));
+        //console.log(Products);
+    };
 
-        if (product) {
-            alert('successful');
-        }
+    useEffect(()=>{
+        fetchProductbyID(productId);
+    }, [productId])
 
-    }, [product]);
-
+    console.log(product);
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            name: '',
-            price: 0,
-            author: '',
-            year: 0,
-            descripion: '',
-            publisher: '',
-            ThumbnailImage: null,
-            categoryId: '',
+            name: product.name ? product.name:'',
+            price: product.price ? product.price: 0,
+            author: product.author ? product.author: '',
+            year: product.year ? product.year : 0,
+            description: product.description ? product.description : '',
+            publisher: product.publisher ? product.publisher : '',
+            ThumbnailImage: product.ThumbnailImage? product.ThumbnailImage : null,
+            categoryId: product.categoryId ? product.categoryId : '',
         },
         
         onSubmit: async (values, action) => {
@@ -94,7 +108,7 @@ const EditProducts = ({ match }) => {
                 <Label for="Year" sm={2}>Year</Label>
                 <Col sm={10}>
                     <Input type="number" name="year" onChange={formik.handleChange} 
-                    value={formik.values.year}/>
+                    value={formik.values.year}/> 
                 </Col>
             </FormGroup>
 
@@ -111,13 +125,6 @@ const EditProducts = ({ match }) => {
                 <Col sm={10}>
                     <Input type="text" name="publisher" onChange={formik.handleChange} 
                     value={formik.values.publisher}/>
-                </Col>
-            </FormGroup>
-
-            <FormGroup row>
-                <Label for="CategoryId" sm={2}>CategoryId</Label>
-                <Col sm={10}>
-                    <Input type="number" name="categoryId" onChange={formik.handleChange} />
                 </Col>
             </FormGroup>
 

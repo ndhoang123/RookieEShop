@@ -16,10 +16,10 @@ const ListUser = () => {
   console.log(Users);
   return (
     <div>
-      <Table>
+      <Table bordered>
         <thead>
           <tr>
-            <th>STT</th>
+            <th>#</th>
             <th>User Name</th>
             <th>Email</th>
           </tr>
@@ -32,19 +32,8 @@ const ListUser = () => {
                 <td>{item.userName}</td>
                 <td>{item.email}</td>
                 <td className="text-right">
-                  <Button //onClick={() => onEdit && onEdit(item)}
-                    color="link"
-                  >
-                    Enable
-                  </Button>
-
-                  <Button
-                    //onClick={() => handleDelete(item.id)}
-                    color="link"
-                    className="text-danger"
-                  >
-                    Block
-                  </Button>
+                  <Button color="btn btn-primary">Enable</Button>
+                  <Button class="danger">Block</Button>
                 </td>
               </tr>
             );

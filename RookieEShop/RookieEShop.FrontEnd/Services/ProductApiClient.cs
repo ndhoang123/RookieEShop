@@ -24,7 +24,7 @@ namespace RookieEShop.FrontEnd.Services
 		public async Task<ProductVm> GetProductsById(int id)
 		{
 			var client = _factory.CreateClient();
-			var response = await client.GetAsync("https://rookieeshop.azurewebsites.net/api/Product/(Id)?id=" + id.ToString());
+			var response = await client.GetAsync("https://rookieeshop.azurewebsites.net/api/Product/" + id.ToString());
 			response.EnsureSuccessStatusCode();
 			return await response.Content.ReadAsAsync<ProductVm>();
 		}
