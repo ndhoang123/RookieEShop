@@ -60,6 +60,21 @@ namespace RookieEShop.BackEnd.Controllers
 			return RatingVm;
 		}
 
+		[HttpGet("{productId}")]
+		[AllowAnonymous]
+		public async Task<ActionResult<double>> GetTotalRating(int productId)
+		{
+			var listRating = await _context.Ratings.Where(item => item.ProductId == productId)
+				.Select(x => new RatingVm
+				{
+					Id = x.Id,
+					Val = x.Val
+				})
+				.ToListAsync();
+			var totalRating = listRating.Sum(item => item.Val) / listRating.Count;
+			return totalRating;
+		}
+
 		[HttpPost]
 		[Authorize("Bearer")]
 		//[AllowAnonymous]
