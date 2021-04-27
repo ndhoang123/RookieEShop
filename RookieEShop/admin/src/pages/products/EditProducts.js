@@ -150,4 +150,4 @@ const EditProducts = ({ match }) => {
     
 }
 
-export default withRouter(EditProducts);
+export default EditProducts;

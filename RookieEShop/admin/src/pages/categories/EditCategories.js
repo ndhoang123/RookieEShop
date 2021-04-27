@@ -80,4 +80,4 @@ const EditCategories = ({ match }) => {
     );
 }
 
-export default withRouter(EditCategories);
+export default EditCategories;
