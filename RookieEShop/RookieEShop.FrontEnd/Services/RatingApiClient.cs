@@ -34,7 +34,8 @@ namespace RookieEShop.FrontEnd.Services
 			var json = JsonConvert.SerializeObject(ratingCreateRequest);
 			var data = new StringContent(json, Encoding.UTF8, "application/json");
 
-			var response = await _client.PostAsJsonAsync("https://rookieeshop.azurewebsites.net/api/Rating", ratingCreateRequest);
+			//var response = await _client.PostAsJsonAsync("https://rookieeshop.azurewebsites.net/api/Rating", ratingCreateRequest);
+			var response = await _client.PostAsJsonAsync("https://localhost:44305/api/Rating", ratingCreateRequest);
 
 			response.EnsureSuccessStatusCode();
 
