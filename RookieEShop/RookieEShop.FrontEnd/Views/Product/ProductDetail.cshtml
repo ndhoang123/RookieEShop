@@ -16,18 +16,21 @@
 				<form asp-controller="Product" asp-action="ProductRating" method="post">
 					<input type="hidden" name="productId" value="@Model.Id" />
 					<b>Choose your rating: </b>
-					<ul class="rate-area">
-						<input type="submit" id="5-star" name="val" value="5" />5 stars
-						<label for="5-star" title="Amazing"></label>
-						<input type="submit" id="4-star" name="val" value="4" />4 stars
-						<label for="4-star" title="Good"></label>
-						<input type="submit" id="3-star" name="val" value="3" />3 stars
-						<label for="3-star" title="Average"></label>
-						<input type="submit" id="2-star" name="val" value="2" />2 stars
-						<label for="2-star" title="Not Good"></label>
-						<input type="submit" id="1-star" name="val" value="1" />1 stars
-						<label for="1-star" title="Bad"></label>
-					</ul>
+					<div>
+						<fieldset class="rate">
+							<input type="radio" id="5-star" name="val" value="5" />
+							<label for="5-star" title="Amazing"><i class="fas fa-star"></i></label>
+							<input type="radio" id="4-star" name="val" value="4" />
+							<label for="4-star" title="Good"><i class="fas fa-star"></i></label>
+							<input type="radio" id="3-star" name="val" value="3" />
+							<label for="3-star" title="Average"><i class="fas fa-star"></i></label>
+							<input type="radio" id="2-star" name="val" value="2" />
+							<label for="2-star" title="Not Good"><i class="fas fa-star"></i></label>
+							<input type="radio" id="1-star" name="val" value="1" />
+							<label for="1-star" title="Bad"><i class="fas fa-star"></i></label>
+						</fieldset>
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
 				</form>
 			</div>
 		</div>
