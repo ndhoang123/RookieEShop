@@ -40,7 +40,7 @@ const ListProduct = () => {
                     <th>Publisher</th>
                     <th>Description</th>
                     <td className="text-right">
-                        <Link to={"/NewProduct"} class="btn btn-primary"><i class="fas fa-plus-square">Create</i></Link>
+                        <Link to={"/editProduct"} class="btn btn-primary"><i class="fas fa-plus-square">Create</i></Link>
                     </td>
                 </tr>
             </thead>

@@ -31,7 +31,7 @@ const ListCategories = () => {
                         <th>#</th>
                         <th>Category Name</th>
                         <td className="text-right">
-                        <Link to={"/NewCategory"} class="btn btn-primary"><i class="fas fa-plus-square">Create</i></Link>
+                        <Link to={"/editCategory"} class="btn btn-primary"><i class="fas fa-plus-square">Create</i></Link>
                         </td>
                     </tr>
                 </thead>
