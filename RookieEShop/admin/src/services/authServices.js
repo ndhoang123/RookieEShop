@@ -1,4 +1,4 @@
-import { UserManager, UserManager } from "oidc-client";
+import  { UserManager } from "oidc-client";
 import { host } from "../config";
 
 const config = {
@@ -6,18 +6,15 @@ const config = {
     client_id: "oidc-react",
     redirect_uri: "http://localhost:3000/signin-oidc",
     response_type: "id_token token",
-    scope: "openid profile fashion.client",
+    scope: "openid profile rookieEShop.API",
     post_logout_redirect_uri: "http://localhost:3000/signout-oidc",
 };
 
 const userManager = new UserManager(config);
 
 export async function loadUserFromStorage() {
-    try {
-        let user = await userManager.getUser();
-    } catch(e) {
-        console.error(`User not found: ${e}`);
-    }
+    let user = await userManager.getUser();
+    return user;
 }
 
 export function signinRedirect(){
