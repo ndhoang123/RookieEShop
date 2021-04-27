@@ -2,7 +2,7 @@ import React from 'react';
 import { Table, Button } from 'reactstrap';
 import ProductService from './products';
 import { Link } from 'react-router-dom';
-import ProductImage from 'E:/Coding/RookieEShop/admin/src/components/ProductImage';
+import ProductImage from '../../components/ProductImage';
 
 const ListProduct = () => {
     const [Products, setProducts] = React.useState([]);
@@ -40,7 +40,7 @@ const ListProduct = () => {
                     <th>Publisher</th>
                     <th>Description</th>
                     <td className="text-right">
-                        <Link to={"/NewProduct"} class="btn btn-primary"><i class="fas fa-plus-square">Create</i></Link>
+                        <Link to={"/editProduct"} class="btn btn-primary"><i class="fas fa-plus-square">Create</i></Link>
                     </td>
                 </tr>
             </thead>
