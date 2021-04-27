@@ -28,6 +28,8 @@ namespace RookieEShop.FrontEnd.Controllers
 		public async Task<IActionResult> ProductDetail(int productId)
 		{
 			var products = await _productApiClient.GetProductsById(productId);
+			var totalResult = await _productApiClient.GetAverageResult(productId); // call api
+			ViewBag.TotalRating = totalResult;
 			return View(products);
 		}
 

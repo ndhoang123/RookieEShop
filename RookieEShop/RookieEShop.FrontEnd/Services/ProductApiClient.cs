@@ -38,5 +38,12 @@ namespace RookieEShop.FrontEnd.Services
 			response.EnsureSuccessStatusCode();
 			return await response.Content.ReadAsAsync<IList<ProductVm>>();
 		}
+		public async Task<double> GetAverageResult(int categoryId)
+		{
+			var client = _factory.CreateClient();
+			var response = await client.GetAsync("https://localhost:44305/api/Rating/" + categoryId.ToString());
+			response.EnsureSuccessStatusCode();
+			return await response.Content.ReadAsAsync<double>();
+		}
 	}
 }
