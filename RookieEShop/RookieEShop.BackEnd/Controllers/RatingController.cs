@@ -61,8 +61,8 @@ namespace RookieEShop.BackEnd.Controllers
 		}
 
 		[HttpPost]
-		//[Authorize("Bearer")]
-		[AllowAnonymous]
+		[Authorize("Bearer")]
+		//[AllowAnonymous]
 		public async Task<ActionResult<RatingVm>> PostRating(RatingCreateRequest ratingCreateRequest)
 		{
 			var userId = _httpContextAccessor.HttpContext.User.FindFirstValue("sub");
@@ -80,7 +80,7 @@ namespace RookieEShop.BackEnd.Controllers
 		}
 
 		[HttpDelete("{id}")]
-		[AllowAnonymous]
+		//[AllowAnonymous]
 		public async Task<IActionResult> DeleteRating(int id)
 		{
 			var rating = await _context.Ratings.FindAsync(id);
