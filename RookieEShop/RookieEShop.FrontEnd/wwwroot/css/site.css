@@ -128,3 +128,8 @@ label:hover, label:hover ~ label {
 .no-margin-please {
     margin: 0px !important;
 }
+
+/*Yellow color*/
+.yellowcolor {
+    color: orange
+}
