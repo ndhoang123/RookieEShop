@@ -11,5 +11,7 @@ namespace RookieEShop.Shared
 		public double AvgResult { get; set; }
 
 		public int CountResult { get; set; }
+
+		public ICollection<string> UserName { get; set; }
 	}
 }

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using RookieEShop.BackEnd.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace RookieEShop.BackEnd.Controllers
 {
@@ -21,6 +22,7 @@ namespace RookieEShop.BackEnd.Controllers
 	{
 		private readonly ApplicationDbContext _context;
 		private readonly IHttpContextAccessor _httpContextAccessor;
+
 		public RatingController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
 		{
 			_context = context;
@@ -64,11 +66,12 @@ namespace RookieEShop.BackEnd.Controllers
 		[AllowAnonymous]
 		public async Task<ActionResult<RatingResultVm>> GetTotalRating(int productId)
 		{
-			var listRating = await _context.Ratings.Where(item => item.ProductId == productId)
+			var listRating = await _context.Ratings.Where(item => item.ProductId == productId).Include(item => item.User)
 				.Select(x => new RatingVm
 				{
 					Id = x.Id,
-					Val = x.Val
+					Val = x.Val,
+					UserName = x.User.UserName
 				})
 				.ToListAsync();
 
@@ -77,7 +80,8 @@ namespace RookieEShop.BackEnd.Controllers
 			var resultList = new RatingResultVm
 			{
 				AvgResult = avgRating,
-				CountResult = listRating.Count
+				CountResult = listRating.Count,
+				UserName = listRating.Select(item => item.UserName).ToList(),
 			};
 
 			return resultList;
