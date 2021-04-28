@@ -62,7 +62,7 @@ namespace RookieEShop.BackEnd.Controllers
 
 		[HttpGet("{productId}")]
 		[AllowAnonymous]
-		public async Task<ActionResult<double>> GetTotalRating(int productId)
+		public async Task<ActionResult<RatingResultVm>> GetTotalRating(int productId)
 		{
 			var listRating = await _context.Ratings.Where(item => item.ProductId == productId)
 				.Select(x => new RatingVm
@@ -71,8 +71,16 @@ namespace RookieEShop.BackEnd.Controllers
 					Val = x.Val
 				})
 				.ToListAsync();
-			var totalRating = listRating.Sum(item => item.Val) / listRating.Count;
-			return totalRating;
+
+			var avgRating = listRating.Sum(item => item.Val) / listRating.Count;
+
+			var resultList = new RatingResultVm
+			{
+				AvgResult = avgRating,
+				CountResult = listRating.Count
+			};
+
+			return resultList;
 		}
 
 		[HttpPost]
