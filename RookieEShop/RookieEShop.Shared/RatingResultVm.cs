@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace RookieEShop.Shared
 {
-	public class RatingVm
+	public class RatingResultVm
 	{
-		public int Id { get; set; }
+		public double AvgResult { get; set; }
 
-		public int Val { get; set; }
+		public int CountResult { get; set; }
 
-		public string UserName { get; set; }
-		
+		public ICollection<string> UserName { get; set; }
 	}
 }

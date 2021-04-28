@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using RookieEShop.BackEnd.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace RookieEShop.BackEnd.Controllers
 {
@@ -21,6 +22,7 @@ namespace RookieEShop.BackEnd.Controllers
 	{
 		private readonly ApplicationDbContext _context;
 		private readonly IHttpContextAccessor _httpContextAccessor;
+
 		public RatingController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
 		{
 			_context = context;
@@ -60,9 +62,34 @@ namespace RookieEShop.BackEnd.Controllers
 			return RatingVm;
 		}
 
-		[HttpPost]
-		//[Authorize("Bearer")]
+		[HttpGet("{productId}")]
 		[AllowAnonymous]
+		public async Task<ActionResult<RatingResultVm>> GetTotalRating(int productId)
+		{
+			var listRating = await _context.Ratings.Where(item => item.ProductId == productId).Include(item => item.User)
+				.Select(x => new RatingVm
+				{
+					Id = x.Id,
+					Val = x.Val,
+					UserName = x.User.UserName
+				})
+				.ToListAsync();
+
+			var avgRating = listRating.Sum(item => item.Val) / listRating.Count;
+
+			var resultList = new RatingResultVm
+			{
+				AvgResult = avgRating,
+				CountResult = listRating.Count,
+				UserName = listRating.Select(item => item.UserName).ToList(),
+			};
+
+			return resultList;
+		}
+
+		[HttpPost]
+		[Authorize("Bearer")]
+		//[AllowAnonymous]
 		public async Task<ActionResult<RatingVm>> PostRating(RatingCreateRequest ratingCreateRequest)
 		{
 			var userId = _httpContextAccessor.HttpContext.User.FindFirstValue("sub");
@@ -80,7 +107,7 @@ namespace RookieEShop.BackEnd.Controllers
 		}
 
 		[HttpDelete("{id}")]
-		[AllowAnonymous]
+		//[AllowAnonymous]
 		public async Task<IActionResult> DeleteRating(int id)
 		{
 			var rating = await _context.Ratings.FindAsync(id);

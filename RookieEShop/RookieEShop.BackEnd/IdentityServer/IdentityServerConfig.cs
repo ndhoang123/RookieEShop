@@ -46,9 +46,11 @@ namespace RookieEShop.BackEnd.IdentityServer
 
                     AllowedGrantTypes = GrantTypes.Code,
 
-                    RedirectUris = { "https://rookieshop.azurewebsites.net/signin-oidc" },
+                    //RedirectUris = { "https://rookieshop.azurewebsites.net/signin-oidc" },
+                    RedirectUris = { "https://localhost:44367/signin-oidc" },
 
-                    PostLogoutRedirectUris = { "https://rookieshop.azurewebsites.net/signout-callback-oidc" },
+                    //PostLogoutRedirectUris = { "https://rookieshop.azurewebsites.net/signout-callback-oidc" },
+                    PostLogoutRedirectUris = { "https://localhost:44367/signout-callback-oidc" },
 
                     AllowedScopes = new List<string>
                     {
@@ -67,9 +69,13 @@ namespace RookieEShop.BackEnd.IdentityServer
                     RequireConsent = false,
                     RequirePkce = true,
 
-                    RedirectUris =           { $"https://rookieeshop.azurewebsites.net/swagger/oauth2-redirect.html" },
-                    PostLogoutRedirectUris = { $"https://rookieeshop.azurewebsites.net/swagger/oauth2-redirect.html" },
-                    AllowedCorsOrigins =     { $"https://rookieeshop.azurewebsites.net" },
+                    //RedirectUris =           { $"https://rookieeshop.azurewebsites.net/swagger/oauth2-redirect.html" },
+                    //PostLogoutRedirectUris = { $"https://rookieeshop.azurewebsites.net/swagger/oauth2-redirect.html" },
+                    //AllowedCorsOrigins =     { $"https://rookieeshop.azurewebsites.net" },
+                    
+                    RedirectUris =           { $"https://localhost:44305/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"https://localhost:44305/swagger/oauth2-redirect.html" },
+                    AllowedCorsOrigins =     { $"https://localhost:44305" },
 
                     AllowedScopes = new List<string>
                     {
