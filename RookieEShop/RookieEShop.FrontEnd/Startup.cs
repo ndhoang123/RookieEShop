@@ -10,6 +10,7 @@ using RookieEShop.FrontEnd.Services;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
+using RookieEShop.FrontEnd.ServiceInjection;
 
 namespace RookieEShop.FrontEnd
 {
@@ -21,61 +22,18 @@ namespace RookieEShop.FrontEnd
 		}
 
 		public IConfiguration Configuration { get; }
+		public static string HostUri;
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-
-			services.AddHttpClient();
+			services.AddConfigHttpClient(Configuration);
 
 			JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
-			
-			services.AddHttpContextAccessor();
+			services.AddAuth2(Configuration);
 
-			services.AddAuthentication(options =>
-			{
-				options.DefaultScheme = "Cookies";
-				options.DefaultChallengeScheme = "oidc";
-			})
-				.AddCookie("Cookies")
-				.AddOpenIdConnect("oidc", options =>
-				{
-					options.Authority = Configuration["HostUrls:Host"];
-					options.RequireHttpsMetadata = true;
-					options.GetClaimsFromUserInfoEndpoint = true;
-
-					options.ClientId = "mvc";
-					options.ClientSecret = "secret";
-					options.ResponseType = "code";
-
-					options.SaveTokens = true;
-
-					options.Scope.Add("openid");
-					options.Scope.Add("profile");
-					options.Scope.Add("rookieEShop.API");
-
-					options.TokenValidationParameters = new TokenValidationParameters
-					{
-						NameClaimType = "name",
-						RoleClaimType = "role"
-					};
-				});
-			services.AddHttpClient("owner", configureClient =>
-				{
-					//configureClient.BaseAddress = new Uri(Configuration["HostUrls:Host"].ToString());
-					configureClient.BaseAddress = new Uri("https://localhost:44305");
-				}).ConfigureHttpClient(async (serProvider, Httpclient)=>
-				{
-					var httpContext = serProvider.GetRequiredService<IHttpContextAccessor>().HttpContext;
-					var accessToken = await httpContext.GetTokenAsync("access_token");
-					if (accessToken != null)
-						Httpclient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-				});
-
-			services.AddTransient<IProductApiClient, ProductApiClient>();
-			services.AddTransient<ICategoryApiClient, CategoryApiClient>();
-			services.AddTransient<IRatingApiClient, RatingApiClient>();
+			services.AddApiClient();
 
 			services.AddControllersWithViews();
 		}
