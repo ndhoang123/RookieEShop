@@ -2,12 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using RookieEShop.Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RookieEShop.FrontEnd.Services
@@ -16,26 +12,26 @@ namespace RookieEShop.FrontEnd.Services
 	{
 		private readonly HttpClient _client;
 		private readonly IHttpContextAccessor _httpContextAccessor;
+		private readonly IHttpClientFactory _httpClientFactory;
 
-		public RatingApiClient(HttpClient client,
-			IHttpContextAccessor httpContextAccessor)
+		public RatingApiClient(
+			IHttpContextAccessor httpContextAccessor,
+			IHttpClientFactory httpClientFactory)
 		{
-			_client = client;
 			_httpContextAccessor = httpContextAccessor;
+
+			_httpClientFactory = httpClientFactory;
+
+			_client = _httpClientFactory.CreateClient("owner");
 		}
 
 		public async Task<bool> PostRating(RatingCreateRequest ratingCreateRequest)
 		{
-			//var client = _factory.CreateClient();
 			var accessToken = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+
 			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-
-			var json = JsonConvert.SerializeObject(ratingCreateRequest);
-			var data = new StringContent(json, Encoding.UTF8, "application/json");
-
-			//var response = await _client.PostAsJsonAsync("https://rookieeshop.azurewebsites.net/api/Rating", ratingCreateRequest);
-			var response = await _client.PostAsJsonAsync("https://localhost:44305/api/Rating", ratingCreateRequest);
+			var response = await _client.PostAsJsonAsync("api/Rating", ratingCreateRequest);
 
 			response.EnsureSuccessStatusCode();
 
@@ -43,6 +39,7 @@ namespace RookieEShop.FrontEnd.Services
 			{
 				return true;
 			}
+
 			else
 			{
 				return false;

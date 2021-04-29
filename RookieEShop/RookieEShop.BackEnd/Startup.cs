@@ -1,17 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using RookieEShop.BackEnd.Data;
-using RookieEShop.BackEnd.IdentityServer;
-using RookieEShop.BackEnd.Models;
-using RookieEShop.BackEnd.Services;
-using System;
-using System.Collections.Generic;
+using RookieEShop.BackEnd.ServiceInjection;
 
 namespace RookieEShop.BackEnd
 {
@@ -27,77 +19,21 @@ namespace RookieEShop.BackEnd
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<ApplicationDbContext>(options =>
-				options.UseSqlServer(
-					Configuration.GetConnectionString("DefaultConnection")));
-			services.AddTransient<IStorageService, FileStorageService>();
+			services.AddDbContextI(Configuration);
 
-			services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
-				.AddRoles<IdentityRole>().AddDefaultUI()
-				.AddEntityFrameworkStores<ApplicationDbContext>();
+			services.AddDeInje();
 
-			services.AddIdentityServer(options =>
-			{
-				options.Events.RaiseErrorEvents = true;
-				options.Events.RaiseInformationEvents = true;
-				options.Events.RaiseFailureEvents = true;
-				options.Events.RaiseSuccessEvents = true;
-				options.EmitStaticAudienceClaim = true;
-			})
-			   .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
-			   .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
-			   .AddInMemoryClients(IdentityServerConfig.Clients)
-			   .AddAspNetIdentity<User>()
-			   .AddProfileService<CustomProfileService>()
-			   .AddDeveloperSigningCredential(); // not recommended for production - you need to store your key material somewhere secure
+			services.AddIdentitySer(Configuration);
 
+			services.AddAuthor();
 
-			services.AddAuthentication()
-                .AddLocalApi("Bearer", option =>
-                {
-                    option.ExpectedScope = "rookieEShop.API";
-                });
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("Bearer", policy =>
-                {
-                    policy.AddAuthenticationSchemes("Bearer");
-                    policy.RequireAuthenticatedUser();
-                });
-            });
+			services.AddAuthen();
 
 			services.AddControllersWithViews();
+
 			services.AddRazorPages();
 
-
-			services.AddSwaggerGen(c =>
-			{
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Rookie Shop API", Version = "v1" });
-				c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-				{
-					Type = SecuritySchemeType.OAuth2,
-					Flows = new OpenApiOAuthFlows
-					{
-						AuthorizationCode = new OpenApiOAuthFlow
-						{
-							TokenUrl = new Uri("/connect/token", UriKind.Relative),
-							AuthorizationUrl = new Uri("/connect/authorize", UriKind.Relative),
-							Scopes = new Dictionary<string, string> { { "rookieEShop.API", "Rookie Shop API" } }
-						},
-					},
-				});
-				c.AddSecurityRequirement(new OpenApiSecurityRequirement
-				{
-					{
-						new OpenApiSecurityScheme
-						{
-							Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
-						},
-						new List<string>{ "rookieEShop.API" }
-					}
-				});
-			});
+			services.AddSwagger();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -138,9 +74,6 @@ namespace RookieEShop.BackEnd
 
 			app.UseEndpoints(endpoints =>
 			{
-				//endpoints.MapControllerRoute(
-				//	name: "default",
-				//	pattern: "{controller=Home}/{action=Index}/{id?}");
 				endpoints.MapDefaultControllerRoute();
 				endpoints.MapRazorPages();
 			});

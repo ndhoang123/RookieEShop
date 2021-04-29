@@ -3,15 +3,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RookieEShop.BackEnd.Data;
-using RookieEShop.BackEnd.Services;
+using RookieEShop.BackEnd.Models;
 using RookieEShop.Shared;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using RookieEShop.BackEnd.Models;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace RookieEShop.BackEnd.Controllers
 {
@@ -81,15 +78,13 @@ namespace RookieEShop.BackEnd.Controllers
 			{
 				AvgResult = avgRating,
 				CountResult = listRating.Count,
-				UserName = listRating.Select(item => item.UserName).ToList(),
+				ListRating = listRating
 			};
 
 			return resultList;
 		}
 
 		[HttpPost]
-		[Authorize("Bearer")]
-		//[AllowAnonymous]
 		public async Task<ActionResult<RatingVm>> PostRating(RatingCreateRequest ratingCreateRequest)
 		{
 			var userId = _httpContextAccessor.HttpContext.User.FindFirstValue("sub");
@@ -107,7 +102,6 @@ namespace RookieEShop.BackEnd.Controllers
 		}
 
 		[HttpDelete("{id}")]
-		//[AllowAnonymous]
 		public async Task<IActionResult> DeleteRating(int id)
 		{
 			var rating = await _context.Ratings.FindAsync(id);

@@ -31,6 +31,7 @@ namespace RookieEShop.FrontEnd.Controllers
 			var result = await _productApiClient.GetRatingResult(productId); // call api
 			ViewBag.avgRating = result.AvgResult;
 			ViewBag.countReviewer = result.CountResult;
+			ViewBag.listRating = result.ListRating;
 			return View(products);
 		}
 

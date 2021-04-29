@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using RookieEShop.BackEnd.IdentityServer;
 using RookieEShop.BackEnd.Models;
@@ -19,12 +20,15 @@ namespace RookieEShop.BackEnd.Areas.Identity.Pages.Account
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
         private readonly IIdentityServerInteractionService _interaction;
+        private readonly IConfiguration _configuration;
 
-        public LogoutModel(SignInManager<User> signInManager, ILogger<LogoutModel> logger, IIdentityServerInteractionService iteraction)
+        public LogoutModel(SignInManager<User> signInManager, ILogger<LogoutModel> logger, 
+            IIdentityServerInteractionService iteraction, IConfiguration configuration)
         {
             _signInManager = signInManager;
             _logger = logger;
             _interaction = iteraction;
+            _configuration = configuration;
         }
 
         public async Task<IActionResult> OnGetAsync(string returnUrl = null)
@@ -38,6 +42,7 @@ namespace RookieEShop.BackEnd.Areas.Identity.Pages.Account
             _logger.LogInformation("User logged out.");
 
             var logoutId = this.Request.Query["logoutId"].ToString();
+
             if (returnUrl != null)
             {
                 return LocalRedirect(returnUrl);
@@ -56,7 +61,7 @@ namespace RookieEShop.BackEnd.Areas.Identity.Pages.Account
 				else
 				{
                     var clientIdTemp = logoutContext.ClientIds.ToArray()[0];
-                    var referrer = IdentityServerConfig.Clients.Where(item => item.ClientId == clientIdTemp).First();
+                    var referrer = IdentityServerConfig.Clients(_configuration).Where(item => item.ClientId == clientIdTemp).First();
                     if (referrer != null) return this.Redirect(referrer.FrontChannelLogoutUri);
                     return Page();
                 }
