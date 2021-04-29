@@ -12,74 +12,81 @@
 					<p class="card-text">Author: @Model.Author</p>
 					<div class="row" id="reviews">
 						<div class="col-6">
-							@for (var star = 0; star < @ViewBag.avgRating; star++)
-							{
-								<span class="fas fa-star checked yellowcolor"></span>
-							}
-							@for (var star = 0; star < 5 - @ViewBag.avgRating; star++)
-							{
-								<span class="far fa-star"></span>
-							}
-							<u>@ViewBag.avgRating</u>
+							<a href="#review-page">
+								@for (var star = 0; star < @ViewBag.avgRating; star++)
+								{
+									<span class="fas fa-star checked yellowcolor"></span>
+								}
+								@for (var star = 0; star < 5 - @ViewBag.avgRating; star++)
+								{
+									<span class="far fa-star"></span>
+								}
+								<u>@ViewBag.avgRating</u>
+							</a>
 						</div>
 						<div class="col-6">
-							<p><u>@ViewBag.countReviewer</u> Ratings</p>
+							<a href="#review-page">
+								<p><u>@ViewBag.countReviewer</u> Ratings</p>
+							</a>
 						</div>
 					</div>
-					
+
 					<h3 class="card-text">@Model.Name</h3>
 					<p class="card-text">Year: @Model.Year</p>
 					<p class="card-text">Publisher: @Model.Publisher</p>
 					<h3 class="card-text"><strong>Price:</strong> @Model.Price VND</h3>
 					<p class="card-text"><strong>Description:</strong> @Model.Description</p>
-					<form asp-controller="Product" asp-action="ProductRating" method="post">
-						<input type="hidden" name="productId" value="@Model.Id" />
-						<b>Choose your rating: </b>
-						<div>
-							<fieldset class="rate">
-								<input type="radio" id="5-star" name="val" value="5" />
-								<label for="5-star" title="Amazing"><i class="fas fa-star"></i></label>
-								<input type="radio" id="4-star" name="val" value="4" />
-								<label for="4-star" title="Good"><i class="fas fa-star"></i></label>
-								<input type="radio" id="3-star" name="val" value="3" />
-								<label for="3-star" title="Average"><i class="fas fa-star"></i></label>
-								<input type="radio" id="2-star" name="val" value="2" />
-								<label for="2-star" title="Not Good"><i class="fas fa-star"></i></label>
-								<input type="radio" id="1-star" name="val" value="1" />
-								<label for="1-star" title="Bad"><i class="fas fa-star"></i></label>
-							</fieldset>
-						</div>
-						<button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
-					</form>
+					@if (User.Identity.IsAuthenticated) {
+						<form asp-controller="Product" asp-action="ProductRating" method="post">
+							<input type="hidden" name="productId" value="@Model.Id" />
+							<b>Choose your rating: </b>
+							<div>
+								<fieldset class="rate">
+									<input type="radio" id="5-star" name="val" value="5" />
+									<label for="5-star" title="Amazing"><i class="fas fa-star"></i></label>
+									<input type="radio" id="4-star" name="val" value="4" />
+									<label for="4-star" title="Good"><i class="fas fa-star"></i></label>
+									<input type="radio" id="3-star" name="val" value="3" />
+									<label for="3-star" title="Average"><i class="fas fa-star"></i></label>
+									<input type="radio" id="2-star" name="val" value="2" />
+									<label for="2-star" title="Not Good"><i class="fas fa-star"></i></label>
+									<input type="radio" id="1-star" name="val" value="1" />
+									<label for="1-star" title="Bad"><i class="fas fa-star"></i></label>
+								</fieldset>
+							</div>
+							<button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+						</form>
+					}
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-12 size-tab-product-detail">
-				<p class="tab-title-custom">Reviews (@ViewBag.avgRating)</p>
+				<a name="review-page">
+					<h1 class="tab-title-custom">Reviews </h1>
+				</a>
 			</div>
-			@*<div class="tab-content tab-content-custom">
-				<div class="tab-pane fade active in tab-content-custom" id="reviews">
+			<div>
+				<div id="reviews">
 					<div class="col-sm-12">
-						@foreach (var rating in Model.ratingViewModels)
-						{
-							<div>
-								@for (var star = 0; star < rating.Rating; star++)
-								{
-									<span class="fas fa-star checked"></span>
-								}
-								@for (var star = 0; star < 5 - rating.Rating; star++)
-								{
-									<span class="far fa-star"></span>
-								}
-							</div>
-							<div>
-								<b>@rating.Title</b><a>- @rating.CustomerName</a>
-							</div>
-							<div>
-								<p>@rating.Content</p>
-							</div>
-						}*@
+							@foreach (var rating in ViewBag.listRating)
+							{
+								<div>
+									@for (var star = 0; star < rating.Val; star++)
+									{
+										<span class="fas fa-star checked yellowcolor"></span>
+									}
+									@for (var star = 0; star < 5 - rating.Val; star++)
+									{
+										<span class="far fa-star"></span>
+									}
+								</div>
+								<p>@rating.UserName</p>
+							}
+					</div>
+				</div>
+			</div>
+				
 
 		</div>
 	</div>

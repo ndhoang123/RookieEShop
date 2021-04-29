@@ -81,7 +81,7 @@ namespace RookieEShop.BackEnd.Controllers
 			{
 				AvgResult = avgRating,
 				CountResult = listRating.Count,
-				UserName = listRating.Select(item => item.UserName).ToList(),
+				ListRating = listRating
 			};
 
 			return resultList;

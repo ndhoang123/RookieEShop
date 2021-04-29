@@ -133,3 +133,9 @@ label:hover, label:hover ~ label {
 .yellowcolor {
     color: orange
 }
+
+/*Reviews*/
+#reviews {
+    padding-left: 25px;
+    padding-right: 25px;
+}

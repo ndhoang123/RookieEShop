@@ -12,6 +12,6 @@ namespace RookieEShop.Shared
 
 		public int CountResult { get; set; }
 
-		public ICollection<string> UserName { get; set; }
+		public IEnumerable<RatingVm> ListRating { get; set; }
 	}
 }
