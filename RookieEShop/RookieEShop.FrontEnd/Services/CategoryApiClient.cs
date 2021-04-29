@@ -7,26 +7,30 @@ namespace RookieEShop.FrontEnd.Services
 {
 	public class CategoryApiClient : ICategoryApiClient
 	{
-		private readonly IHttpClientFactory _factory;
+		private readonly HttpClient _client;
+		private readonly IHttpClientFactory _httpClientFactory;
 
-		public CategoryApiClient(IHttpClientFactory factory)
+		public CategoryApiClient(IHttpClientFactory httpClientFactory)
 		{
-			_factory = factory;
+			_httpClientFactory = httpClientFactory;
+			_client = _httpClientFactory.CreateClient("owner");
 		}
+
 		public async Task<IList<CategoryVm>> GetCategories()
 		{
-			var client = _factory.CreateClient();
-			//var response = await client.GetAsync("https://rookieeshop.azurewebsites.net/api/category");
-			var response = await client.GetAsync("https://localhost:44305/api/Category");
+			var response = await _client.GetAsync("api/Category");
+
 			response.EnsureSuccessStatusCode();
+
 			return await response.Content.ReadAsAsync<IList<CategoryVm>>();
 		}
+
 		public async Task<IList<CategoryVm>> GetCategoriesById(int id)
 		{
-			var client = _factory.CreateClient();
-			//var response = await client.GetAsync("https://rookieeshop.azurewebsites.net/api/category/" + id.ToString());
-			var response = await client.GetAsync("https://localhost:44305/api/Category/" + id.ToString());
+			var response = await _client.GetAsync("api/Category/" + id.ToString());
+
 			response.EnsureSuccessStatusCode();
+
 			return await response.Content.ReadAsAsync<IList<CategoryVm>>();
 		}
 	}
