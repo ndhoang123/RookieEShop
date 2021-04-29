@@ -4,6 +4,7 @@
 
 using IdentityServer4;
 using IdentityServer4.Models;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 
 namespace RookieEShop.BackEnd.IdentityServer
@@ -23,7 +24,7 @@ namespace RookieEShop.BackEnd.IdentityServer
                 new ApiScope("rookieEShop.API", "Rookie EShop API")
             };
 
-        public static IEnumerable<Client> Clients =>
+        public static IEnumerable<Client> Clients(IConfiguration configuration) =>
             new List<Client>
             {
                 // machine to machine client
@@ -46,11 +47,9 @@ namespace RookieEShop.BackEnd.IdentityServer
 
                     AllowedGrantTypes = GrantTypes.Code,
 
-                    //RedirectUris = { "https://rookieshop.azurewebsites.net/signin-oidc" },
-                    RedirectUris = { "https://localhost:44367/signin-oidc" },
+                    RedirectUris = { configuration["ClientUrl:mvc:RedirectUris"] },
 
-                    //PostLogoutRedirectUris = { "https://rookieshop.azurewebsites.net/signout-callback-oidc" },
-                    PostLogoutRedirectUris = { "https://localhost:44367/signout-callback-oidc" },
+                    PostLogoutRedirectUris = { configuration["ClientUrl:mvc:PostLogoutRedirectUris"] },
 
                     AllowedScopes = new List<string>
                     {
@@ -68,14 +67,10 @@ namespace RookieEShop.BackEnd.IdentityServer
 
                     RequireConsent = false,
                     RequirePkce = true,
-
-                    //RedirectUris =           { $"https://rookieeshop.azurewebsites.net/swagger/oauth2-redirect.html" },
-                    //PostLogoutRedirectUris = { $"https://rookieeshop.azurewebsites.net/swagger/oauth2-redirect.html" },
-                    //AllowedCorsOrigins =     { $"https://rookieeshop.azurewebsites.net" },
                     
-                    RedirectUris =           { $"https://localhost:44305/swagger/oauth2-redirect.html" },
-                    PostLogoutRedirectUris = { $"https://localhost:44305/swagger/oauth2-redirect.html" },
-                    AllowedCorsOrigins =     { $"https://localhost:44305" },
+                    RedirectUris =           { configuration["ClientUrl:swagger:RedirectUris"] },
+                    PostLogoutRedirectUris = { configuration["ClientUrl:swagger:PostLogoutRedirectUris"] },
+                    AllowedCorsOrigins =     { configuration["ClientUrl:swagger:AllowedCorsOrigins"] },
 
                     AllowedScopes = new List<string>
                     {
@@ -93,9 +88,9 @@ namespace RookieEShop.BackEnd.IdentityServer
                     AllowedGrantTypes = GrantTypes.Implicit,
                     RequireClientSecret = false,
 
-                    RedirectUris =           { $"http://localhost:3000/signin-oidc" },
-                    PostLogoutRedirectUris = { $"http://localhost:3000/signout-oidc" },
-                    AllowedCorsOrigins =     { $"http://localhost:3000" },
+                    RedirectUris =           { configuration["ClientUrl:oidc-react:RedirectUris"] },
+                    PostLogoutRedirectUris = { configuration["ClientUrl:oidc-react:PostLogoutRedirectUris"] },
+                    AllowedCorsOrigins =     { configuration["ClientUrl:oidc-react:AllowedCorsOrigins"] },
 
                     AllowedScopes = new List<string>
                     {
