@@ -2,7 +2,7 @@
 RookieEShop is a e-commerce website, where user can view and afford book.
 
 ## Azure Demo Link
-[CustomerSite](http://customersite-ndhoang123.azurewebsites.net/) || [Backend](https://backend-ndhoang123.azurewebsites.net/swagger) || [AdminSite](https://sandhoang123.z23.web.core.windows.net)
+[CustomerSite](http://customersite-ndhoang123.azurewebsites.net/) || [Backend](https://backend-ndhoang123.azurewebsites.net/) || [AdminSite](https://sandhoang123.z23.web.core.windows.net)
 
 ## LogicArchitecture
 
