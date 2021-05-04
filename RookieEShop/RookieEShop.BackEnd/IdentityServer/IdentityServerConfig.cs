@@ -47,9 +47,9 @@ namespace RookieEShop.BackEnd.IdentityServer
 
                     AllowedGrantTypes = GrantTypes.Code,
 
-                    RedirectUris = { configuration["ClientUrl:mvc:RedirectUris"] },
+                    RedirectUris = { configuration["ClientAzureUrl:mvc:RedirectUris"] },
 
-                    PostLogoutRedirectUris = { configuration["ClientUrl:mvc:PostLogoutRedirectUris"] },
+                    PostLogoutRedirectUris = { configuration["ClientAzureUrl:mvc:PostLogoutRedirectUris"] },
 
                     AllowedScopes = new List<string>
                     {
@@ -68,9 +68,9 @@ namespace RookieEShop.BackEnd.IdentityServer
                     RequireConsent = false,
                     RequirePkce = true,
                     
-                    RedirectUris =           { configuration["ClientUrl:swagger:RedirectUris"] },
-                    PostLogoutRedirectUris = { configuration["ClientUrl:swagger:PostLogoutRedirectUris"] },
-                    AllowedCorsOrigins =     { configuration["ClientUrl:swagger:AllowedCorsOrigins"] },
+                    RedirectUris =           { configuration["ClientAzureUrl:swagger:RedirectUris"] },
+                    PostLogoutRedirectUris = { configuration["ClientAzureUrl:swagger:PostLogoutRedirectUris"] },
+                    AllowedCorsOrigins =     { configuration["ClientAzureUrl:swagger:AllowedCorsOrigins"] },
 
                     AllowedScopes = new List<string>
                     {
