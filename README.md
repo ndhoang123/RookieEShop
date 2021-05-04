@@ -21,8 +21,8 @@ The main programming language is Csharp, with .Net (5.0) framework, SQL Server, 
 #### Signed-in user
 - Rate product
 #### Admin (Must authentication)
-- Modify products
-- Modify categories
+- Modify, create products
+- Modify, create categories
 - View users
 ## Get the code
 Clone the repository:
