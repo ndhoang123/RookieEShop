@@ -1,2 +1,2 @@
-export const host = "https://localhost:44305/";
-export const productRes = "https://rookieeshop.azurewebsites.net/";
+export const host = "https://backend-ndhoang123.azurewebsites.net/";
+export const productRes = "https://backend-ndhoang123.azurewebsites.net/";

@@ -48,9 +48,14 @@ namespace RookieEShop.FrontEnd.Services
 		{
 			var response = await _client.GetAsync("api/Rating/" + categoryId.ToString());
 
-			response.EnsureSuccessStatusCode();
+			if (response.IsSuccessStatusCode) { 
+				return await response.Content.ReadAsAsync<RatingResultVm>();
+			}
 
-			return await response.Content.ReadAsAsync<RatingResultVm>();
+			else
+			{
+				return null;
+			}
 		}
 	}
 }
