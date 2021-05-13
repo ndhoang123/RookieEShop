@@ -88,9 +88,9 @@ namespace RookieEShop.BackEnd.IdentityServer
                     AllowedGrantTypes = GrantTypes.Implicit,
                     RequireClientSecret = false,
 
-                    RedirectUris =           { configuration["ClientAzureUrl:oidc-react:RedirectUris"] },
-                    PostLogoutRedirectUris = { configuration["ClientAzureUrl:oidc-react:PostLogoutRedirectUris"] },
-                    AllowedCorsOrigins =     { configuration["ClientAzureUrl:oidc-react:AllowedCorsOrigins"] },
+                    RedirectUris =           { configuration["ClientUrl:oidc-react:RedirectUris"] },
+                    PostLogoutRedirectUris = { configuration["ClientUrl:oidc-react:PostLogoutRedirectUris"] },
+                    AllowedCorsOrigins =     { configuration["ClientUrl:oidc-react:AllowedCorsOrigins"] },
 
                     AllowedScopes = new List<string>
                     {
