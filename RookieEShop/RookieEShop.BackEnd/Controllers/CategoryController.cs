@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RookieEShop.BackEnd.Data;
 using RookieEShop.BackEnd.Models;
+using RookieEShop.BackEnd.Services;
 using RookieEShop.Shared;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,58 +16,76 @@ namespace RookieEShop.BackEnd.Controllers
     [Authorize("Bearer")]
     public class CategoryController : ControllerBase
 	{
-        private readonly ApplicationDbContext _context;
+        private readonly ICategoryService _categoryService;
 
-        public CategoryController(ApplicationDbContext context)
+        public CategoryController(ICategoryService categoryService)
         {
-            _context = context;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<CategoryVm>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<CategoryVm>>> GetAllCategory()
         {
-            return await _context.Categories
-                .Select(x => new CategoryVm { Id = x.Id, Name = x.Name })
-                .ToListAsync();
+            var listCategory = await _categoryService.ListAllCategory();
+            var listCategoryVm = listCategory.Select(x => new CategoryVm
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
+
+            return listCategoryVm;
         }
 
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult<CategoryVm>> GetCategory(int id)
+        public async Task<ActionResult<CategoryVm>> GetDetailCategory(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
-            {
+            if (id <= 0) return StatusCode(400);
+
+            var detailCategory = await _categoryService.ListDetailCategory(id);
+
+            if(detailCategory == null)
+			{
                 return NotFound();
-            }
+			}
 
             var categoryVm = new CategoryVm
             {
-                Id = category.Id,
-                Name = category.Name
+                Id = detailCategory.Id,
+                Name = detailCategory.Name
             };
 
             return categoryVm;
         }
 
         [HttpPut("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> PutCategory(int id, CategoryCreateRequest categoryCreateRequest)
         {
-            var category = await _context.Categories.FindAsync(id);
+            if (id <= 0) return StatusCode(400);
 
-            if (category == null)
+            var putCategory = new Category
             {
-                return NotFound();
-            }
+                Name = categoryCreateRequest.Name
 
-            category.Name = categoryCreateRequest.Name;
-            await _context.SaveChangesAsync();
+            };
 
-            return NoContent();
+            var isSuccessfulEdit = await _categoryService.EditCategory(id, putCategory);
+
+			if (isSuccessfulEdit)
+			{
+                return StatusCode(204);
+			}
+
+			else
+			{
+                return StatusCode(404);
+			}
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult<CategoryVm>> PostCategory([FromForm]CategoryCreateRequest categoryCreateRequest)
         {
             var category = new Category
@@ -74,25 +93,35 @@ namespace RookieEShop.BackEnd.Controllers
                 Name = categoryCreateRequest.Name
             };
 
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
+            var isSuccessCreate = await _categoryService.CreateCategory(category);
 
-            return CreatedAtAction("GetCategory", new { id = category.Id }, new CategoryVm { Id = category.Id, Name = category.Name });
+			if (isSuccessCreate)
+			{
+                return CreatedAtAction("GetCategory", new { id = category.Id }, new CategoryVm { Id = category.Id, Name = category.Name });
+            }
+
+			else
+			{
+                return StatusCode(404);
+			}
         }
 
         [HttpDelete("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
+            if (id <= 0) return StatusCode(400);
 
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
+            var isSuccessDelete = await _categoryService.DeleteCategory(id);
+			if (isSuccessDelete)
+			{
+                return StatusCode(204);
+			}
 
-            return NoContent();
+			else
+			{
+                return StatusCode(404);
+			}
         }
     }
 }
