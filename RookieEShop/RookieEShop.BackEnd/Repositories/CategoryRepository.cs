@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RookieEShop.BackEnd.Data;
 using RookieEShop.BackEnd.Models;
-using RookieEShop.Shared;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RookieEShop.BackEnd.Repositories
@@ -75,6 +72,7 @@ namespace RookieEShop.BackEnd.Repositories
 			}
 
 			_dbContext.Categories.Remove(oldCategory);
+			
 			if(await _dbContext.SaveChangesAsync() > 0)
 			{
 				return true;
