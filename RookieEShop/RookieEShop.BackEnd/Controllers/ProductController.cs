@@ -20,11 +20,12 @@ namespace RookieEShop.BackEnd.Controllers
 	[Authorize("Bearer")]
 	public class ProductController : ControllerBase
 	{
-		private readonly ApplicationDbContext _context;
 		private readonly IStorageService _storageService;
-		public ProductController(ApplicationDbContext context, IStorageService storageService)
+		private readonly IProductService _productService;
+
+		public ProductController(IProductService productService, IStorageService storageService)
 		{
-			_context = context;
+			_productService = productService;
 			_storageService = storageService;
 		}
 
@@ -32,77 +33,46 @@ namespace RookieEShop.BackEnd.Controllers
 		[AllowAnonymous]
 		public async Task<ActionResult<IEnumerable<ProductVm>>> GetProduct()
 		{
-			return await _context.Products
-				.Select(x => new ProductVm { Id = x.Id,
-					Name = x.Name,
-					Price = x.Price,
-					Author = x.Author,
-					Year = x.Year,
-					Publisher = x.Publisher,
-					Description = x.Description,
-					ThumbnailImageUrl = _storageService.GetFileUrl(x.ImageFileName)
-				})
-				.ToListAsync();
+			var productList = await _productService.ListAllProduct();
+
+			return Ok(productList);
 		}
 		
 		[HttpGet("{id}")]
 		[AllowAnonymous]
 		public async Task<ActionResult<ProductVm>> GetProduct(int id)
 		{
-			var product = await _context.Products.FindAsync(id);
+			var product = await _productService.ListDetailProduct(id);
 
 			if (product == null)
 			{
 				return NotFound();
 			}
 
-			var ProductVm = new ProductVm
+			else
 			{
-				Id = product.Id,
-				Description = product.Description,
-				Name = product.Name,
-				Price = product.Price,
-				Publisher = product.Publisher,
-				Year = product.Year,
-				Author = product.Author,
-				ThumbnailImageUrl = _storageService.GetFileUrl(product.ImageFileName)
-			};
-
-			return ProductVm;
+				return Ok(product);
+			}
 		}
 
 		[HttpGet("(categoryid)")]
 		[AllowAnonymous]
-		public async Task<ActionResult<IList<ProductVm>>> GetProductByCategory(int categoryiD)
+		public async Task<ActionResult<IEnumerable<ProductVm>>> GetProductByCategory(int categoryId)
 		{
-			var product = await _context.Products.Where(x => x.CategoryID == categoryiD).ToListAsync();
+			var product = await _productService.GetProductByCategory(categoryId);
 
-			if (product == null)
+			if(product == null)
 			{
-				return NotFound();
+				return StatusCode(404);
 			}
 
-			var ProductVm = product.Select(x => new ProductVm
-			{
-				Id = x.Id,
-				Description = x.Description,
-				Name = x.Name,
-				Price = x.Price,
-				Publisher = x.Publisher,
-				Year = x.Year,
-				Author = x.Author,
-				ThumbnailImageUrl = _storageService.GetFileUrl(x.ImageFileName)
-			}).ToList();
-			return ProductVm;
+			return Ok(product);
 		}
 
 		[HttpPost]
+		[AllowAnonymous]
 		public async Task<ActionResult<ProductVm>> PostProduct([FromForm]ProductCreateRequest productCreateRequest)
 		{
-			var checkCategory = _context.Categories.Find(productCreateRequest.CategoryId);
-
-			if (checkCategory == null) return BadRequest();
-
 			var product = new Product
 			{
 				Name = productCreateRequest.Name,
@@ -119,47 +89,63 @@ namespace RookieEShop.BackEnd.Controllers
 				product.ImageFileName = await SaveFile(productCreateRequest.ThumbnailImage);
 			}
 
-			_context.Products.Add(product);
-			await _context.SaveChangesAsync();
+			var isCreateProduct = await _productService.CreateProduct(product);
 
-			return CreatedAtAction("GetProduct", new { id = product.Id }, null);
+			if (isCreateProduct)
+			{
+				return StatusCode(201);
+			}
+
+			else
+			{
+				return StatusCode(404);
+			}
 		}
 
 		[HttpPut("{id}")]
+		[AllowAnonymous]
 		public async Task<IActionResult> PutProduct(int id, [FromForm]ProductCreateRequest productRequest)
 		{
-			var product = await _context.Products.FindAsync(id);
+			if(id <= 0) return StatusCode(400);
 
-			if (product == null)
+			var createProduct = new Product
 			{
-				return NotFound();
+				Name = productRequest.Name,
+				Price = productRequest.Price,
+				Author = productRequest.Author,
+				Publisher = productRequest.Publisher,
+				Year = productRequest.Year,
+				Description = productRequest.Description
+			};
+
+			var isEditedProduct = await _productService.EditProduct(id, createProduct);
+
+			if (isEditedProduct)
+			{
+				return StatusCode(204);
 			}
 
-			product.Name = productRequest.Name;
-			product.Price = productRequest.Price;
-			product.Author = productRequest.Author;
-			product.Publisher = productRequest.Publisher;
-			product.Year = productRequest.Year;
-			product.Description = productRequest.Description;
-
-			await _context.SaveChangesAsync();
-
-			return NoContent();
+			else
+			{
+				return StatusCode(404);
+			}
 		}
 
 		[HttpDelete("{id}")]
+		[AllowAnonymous]
 		public async Task<IActionResult> DeleteProduct(int id)
 		{
-			var product = await _context.Products.FindAsync(id);
-			if (product == null)
+			var isDeletedProduct = await _productService.DeleteProduct(id);
+
+			if (isDeletedProduct)
 			{
-				return NotFound();
+				return StatusCode(204); ;
 			}
 
-			_context.Products.Remove(product);
-			await _context.SaveChangesAsync();
-
-			return NoContent();
+			else
+			{
+				return StatusCode(404);
+			}
 		}
 
 		private async Task<string> SaveFile(IFormFile file)

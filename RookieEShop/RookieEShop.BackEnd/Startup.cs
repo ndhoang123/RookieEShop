@@ -69,7 +69,7 @@ namespace RookieEShop.BackEnd
 				c.OAuthClientId("swagger");
 				c.OAuthClientSecret("secret");
 				c.OAuthUsePkce();
-				c.SwaggerEndpoint("/swagger/v1/swagger.json", "Rookie Shop API V1");
+				c.SwaggerEndpoint("/swagger/v1/swagger.json", "RookieEShop");
 			});
 
 			app.UseEndpoints(endpoints =>
