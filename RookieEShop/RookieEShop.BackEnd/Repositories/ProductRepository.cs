@@ -124,6 +124,7 @@ namespace RookieEShop.BackEnd.Repositories
 			detailProduct.Publisher = product.Publisher;
 			detailProduct.Year = product.Year;
 			detailProduct.Description = product.Description;
+			detailProduct.IsDisableProduct = product.IsDisableProduct;
 
 			if (await _context.SaveChangesAsync() > 0)
 			{
@@ -145,7 +146,7 @@ namespace RookieEShop.BackEnd.Repositories
 				return false;
 			}
 
-			_context.Products.Remove(product);
+			product.IsDisableProduct = true;
 
 			if (await _context.SaveChangesAsync() > 0)
 			{

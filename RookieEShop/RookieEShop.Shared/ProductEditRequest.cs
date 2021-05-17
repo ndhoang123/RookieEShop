@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace RookieEShop.Shared
 {
-    public class ProductCreateRequest
-    {
+	public class ProductEditRequest
+	{
         [Required]
         public string Name { get; set; }
 
@@ -13,14 +16,12 @@ namespace RookieEShop.Shared
 
         public string Author { get; set; }
 
-        public int Year {get; set;}
+        public int Year { get; set; }
 
         public string Description { get; set; }
 
         public string Publisher { get; set; }
 
-        public IFormFile ThumbnailImage { get; set; }
-
-        public int CategoryId { get; set; }
+        public bool IsDisableProduct { get; set; }
     }
 }

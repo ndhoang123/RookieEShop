@@ -22,6 +22,8 @@ namespace RookieEShop.BackEnd.Models
 
 		public string ImageFileName { get; set; }
 
+		public bool IsDisableProduct { get; set; }
+
 		[ForeignKey("Category")]
 		public int CategoryID { get; set; }
 

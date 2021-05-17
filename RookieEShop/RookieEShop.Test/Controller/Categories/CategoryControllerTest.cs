@@ -9,6 +9,8 @@ using RookieEShop.Shared;
 using System.Linq;
 using RookieEShop.BackEnd.Models;
 using System.Collections.Generic;
+using RookieEShop.BackEnd.Repositories;
+using RookieEShop.BackEnd.Services;
 
 namespace RookieEShop.BackEnd.Tests.Controller.Categories
 {
@@ -28,7 +30,10 @@ namespace RookieEShop.BackEnd.Tests.Controller.Categories
             var dbContext = _fixture.Context;
             var category = new CategoryCreateRequest { Name = "Test category" };
 
-            var controller = new CategoryController(dbContext);
+            var categoryRepository = new CategoryRepository(dbContext);
+            var categoryService = new CategoryService(categoryRepository);
+            var controller = new CategoryController(categoryService);
+
             var result = await controller.PostCategory(category);
 
             var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result.Result);
@@ -40,20 +45,27 @@ namespace RookieEShop.BackEnd.Tests.Controller.Categories
         [Fact]
         public async Task GetCategory_Success()
 		{
+            //Arrange
             var dbContext = _fixture.Context;
             dbContext.Categories.Add(new Category { Name = "Test category" });
             await dbContext.SaveChangesAsync();
 
-            var controller = new CategoryController(dbContext);
-            var result = await controller.GetCategories();
+            var categoryRepository = new CategoryRepository(dbContext);
+            var categoryService = new CategoryService(categoryRepository);
+            var controller = new CategoryController(categoryService);
+            // Act
+            var result = await controller.GetAllCategory();
+            // Assert
+            var actionResultType = Assert.IsType<ActionResult<IEnumerable<CategoryVm>>>(result);
+            var actionResult = Assert.IsType<OkObjectResult>(result.Result);
 
-            var actionResult = Assert.IsType<ActionResult<IEnumerable<CategoryVm>>>(result);
-            Assert.NotEmpty(actionResult.Value);
+            Assert.NotEmpty(actionResult.Value as IEnumerable<CategoryVm>);
         }
 
         [Fact]
         public async Task PutCategory_Success()
 		{
+            //Arrange
             var dbContext = _fixture.Context;
             dbContext.Categories.Add(new Category { Name = "Test category" });
             await dbContext.SaveChangesAsync();
@@ -61,9 +73,14 @@ namespace RookieEShop.BackEnd.Tests.Controller.Categories
             var oldCategory = await dbContext.Categories.OrderByDescending(x => x.Id).FirstAsync();
             var category = new CategoryCreateRequest { Name = "Test put category" };
 
-            var controller = new CategoryController(dbContext);
+            var categoryRepository = new CategoryRepository(dbContext);
+            var categoryService = new CategoryService(categoryRepository);
+            var controller = new CategoryController(categoryService);
+
+            //Act
             var result = await controller.PutCategory(oldCategory.Id, category);
 
+            //Assert
             var returnValue = await dbContext.Categories.OrderByDescending(x => x.Id).FirstAsync();
             Assert.Equal("Test put category", returnValue.Name);
         }
@@ -77,7 +94,10 @@ namespace RookieEShop.BackEnd.Tests.Controller.Categories
 
             var oldCategory = await dbContext.Categories.OrderByDescending(x => x.Id).FirstAsync();
 
-            var controller = new CategoryController(dbContext);
+            var categoryRepository = new CategoryRepository(dbContext);
+            var categoryService = new CategoryService(categoryRepository);
+            var controller = new CategoryController(categoryService);
+
             var result = await controller.DeleteCategory(oldCategory.Id);
 
             var returnValue = await dbContext.Categories.ToListAsync();
