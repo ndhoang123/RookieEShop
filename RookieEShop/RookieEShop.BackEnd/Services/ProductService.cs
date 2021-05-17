@@ -15,17 +15,17 @@ namespace RookieEShop.BackEnd.Services
 			_productRepository = productRepository;
 		}
 
-		public async Task<IEnumerable<Product>> ListAllProduct()
+		public async Task<IEnumerable<ProductVm>> ListAllProduct()
 		{
 			return await _productRepository.ListAllProduct();
 		}
 
-		public async Task<Product> ListDetailProduct(int id)
+		public async Task<ProductVm> ListDetailProduct(int id)
 		{
 			return await _productRepository.ListDetailProduct(id);
 		}
 
-		public async Task<IList<ProductVm>> GetProductByCategory(int categoryiD)
+		public async Task<IEnumerable<ProductVm>> GetProductByCategory(int categoryiD)
 		{
 			return await _productRepository.GetProductByCategory(categoryiD);
 		}

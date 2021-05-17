@@ -7,11 +7,11 @@ namespace RookieEShop.BackEnd.Repositories
 {
 	public interface IProductRepository
 	{
-		public Task<IEnumerable<Product>> ListAllProduct();
+		public Task<IEnumerable<ProductVm>> ListAllProduct();
 
-		public Task<Product> ListDetailProduct(int id);
+		public Task<ProductVm> ListDetailProduct(int id);
 
-		public Task<IList<ProductVm>> GetProductByCategory(int categoryiD);
+		public Task<IEnumerable<ProductVm>> GetProductByCategory(int categoryiD);
 
 		public Task<bool> CreateProduct(Product product);
 

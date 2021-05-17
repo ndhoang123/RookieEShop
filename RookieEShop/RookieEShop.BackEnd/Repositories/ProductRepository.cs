@@ -20,17 +20,50 @@ namespace RookieEShop.BackEnd.Repositories
 			_storageService = storageService;
 		}
 
-		public async Task<IEnumerable<Product>> ListAllProduct()
+		public async Task<IEnumerable<ProductVm>> ListAllProduct()
 		{
-			return await _context.Products.ToListAsync();
+			var productList = await _context.Products.ToListAsync();
+
+			var productListVm = productList.Select(x => new ProductVm
+			{
+				Id = x.Id,
+				Name = x.Name,
+				Price = x.Price,
+				Author = x.Author,
+				Year = x.Year,
+				Publisher = x.Publisher,
+				Description = x.Description,
+				ThumbnailImageUrl = _storageService.GetFileUrl(x.ImageFileName)
+			}).ToList();
+
+			return productListVm;
 		}
 
-		public async Task<Product> ListDetailProduct(int id)
+		public async Task<ProductVm> ListDetailProduct(int id)
 		{
-			return await _context.Products.FindAsync(id);
+			var detailProduct = await _context.Products.FindAsync(id);
+			
+			if(detailProduct == null)
+			{
+				return null;
+			}
+
+			var ProductVm = new ProductVm
+			{
+				Id = detailProduct.Id,
+				Description = detailProduct.Description,
+				Name = detailProduct.Name,
+				Price = detailProduct.Price,
+				Publisher = detailProduct.Publisher,
+				Year = detailProduct.Year,
+				Author = detailProduct.Author,
+				ThumbnailImageUrl = _storageService.GetFileUrl(detailProduct.ImageFileName)
+			};
+
+			return ProductVm;
 		}
 
-		public async Task<IList<ProductVm>> GetProductByCategory(int categoryiD)
+		public async Task<IEnumerable<ProductVm>> GetProductByCategory(int categoryiD)
 		{
 			var product = await _context.Products.Where(x => x.CategoryID == categoryiD).ToListAsync();
 
