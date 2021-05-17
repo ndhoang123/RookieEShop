@@ -7,9 +7,9 @@ namespace RookieEShop.BackEnd.Repositories
 {
 	public interface IRatingRepository
 	{
-		public Task<IEnumerable<Rating>> GetAllRating();
+		public Task<IEnumerable<RatingVm>> GetAllRating();
 
-		public Task<Rating> GetRatingById(int id);
+		public Task<RatingVm> GetRatingById(int id);
 
 		public Task<RatingResultVm> GetRatingResult(int productId);
 

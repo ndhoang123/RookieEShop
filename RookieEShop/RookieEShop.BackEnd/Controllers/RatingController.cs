@@ -32,15 +32,14 @@ namespace RookieEShop.BackEnd.Controllers
 		[AllowAnonymous]
 		public async Task<ActionResult<IEnumerable<RatingVm>>> GetRating()
 		{
-			var ratingList = await _ratingService.ListRating();
+			var ratingListVm = await _ratingService.ListRating();
 
-			var list = ratingList.Select(x => new RatingVm
+			if(ratingListVm == null)
 			{
-				Id = x.Id,
-				Val = x.Val
-			}).ToList();
+				return StatusCode(404);
+			}
 
-			return list;
+			return Ok(ratingListVm);
 		}
 
 		[HttpGet("(Id)")]
@@ -49,20 +48,14 @@ namespace RookieEShop.BackEnd.Controllers
 		{
 			if (id <= 0) return StatusCode(400);
 
-			var rating = await _ratingService.DetailRating(id);
+			var ratingVm = await _ratingService.DetailRating(id);
 
-			if (rating == null)
+			if (ratingVm == null)
 			{
 				return NotFound();
 			}
 
-			var RatingVm = new RatingVm
-			{
-				Id = rating.Id,
-				Val = rating.Val
-			};
-
-			return RatingVm;
+			return Ok(ratingVm);
 		}
 
 		[HttpGet("{productId}")]

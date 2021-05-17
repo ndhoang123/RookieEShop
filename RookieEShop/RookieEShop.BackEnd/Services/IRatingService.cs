@@ -7,9 +7,9 @@ namespace RookieEShop.BackEnd.Services
 {
 	public interface IRatingService
 	{
-		public Task<IEnumerable<Rating>> ListRating();
+		public Task<IEnumerable<RatingVm>> ListRating();
 
-		public Task<Rating> DetailRating(int id);
+		public Task<RatingVm> DetailRating(int id);
 
 		public Task<RatingResultVm> TotalRating(int productId);
 

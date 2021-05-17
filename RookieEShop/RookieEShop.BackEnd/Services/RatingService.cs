@@ -17,12 +17,12 @@ namespace RookieEShop.BackEnd.Services
 			_ratingRepository = ratingRepository;
 		}
 
-		public async Task<IEnumerable<Rating>> ListRating()
+		public async Task<IEnumerable<RatingVm>> ListRating()
 		{
 			return await _ratingRepository.GetAllRating();
 		}
 
-		public async Task<Rating> DetailRating(int id)
+		public async Task<RatingVm> DetailRating(int id)
 		{
 			return await _ratingRepository.GetRatingById(id);
 		}

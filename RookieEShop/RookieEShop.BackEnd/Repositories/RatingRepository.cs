@@ -21,14 +21,30 @@ namespace RookieEShop.BackEnd.Repositories
 			_httpContextAccessor = httpContextAccessor;
 		}
 
-		public async Task<IEnumerable<Rating>> GetAllRating()
+		public async Task<IEnumerable<RatingVm>> GetAllRating()
 		{
-			return await _dbContext.Ratings.ToListAsync();
+			var listRating = await _dbContext.Ratings.ToListAsync();
+
+			var list = listRating.Select(x => new RatingVm
+			{
+				Id = x.Id,
+				Val = x.Val
+			}).ToList();
+
+			return list;
 		}
 
-		public async Task<Rating> GetRatingById(int id)
+		public async Task<RatingVm> GetRatingById(int id)
 		{
-			return await _dbContext.Ratings.FindAsync(id);
+			var listIdRating = await _dbContext.Ratings.FindAsync(id);
+
+			var RatingVm = new RatingVm
+			{
+				Id = listIdRating.Id,
+				Val = listIdRating.Val
+			};
+
+			return RatingVm;
 		}
 
 		public async Task<RatingResultVm> GetRatingResult(int productId)
