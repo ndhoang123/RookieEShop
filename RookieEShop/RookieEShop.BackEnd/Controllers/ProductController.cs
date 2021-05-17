@@ -81,7 +81,8 @@ namespace RookieEShop.BackEnd.Controllers
 				Publisher = productCreateRequest.Publisher,
 				Year = productCreateRequest.Year,
 				Description = productCreateRequest.Description,
-				CategoryID = productCreateRequest.CategoryId
+				CategoryID = productCreateRequest.CategoryId,
+				IsDisableProduct = false
 			};
 
 			if (productCreateRequest.ThumbnailImage != null)
@@ -104,7 +105,7 @@ namespace RookieEShop.BackEnd.Controllers
 
 		[HttpPut("{id}")]
 		[AllowAnonymous]
-		public async Task<IActionResult> PutProduct(int id, [FromForm]ProductCreateRequest productRequest)
+		public async Task<IActionResult> PutProduct(int id, [FromForm]ProductEditRequest productRequest)
 		{
 			if(id <= 0) return StatusCode(400);
 
@@ -115,7 +116,8 @@ namespace RookieEShop.BackEnd.Controllers
 				Author = productRequest.Author,
 				Publisher = productRequest.Publisher,
 				Year = productRequest.Year,
-				Description = productRequest.Description
+				Description = productRequest.Description,
+				IsDisableProduct = productRequest.IsDisableProduct
 			};
 
 			var isEditedProduct = await _productService.EditProduct(id, createProduct);
