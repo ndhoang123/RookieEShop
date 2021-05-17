@@ -9,9 +9,9 @@ namespace RookieEShop.BackEnd.Services
 {
 	public interface ICategoryService
 	{
-		public Task<IEnumerable<Category>> ListAllCategory();
+		public Task<IEnumerable<CategoryVm>> ListAllCategory();
 
-		public Task<Category> ListDetailCategory(int id);
+		public Task<CategoryVm> ListDetailCategory(int id);
 
 		public Task<bool> CreateCategory(Category category);
 

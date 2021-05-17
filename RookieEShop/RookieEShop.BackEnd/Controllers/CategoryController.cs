@@ -28,13 +28,8 @@ namespace RookieEShop.BackEnd.Controllers
         public async Task<ActionResult<IEnumerable<CategoryVm>>> GetAllCategory()
         {
             var listCategory = await _categoryService.ListAllCategory();
-            var listCategoryVm = listCategory.Select(x => new CategoryVm
-            {
-                Id = x.Id,
-                Name = x.Name
-            }).ToList();
 
-            return listCategoryVm;
+            return Ok(listCategory);
         }
 
         [HttpGet("{id}")]
@@ -43,20 +38,14 @@ namespace RookieEShop.BackEnd.Controllers
         {
             if (id <= 0) return StatusCode(400);
 
-            var detailCategory = await _categoryService.ListDetailCategory(id);
+            var detailCategoryVm = await _categoryService.ListDetailCategory(id);
 
-            if(detailCategory == null)
+            if(detailCategoryVm == null)
 			{
                 return NotFound();
 			}
 
-            var categoryVm = new CategoryVm
-            {
-                Id = detailCategory.Id,
-                Name = detailCategory.Name
-            };
-
-            return categoryVm;
+            return Ok(detailCategoryVm);
         }
 
         [HttpPut("{id}")]

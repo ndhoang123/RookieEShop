@@ -9,9 +9,9 @@ namespace RookieEShop.BackEnd.Repositories
 {
 	public interface ICategoryRepository
 	{
-		Task<IEnumerable<Category>> ReadAllCategory();
+		Task<IEnumerable<CategoryVm>> ReadAllCategory();
 
-		Task<Category> ReadDetailCategory(int id);
+		Task<CategoryVm> ReadDetailCategory(int id);
 
 		Task<bool> CreateCategory(Category category);
 

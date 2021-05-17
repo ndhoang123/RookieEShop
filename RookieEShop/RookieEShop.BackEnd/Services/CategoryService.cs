@@ -17,12 +17,12 @@ namespace RookieEShop.BackEnd.Services
 			_categoryRepository = categoryRepository;
 		}
 
-		public async Task<IEnumerable<Category>> ListAllCategory()
+		public async Task<IEnumerable<CategoryVm>> ListAllCategory()
 		{
 			return await _categoryRepository.ReadAllCategory();
 		}
 
-		public async Task<Category> ListDetailCategory(int id)
+		public async Task<CategoryVm> ListDetailCategory(int id)
 		{
 			return await _categoryRepository.ReadDetailCategory(id);
 		}

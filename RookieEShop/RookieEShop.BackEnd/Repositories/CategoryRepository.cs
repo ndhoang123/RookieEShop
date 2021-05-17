@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RookieEShop.BackEnd.Data;
 using RookieEShop.BackEnd.Models;
+using RookieEShop.Shared;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RookieEShop.BackEnd.Repositories
@@ -15,14 +17,29 @@ namespace RookieEShop.BackEnd.Repositories
 			_dbContext = dbContext;
 		}
 
-		public async Task<IEnumerable<Category>> ReadAllCategory()
+		public async Task<IEnumerable<CategoryVm>> ReadAllCategory()
 		{
-			return await _dbContext.Categories.ToListAsync();
+			var listCategory = await _dbContext.Categories.ToListAsync();
+
+			var listCategoryVm = listCategory.Select(x => new CategoryVm
+			{
+				Id = x.Id,
+				Name = x.Name
+			}).ToList();
+
+			return listCategoryVm;
 		}
 
-		public async Task<Category> ReadDetailCategory(int id)
+		public async Task<CategoryVm> ReadDetailCategory(int id)
 		{
-			return await _dbContext.Categories.FindAsync(id);
+			var detailCategory = await _dbContext.Categories.FindAsync(id);
+			var categoryVm = new CategoryVm
+			{
+				Id = detailCategory.Id,
+				Name = detailCategory.Name
+			};
+
+			return categoryVm;
 		}
 
 		public async Task<bool> CreateCategory(Category category)
