@@ -1,10 +1,6 @@
 # RookieEShop
 RookieEShop is a e-commerce website, where user can view and afford book.
 
-## Azure Demo Link
-- [CustomerSite](http://customersite-ndhoang123.azurewebsites.net/) || [Backend](https://backend-ndhoang123.azurewebsites.net/) || [AdminSite](https://sandhoang123.z23.web.core.windows.net) 
-- For Adminsite, use email: abc@gmail.com, password: @Binheo123 to sign in the admin site
-
 ## LogicArchitecture
 
 ![LogicArchitecture](imgforReadme/assignment-architecture.PNG)
@@ -20,6 +16,9 @@ The main programming language is Csharp, with .Net (5.0) framework, SQL Server, 
 - Register account
 #### Signed-in user
 - Rate product
+- Comment , including image and word (Comming soon)
+- Cart (Comming soon)
+- Ordering (Comming soon)
 #### Admin (Must authentication)
 - Modify, create products
 - Modify, create categories
