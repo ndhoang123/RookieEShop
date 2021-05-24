@@ -10,6 +10,8 @@ namespace RookieEShop.Shared
 	{
 		public int Val { get; set; }
 
+		public string Comment { get; set; }
+
 		public int ProductId { get; set; }
 	}
 }
