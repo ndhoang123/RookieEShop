@@ -22,7 +22,9 @@ namespace RookieEShop.BackEnd.Repositories
 
 		public async Task<IEnumerable<ProductVm>> ListAllProduct()
 		{
-			var productList = await _context.Products.ToListAsync();
+			var productList = await _context.Products
+				.Where(x => x.IsDisableProduct.Equals(false))
+				.ToListAsync();
 
 			var productListVm = productList.Select(x => new ProductVm
 			{
