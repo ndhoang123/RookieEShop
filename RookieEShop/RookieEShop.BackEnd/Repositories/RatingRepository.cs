@@ -28,7 +28,8 @@ namespace RookieEShop.BackEnd.Repositories
 			var list = listRating.Select(x => new RatingVm
 			{
 				Id = x.Id,
-				Val = x.Val
+				Val = x.Val,
+				Comment = x.Comment
 			}).ToList();
 
 			return list;
@@ -41,7 +42,8 @@ namespace RookieEShop.BackEnd.Repositories
 			var RatingVm = new RatingVm
 			{
 				Id = listIdRating.Id,
-				Val = listIdRating.Val
+				Val = listIdRating.Val,
+				Comment = listIdRating.Comment
 			};
 
 			return RatingVm;
@@ -54,6 +56,7 @@ namespace RookieEShop.BackEnd.Repositories
 				{
 					Id = x.Id,
 					Val = x.Val,
+					Comment = x.Comment,
 					UserName = x.User.UserName
 				})
 				.ToListAsync();
@@ -66,7 +69,6 @@ namespace RookieEShop.BackEnd.Repositories
 				CountResult = listRating.Count,
 				ListRating = listRating
 			};
-
 
 			return resultList;
 		}
