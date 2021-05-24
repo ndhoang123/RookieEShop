@@ -53,12 +53,13 @@ namespace RookieEShop.FrontEnd.Controllers
 
 		[Authorize]
 		[HttpPost("[controller]/{id}")]
-		public async Task<IActionResult> ProductRating(int val, int productId)
+		public async Task<IActionResult> ProductRating(int val, int productId, string comment)
 		{
 			RatingCreateRequest ratingCreateRequest = new RatingCreateRequest
 			{
 				Val = val,
 				ProductId = productId,
+				Comment = comment
 			};
 
 			var productRating = await _ratingApiClient.PostRating(ratingCreateRequest);
