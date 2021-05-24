@@ -217,6 +217,9 @@ namespace RookieEShop.BackEnd.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -357,7 +360,7 @@ namespace RookieEShop.BackEnd.Migrations
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Product", b =>
                 {
                     b.HasOne("RookieEShop.BackEnd.Models.Category", "Category")
-                        .WithMany("products")
+                        .WithMany("Products")
                         .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -368,7 +371,7 @@ namespace RookieEShop.BackEnd.Migrations
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Rating", b =>
                 {
                     b.HasOne("RookieEShop.BackEnd.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("Rating")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -384,7 +387,12 @@ namespace RookieEShop.BackEnd.Migrations
 
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Category", b =>
                 {
-                    b.Navigation("products");
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("RookieEShop.BackEnd.Models.Product", b =>
+                {
+                    b.Navigation("Rating");
                 });
 #pragma warning restore 612, 618
         }

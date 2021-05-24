@@ -12,6 +12,8 @@ namespace RookieEShop.BackEnd.Models
 
 		public int Val { get; set; }
 
+		public string Comment { get; set; }
+
 		[ForeignKey("User")]
 		public string UserId { get; set; }
 
