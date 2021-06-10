@@ -2,6 +2,7 @@
 using RookieEShop.BackEnd.Data;
 using RookieEShop.BackEnd.Models;
 using RookieEShop.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,13 +20,11 @@ namespace RookieEShop.BackEnd.Repositories
 
 		public async Task<IEnumerable<CategoryVm>> ReadAllCategory()
 		{
-			var listCategory = await _dbContext.Categories.ToListAsync();
-
-			var listCategoryVm = listCategory.Select(x => new CategoryVm
+			var listCategoryVm = await _dbContext.Categories.Select(x => new CategoryVm
 			{
 				Id = x.Id,
 				Name = x.Name
-			}).ToList();
+			}).AsNoTracking().ToListAsync();
 
 			return listCategoryVm;
 		}

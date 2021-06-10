@@ -23,16 +23,16 @@ namespace RookieEShop.BackEnd.Repositories
 
 		public async Task<IEnumerable<RatingVm>> GetAllRating()
 		{
-			var listRating = await _dbContext.Ratings.ToListAsync();
-
-			var list = listRating.Select(x => new RatingVm
+			var listRating = await _dbContext.Ratings.Select(x => new RatingVm
 			{
 				Id = x.Id,
 				Val = x.Val,
 				Comment = x.Comment
-			}).ToList();
+			})
+				.AsNoTracking()
+				.ToListAsync();
 
-			return list;
+			return listRating;
 		}
 
 		public async Task<RatingVm> GetRatingById(int id)
@@ -51,7 +51,8 @@ namespace RookieEShop.BackEnd.Repositories
 
 		public async Task<RatingResultVm> GetRatingResult(int productId)
 		{
-			var listRating = await _dbContext.Ratings.Where(item => item.ProductId == productId).Include(item => item.User)
+			var listRating = await _dbContext.Ratings.Where(item => item.ProductId == productId)
+				.Include(item => item.User)
 				.Select(x => new RatingVm
 				{
 					Id = x.Id,
@@ -59,6 +60,7 @@ namespace RookieEShop.BackEnd.Repositories
 					Comment = x.Comment,
 					UserName = x.User.UserName
 				})
+				.AsNoTracking()
 				.ToListAsync();
 
 			var avgRating = listRating.Sum(item => item.Val) / listRating.Count;

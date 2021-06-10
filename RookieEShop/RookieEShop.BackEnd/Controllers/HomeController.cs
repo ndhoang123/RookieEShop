@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RookieEShop.BackEnd.Models;
+using RookieEShop.BackEnd.Repositories;
 using System.Diagnostics;
 
 namespace RookieEShop.BackEnd.Controllers
