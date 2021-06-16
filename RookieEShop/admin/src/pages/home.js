@@ -20,6 +20,7 @@ import history from "../helpers/history";
 import SigninOidc from "../pages/auth/Signin-oidc";
 import SignoutOdic from "../pages/auth/Signout-oidc";
 import PrivateRouter from "../helpers/PrivateRoute";
+import Footer from "../components/Footer";
 
 const sidebar = () => {
   return (
@@ -74,26 +75,31 @@ const sidebar = () => {
               {" "}
               <Switch>
 
-                <Route path="/signin-oidc" component={SigninOidc}/>
+                <Route exact path={HOME_PAGE}>
+                  <h2>Welcome back, my admin!</h2>
+                </Route>
+                <Route path={LIST_CATEGORY}>
+                  <ListCategory />
+                </Route>
+                <Route path={EDIT_CATEGORY}>
+                  <EditCategories />
+                </Route>
+                <Route path={CREATE_CATEGORY}>
+                  <EditCategories />
+                </Route>
+                <Route path={LIST_USER}>
+                  <ListUser />
+                </Route>
+                <Route path={LIST_PRODUCT}>
+                  <ListProduct />
+                </Route>
+                <Route path={EDIT_PRODUCT}>
+                  <EditProducts />
+                </Route>
+                <Route path={CREATE_PRODUCT}>
+                  <EditProducts />
+                </Route>
 
-                <Route path="/signout-oidc" component={SignoutOdic}/>
-
-                <PrivateRouter exact path={HOME_PAGE} component={Home} />
-
-                <PrivateRouter path={LIST_CATEGORY} component={ListCategory} />
-
-                <PrivateRouter path={EDIT_CATEGORY} component={EditCategories} />
-
-                <PrivateRouter path={CREATE_CATEGORY} component={EditCategories} />
-
-                <PrivateRouter path={LIST_USER} component={ListUser} />
-
-                <PrivateRouter path={LIST_PRODUCT} component={ListProduct} />
-
-                <PrivateRouter path={EDIT_PRODUCT} component={EditProducts} />
-
-                <PrivateRouter path={CREATE_PRODUCT} component={EditProducts} />
-                
               </Switch>
             </div>
           </div>
