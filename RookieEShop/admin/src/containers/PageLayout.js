@@ -7,6 +7,7 @@ export default function PageLayout({ header, nav, content }) {
       <Row className="h-100">
         <Col className="pt-3" xs={2}>
           {nav}
+          <footer>Copyright &copy; 2021</footer>
         </Col>
         <Col className="p-4" style={{ backgroundColor: "#fafafa" }} xs={10}>
           <div className="bg-white h-100 rounded p-3">{content}</div>

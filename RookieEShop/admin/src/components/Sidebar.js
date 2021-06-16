@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Nav, NavItem, NavLink } from "reactstrap";
+import Footer from "./Footer";
 
 export default function SideBar() {
   return (
