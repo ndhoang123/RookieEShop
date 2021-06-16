@@ -85,7 +85,8 @@ namespace RookieEShop.BackEnd.Controllers
 			{
 				Val = ratingCreateRequest.Val,
 				ProductId = ratingCreateRequest.ProductId,
-				UserId = userId
+				UserId = userId,
+				Comment = ratingCreateRequest.Comment
 			};
 
 			if(await _ratingService.CreateRating(rating))

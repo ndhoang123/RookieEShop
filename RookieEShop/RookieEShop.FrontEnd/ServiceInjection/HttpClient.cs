@@ -11,7 +11,7 @@ namespace RookieEShop.FrontEnd.ServiceInjection
 	{
 		public static IServiceCollection AddConfigHttpClient(this IServiceCollection services, IConfiguration configuration)
 		{
-			Startup.HostUri = configuration["HostAzureUrls:Host"].ToString();
+			Startup.HostUri = configuration["HostUrls:Host"].ToString();
 
 			services.AddHttpClient();
 

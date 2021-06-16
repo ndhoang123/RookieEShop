@@ -22,7 +22,10 @@ namespace RookieEShop.BackEnd.Repositories
 
 		public async Task<IEnumerable<ProductVm>> ListAllProduct()
 		{
-			var productList = await _context.Products.ToListAsync();
+			var productList = await _context.Products
+				.Where(x => x.IsDisableProduct.Equals(false))
+				.AsNoTracking()
+				.ToListAsync();
 
 			var productListVm = productList.Select(x => new ProductVm
 			{
@@ -34,7 +37,8 @@ namespace RookieEShop.BackEnd.Repositories
 				Publisher = x.Publisher,
 				Description = x.Description,
 				ThumbnailImageUrl = _storageService.GetFileUrl(x.ImageFileName)
-			}).ToList();
+			})
+				.ToList();
 
 			return productListVm;
 		}
@@ -65,7 +69,9 @@ namespace RookieEShop.BackEnd.Repositories
 
 		public async Task<IEnumerable<ProductVm>> GetProductByCategory(int categoryiD)
 		{
-			var product = await _context.Products.Where(x => x.CategoryID == categoryiD).ToListAsync();
+			var product = await _context.Products.Where(x => x.CategoryID == categoryiD)
+				.AsNoTracking()				
+				.ToListAsync();
 
 			if (product == null)
 			{
