@@ -4,10 +4,10 @@ import { host } from "../config";
 const config = {
     authority: host,
     client_id: "oidc-react",
-    redirect_uri: "https://sandhoang123.z23.web.core.windows.net/signin-oidc",
+    redirect_uri: "http://localhost:3000/signin-oidc",
     response_type: "id_token token",
     scope: "openid profile rookieEShop.API",
-    post_logout_redirect_uri: "https://sandhoang123.z23.web.core.windows.net/signout-oidc",
+    post_logout_redirect_uri: "http://localhost:3000/signout-oidc",
 };
 
 const userManager = new UserManager(config);
