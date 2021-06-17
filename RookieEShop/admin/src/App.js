@@ -9,15 +9,30 @@ import SideBar from "./components/Sidebar";
 import { BrowserRouter as Router } from "react-router-dom";
 import PageLayout from "./containers/PageLayout";
 import Routes from "./route";
+import { Provider } from "react-redux";
+import store from './store';
+import userManager, { loadUserFromStorage } from "./services/authServices";
+import AuthProvider from "./ultis/authProvider";
 
-const App = () => (
-  <Router>
-    <PageLayout 
-      header={<Header/>}
-      nav={<SideBar footer={<Footer />}/>}
-      content={<Routes/>}
-    />
-  </Router>
-)
+function App() {
+  React.useEffect(() => {
+    // fetch current user from cookies
+    loadUserFromStorage(store);
+  }, []);
+
+  return (
+    <Provider store={store}>
+      <AuthProvider userManager={userManager} store={store}>
+        <Router>
+          <PageLayout
+            header={<Header />}
+            nav={<SideBar footer={<Footer />} />}
+            content={<Routes />}
+          />
+        </Router>
+      </AuthProvider>
+    </Provider>
+  )
+}
 
 export default App;

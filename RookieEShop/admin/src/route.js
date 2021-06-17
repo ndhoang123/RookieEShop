@@ -9,7 +9,7 @@ import {
     CREATE_PRODUCT,
     HOME_PAGE,
   } from "./constants/page";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import ListCategory from "./pages/categories/ListCategories";
 import EditCategories from "./pages/categories/EditCategories";
 import ListProduct from "./pages/products/ListProducts";
@@ -20,6 +20,7 @@ import SigninOidc from "./pages/auth/Signin-oidc";
 import SignoutOidc from "./pages/auth/Signout-oidc";
 import PrivateRoute from "./ultis/protectedRoute";
 import Login from "./pages/auth/Login";
+import HomePage from './pages/home';
 
 function Routes(props) {
     return (
@@ -27,35 +28,17 @@ function Routes(props) {
             <Route path="/login" component={Login}/>
             <Route path="/signin-oidc" component={SigninOidc}/>
             <Route path="/signout-oidc" component={SignoutOidc}/>
-            <Redirect exact from="/" to="/" />
 
-            <PrivateRoute path="/categories" component={ListCategory}/>
-            <PrivateRoute path="/products" component={ListProduct}/>
-            <PrivateRoute path="/users" component={ListUser} />
-            {/* <Route exact path={HOME_PAGE}>
-                <h2>Welcome back, my admin!</h2>
-            </Route>
-            <Route path={LIST_CATEGORY}>
-                <ListCategory />
-            </Route>
-            <Route path={EDIT_CATEGORY}>
-                <EditCategories />
-            </Route>
-            <Route path={CREATE_CATEGORY}>
-                <EditCategories />
-            </Route>
-            <Route path={LIST_USER}>
-                <ListUser />
-            </Route>
-            <Route path={LIST_PRODUCT}>
-                <ListProduct />
-            </Route>
-            <Route path={EDIT_PRODUCT}>
-                <EditProducts />
-            </Route>
-            <Route path={CREATE_PRODUCT}>
-                <EditProducts />
-            </Route> */}
+            <PrivateRoute exact path={HOME_PAGE} component={HomePage}/>
+            <PrivateRoute path={LIST_CATEGORY} component={ListCategory}/>
+            <PrivateRoute path={EDIT_CATEGORY} component={EditCategories}/>
+            <PrivateRoute path={CREATE_CATEGORY} component={EditCategories}/>
+            
+            <PrivateRoute path={LIST_PRODUCT} component={ListProduct}/>
+            <PrivateRoute path={EDIT_PRODUCT} component={EditProducts}/>
+            <PrivateRoute path={CREATE_PRODUCT} component={EditProducts}/>
+
+            <PrivateRoute path={LIST_USER} component={ListUser} />
         </Switch>
     );
 }
