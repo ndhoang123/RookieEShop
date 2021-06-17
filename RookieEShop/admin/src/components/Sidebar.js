@@ -1,9 +1,17 @@
 import { Link } from "react-router-dom";
 import { Nav, NavItem, NavLink } from "reactstrap";
+import Footer from "./Footer";
 
 export default function SideBar() {
   return (
     <Nav vertical>
+      <NavItem>
+        <NavLink>
+          <Link className="text-decoration-none" to="/">
+            Home
+          </Link>
+        </NavLink>
+      </NavItem>
       <NavItem>
         <NavLink>
           <Link className="text-decoration-none" to="/Product">
@@ -13,7 +21,7 @@ export default function SideBar() {
       </NavItem>
       <NavItem>
         <NavLink>
-          <Link className="text-decoration-none" to="/">
+          <Link className="text-decoration-none" to="/Category">
             Categories
           </Link>
         </NavLink>

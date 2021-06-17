@@ -1,36 +1,33 @@
-import React, { useState } from 'react';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  NavbarText
-} from 'reactstrap';
+import React from "react";
+import { Button } from "reactstrap";
+//
+import { useSelector } from "react-redux";
+import { signoutRedirect } from "../services/authServices";
 
-const Header = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
+export default function Header() {
+  const user = useSelector((state) => state.auth.user);
+  console.log(user);
 
-  const toggle = () => setIsOpen(!isOpen);
+  const signOut = () => signoutRedirect();
 
   return (
-    <div>
-      <Navbar color="primary" light expand="md">
-        <NavbarBrand href="/">RookieEshop.Admin</NavbarBrand>
-        <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
-            <NavItem>
-              <NavLink href="/components/">Components</NavLink>
-            </NavItem>
-          </Nav>
-          <NavbarText>Simple Text</NavbarText>
-        </Collapse>
-      </Navbar>
+    <div className="clearfix">
+      <div className="float-left">
+        <img width="40" src="./logo192.png" alt="" />
+      </div>
+      {user && (
+        <div className="float-right ">
+          <span>Hello, {user?.profile.name}</span>
+          <Button
+            color="link"
+            onClick={signOut}
+            className="pl-3 text-danger"
+            size="sm"
+          >
+            Sign Out
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
-
-export default Header;
