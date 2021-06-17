@@ -19,7 +19,6 @@ namespace RookieEShop.BackEnd.Controllers
             _context = context;
         }
 
-
         [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<User>>> GetCustomers()

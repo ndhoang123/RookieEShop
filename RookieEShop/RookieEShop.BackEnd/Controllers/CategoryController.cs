@@ -49,7 +49,6 @@ namespace RookieEShop.BackEnd.Controllers
         }
 
         [HttpPut("{id}")]
-        [AllowAnonymous]
         public async Task<IActionResult> PutCategory(int id, CategoryCreateRequest categoryCreateRequest)
         {
             if (id <= 0) return StatusCode(400);
@@ -74,7 +73,6 @@ namespace RookieEShop.BackEnd.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<ActionResult<CategoryVm>> PostCategory([FromForm]CategoryCreateRequest categoryCreateRequest)
         {
             var category = new Category
@@ -96,7 +94,6 @@ namespace RookieEShop.BackEnd.Controllers
         }
 
         [HttpDelete("{id}")]
-        [AllowAnonymous]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             if (id <= 0) return StatusCode(400);
