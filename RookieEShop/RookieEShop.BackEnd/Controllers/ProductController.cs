@@ -70,7 +70,6 @@ namespace RookieEShop.BackEnd.Controllers
 		}
 
 		[HttpPost]
-		[AllowAnonymous]
 		public async Task<ActionResult<ProductVm>> PostProduct([FromForm]ProductCreateRequest productCreateRequest)
 		{
 			var product = new Product
@@ -104,7 +103,6 @@ namespace RookieEShop.BackEnd.Controllers
 		}
 
 		[HttpPut("{id}")]
-		[AllowAnonymous]
 		public async Task<IActionResult> PutProduct(int id, [FromForm]ProductEditRequest productRequest)
 		{
 			if(id <= 0) return StatusCode(400);
@@ -134,7 +132,6 @@ namespace RookieEShop.BackEnd.Controllers
 		}
 
 		[HttpDelete("{id}")]
-		[AllowAnonymous]
 		public async Task<IActionResult> DeleteProduct(int id)
 		{
 			var isDeletedProduct = await _productService.DeleteProduct(id);
