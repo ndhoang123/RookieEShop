@@ -6,20 +6,20 @@ import {
     LOADING_USER,
 } from "../constants/auth";
 
-export default function userStore(user) {
+export function userStore(user) {
     return {
         type: STORE_USER,
         payload: user
     }
 };
 
-export default function userLoading() {
+export function userLoading() {
     return {
         type: LOADING_USER
     }
 };
 
-export default function userSignedOut() {
+export function userSignedOut() {
     return {
         type: USER_SIGNED_OUT
     }

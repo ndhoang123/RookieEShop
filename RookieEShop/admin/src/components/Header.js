@@ -6,6 +6,7 @@ import { signoutRedirect } from "../services/authServices";
 
 export default function Header() {
   const user = useSelector((state) => state.auth.user);
+  console.log(user);
 
   const signOut = () => signoutRedirect();
 

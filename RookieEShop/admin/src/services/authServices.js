@@ -1,4 +1,4 @@
-import  { UserManager } from "oidc-client";
+import { UserManager } from "oidc-client";
 import { host } from "../config";
 
 const config = {
@@ -17,7 +17,7 @@ export async function loadUserFromStorage() {
     return user;
 }
 
-export function signinRedirect(){
+export function signinRedirect() {
     return userManager.signinRedirect();
 }
 
@@ -25,13 +25,13 @@ export function signinRedirectCallback() {
     return userManager.signinRedirectCallback();
 }
 
-export function signoutRedirect(){
+export function signoutRedirect() {
     userManager.clearStaleState();
     userManager.removeUser();
     return userManager.signoutRedirect();
 }
 
-export function signoutRedirectCallback(){
+export function signoutRedirectCallback() {
     userManager.clearStaleState();
     userManager.removeUser();
     return userManager.signoutRedirectCallback();
