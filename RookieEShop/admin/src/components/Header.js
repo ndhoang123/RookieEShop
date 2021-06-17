@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "reactstrap";
 //
 import { useSelector } from "react-redux";
-import { signoutRedirect } from "../services/authService";
+import { signoutRedirect } from "../services/authServices";
 
 export default function Header() {
   const user = useSelector((state) => state.auth.user);
