@@ -7,6 +7,13 @@ export default function SideBar() {
     <Nav vertical>
       <NavItem>
         <NavLink>
+          <Link className="text-decoration-none" to="/">
+            Home
+          </Link>
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink>
           <Link className="text-decoration-none" to="/Product">
             Products
           </Link>
@@ -14,7 +21,7 @@ export default function SideBar() {
       </NavItem>
       <NavItem>
         <NavLink>
-          <Link className="text-decoration-none" to="/">
+          <Link className="text-decoration-none" to="/Category">
             Categories
           </Link>
         </NavLink>
