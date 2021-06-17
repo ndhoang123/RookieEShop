@@ -15,11 +15,24 @@ import EditCategories from "./pages/categories/EditCategories";
 import ListProduct from "./pages/products/ListProducts";
 import EditProducts from './pages/products/EditProducts';
 import ListUser from "./pages/users/ListUsers";
+//authen
+import SigninOidc from "./pages/auth/Signin-oidc";
+import SignoutOidc from "./pages/auth/Signout-oidc";
+import PrivateRoute from "./ultis/protectedRoute";
+import Login from "./pages/auth/Login";
 
 function Routes(props) {
     return (
         <Switch>
-            <Route exact path={HOME_PAGE}>
+            <Route path="/login" component={Login}/>
+            <Route path="/signin-oidc" component={SigninOidc}/>
+            <Route path="/signout-oidc" component={SignoutOidc}/>
+            <Redirect exact from="/" to="/" />
+
+            <PrivateRoute path="/categories" component={ListCategory}/>
+            <PrivateRoute path="/products" component={ListProduct}/>
+            <PrivateRoute path="/users" component={ListUser} />
+            {/* <Route exact path={HOME_PAGE}>
                 <h2>Welcome back, my admin!</h2>
             </Route>
             <Route path={LIST_CATEGORY}>
@@ -42,7 +55,7 @@ function Routes(props) {
             </Route>
             <Route path={CREATE_PRODUCT}>
                 <EditProducts />
-            </Route>
+            </Route> */}
         </Switch>
     );
 }
