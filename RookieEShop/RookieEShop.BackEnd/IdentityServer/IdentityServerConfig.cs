@@ -83,7 +83,7 @@ namespace RookieEShop.BackEnd.IdentityServer
                 new Client
                 {
                     ClientId = "oidc-react",
-                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    ClientUri = "http://localhost:3000",
 
                     AllowedGrantTypes = GrantTypes.Implicit,
                     RequireClientSecret = false,
