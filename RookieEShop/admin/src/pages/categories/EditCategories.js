@@ -9,15 +9,11 @@ const EditCategories = ({ match }) => {
 
   const [categoryId, setCategoryId] = useState(match.params.id);
 
-  const [Category, setCategory] = useState({
-    name: " "
-  });
   const [name, setName] = useState("");
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      //name: Category.name ? Category.name : " "
       name: name ? name : " "
     },
 
@@ -83,7 +79,7 @@ const EditCategories = ({ match }) => {
           color="primary">
           Submit
         </Button>{' '}
-        
+
         <Button
           onClick={() => history.goBack()}
           color="danger">
