@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Label, Input } from 'reactstrap';
+import { Form, Button, Label, Input, FormGroup } from 'reactstrap';
 import { useFormik } from "formik";
 import categories from './categories';
 import { withRouter } from "react-router-dom";
@@ -9,13 +9,16 @@ const EditCategories = ({ match }) => {
 
   const [categoryId, setCategoryId] = useState(match.params.id);
 
-  const [Category, setCategory] = useState({});
-  
+  const [Category, setCategory] = useState({
+    name: " "
+  });
+  const [name, setName] = useState("");
+
   const formik = useFormik({
-    enableReinitialize : true,
+    enableReinitialize: true,
     initialValues: {
-      Id: Category.Id,
-      name: Category.Name
+      //name: Category.name ? Category.name : " "
+      name: name ? name : " "
     },
 
     onSubmit: async (values) => {
@@ -26,7 +29,7 @@ const EditCategories = ({ match }) => {
 
         let isCreate = categoryId === undefined ? true : false;
 
-        if(isCreate){
+        if (isCreate) {
           const form = new FormData();
           form.append("Name", values.name);
           await categories.create(form);
@@ -43,41 +46,52 @@ const EditCategories = ({ match }) => {
 
   useEffect(() => {
 
-    async function fetchdate(){
+    async function fetchdate() {
 
-    setCategoryId(match.params.id);
+      setCategoryId(match.params.id);
 
-    if (categoryId !== undefined) {
-      await fetchCategory(categoryId);
-      console.log(formik.initialValues);
+      if (categoryId !== undefined) {
+        await fetchCategory(categoryId);
+        console.log(formik.initialValues.name);
+      }
+
     }
-    
-  }
 
-  fetchdate();
+    fetchdate();
 
   }, [match.params.id]);
 
   const fetchCategory = async (itemId) => {
 
-    console.log(categories.get(itemId));
+    var data = await categories.get(itemId);
 
-    setCategory(await (await categories.get(itemId)).data)
+    console.log(name);
+    setName(data.name);
+    //  setCategory(await (await categories.get(itemId)).data)
 
   };
-  
+
   return (
     <Form onSubmit={formik.handleSubmit}>
-      <Label htmlFor="exampleAddress">ID</Label>
-      <Input type="number" name="Id" id="ID" onChange={formik.handleChange} value={categoryId} disabled/>
+      <FormGroup row>
+        <Label htmlFor="exampleAddress2">Category name</Label>
+        <Input type="text" name="name" id="name" onChange={formik.handleChange} value={formik.values.name} />
+      </FormGroup>
 
-      <Label htmlFor="exampleAddress2">Category name</Label>
-      <Input type="text" name="name" id="name" onChange={formik.handleChange} value={formik.values.name}/>
-      <button type="submit">
-        Submit
-      </button>
+      <FormGroup check row>
+        <Button
+          color="primary">
+          Submit
+        </Button>{' '}
+        
+        <Button
+          onClick={() => history.goBack()}
+          color="danger">
+          Cancel
+        </Button>
+      </FormGroup>
     </Form>
-    );
+  );
 }
 
-export default EditCategories;
+export default withRouter(EditCategories);
