@@ -16,7 +16,7 @@ The main programming language is Csharp, with .Net (5.0) framework, SQL Server, 
 - Register account
 #### Signed-in user
 - Rate product
-- Comment , including image and word (Comming soon)
+- Comment, including image and word (Only comment by word: Updated 27/06/2021)
 - Cart (Comming soon)
 - Ordering (Comming soon)
 #### Admin (Must authentication)
