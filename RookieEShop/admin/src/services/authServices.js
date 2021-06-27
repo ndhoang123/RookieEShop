@@ -1,4 +1,5 @@
 import { UserManager } from "oidc-client";
+import { userStore } from "../actions/authAction";
 import { host } from "../config";
 
 const config = {
@@ -12,8 +13,9 @@ const config = {
 
 const userManager = new UserManager(config);
 
-export async function loadUserFromStorage() {
+export async function loadUserFromStorage(store) {
     let user = await userManager.getUser();
+    store.dispatch(userStore(user));
     return user;
 }
 

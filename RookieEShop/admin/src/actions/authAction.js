@@ -8,6 +8,7 @@ import {
 import { setAuthHeader } from "../ultis/anxiosHeader";
 
 export function userStore(user) {
+    console.log(user);
     setAuthHeader(user.access_token);
     return {
         type: STORE_USER,
