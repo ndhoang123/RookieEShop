@@ -62,7 +62,8 @@ namespace RookieEShop.BackEnd.Areas.Identity.Pages.Account
 				{
                     var clientIdTemp = logoutContext.ClientIds.ToArray()[0];
                     var referrer = IdentityServerConfig.Clients(_configuration).Where(item => item.ClientId == clientIdTemp).First();
-                    if (referrer != null) return this.Redirect(referrer.FrontChannelLogoutUri);
+                    string urlCallBack = referrer.PostLogoutRedirectUris.First();
+                    if (referrer != null) return this.Redirect(urlCallBack);
                     return Page();
                 }
 			}

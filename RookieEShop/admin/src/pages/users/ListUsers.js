@@ -32,8 +32,8 @@ const ListUser = () => {
                 <td>{item.userName}</td>
                 <td>{item.email}</td>
                 <td className="text-right">
-                  <Button color="btn btn-primary">Enable</Button>
-                  <Button class="danger">Block</Button>
+                  <Button color="btn btn-primary"><i class="fas fa-unlock">Enable</i></Button>{' '}
+                  <Button color="danger"><i class="fas fa-lock">Block</i></Button>
                 </td>
               </tr>
             );

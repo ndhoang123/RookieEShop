@@ -1,4 +1,4 @@
-import http from "../anxiosConfig";
+import http from "axios";
 
 class categories {
   pathSer = "api/Category";
@@ -8,7 +8,7 @@ class categories {
   }
 
   get(id) {
-    return http.get(this.pathSer + "/" + id);
+    return http.get(this.pathSer + "/" + id).then(res=>{return res.data});
   }
 
   edit(id, objectEdit) {

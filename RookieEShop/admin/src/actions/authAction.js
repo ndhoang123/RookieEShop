@@ -5,8 +5,11 @@ import {
     STORE_USER_ERROR,
     LOADING_USER,
 } from "../constants/auth";
+import { setAuthHeader } from "../ultis/anxiosHeader";
 
 export function userStore(user) {
+    console.log(user);
+    setAuthHeader(user.access_token);
     return {
         type: STORE_USER,
         payload: user
