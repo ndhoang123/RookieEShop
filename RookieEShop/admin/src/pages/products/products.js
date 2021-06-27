@@ -1,4 +1,4 @@
-import http from "../anxiosConfig";
+import http from "axios";
 
 class products {
   pathSer = "api/Product";

@@ -1,9 +1,6 @@
-import Axios from 'axios';
+import axios from 'axios';
 import { host } from "../config";
 
-const anxiosConfig = Axios.create({
-    baseURL: host,
-    // baseURL: "https://rookieeshop.azurewebsites.net/",
-  });
-  
-export default anxiosConfig;
+export default function httpClient(){
+  axios.defaults.baseURL = host;
+}
