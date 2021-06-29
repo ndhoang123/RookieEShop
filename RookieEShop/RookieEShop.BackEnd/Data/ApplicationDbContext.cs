@@ -51,7 +51,10 @@ namespace RookieEShop.BackEnd.Data
 				.WithOne(x => x.Cart)
 				.HasForeignKey<Cart>(x => x.UserId);
 
-
+			modelBuilder.Entity<Ordering>()
+				.HasOne<Cart>(s => s.Cart)
+				.WithOne(x => x.Order)
+				.HasForeignKey<Ordering>(x => x.CartId);
 
 			modelBuilder.Entity<User>()
 				.ToTable("AspNetUsers");

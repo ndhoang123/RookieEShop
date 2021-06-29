@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RookieEShop.BackEnd.Models
 {
-	public class Cart
+	public class Ordering
 	{
 		public int Id { get; set; }
+
+		public int TotalMoney { get; set; }
+
+		public int NumberOfStuff { get; set; }
+
+		public string StatusCart { get; set; }
 
 		[ForeignKey("User")]
 		public string UserId { get; set; }
@@ -20,6 +22,8 @@ namespace RookieEShop.BackEnd.Models
 
 		public Product Product { get; set; }
 
-		public Ordering Order { get; set; }
+		public int CartId { get; set; }
+
+		public Cart Cart { get; set; }
 	}
 }
