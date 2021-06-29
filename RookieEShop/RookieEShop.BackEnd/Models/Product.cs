@@ -30,5 +30,9 @@ namespace RookieEShop.BackEnd.Models
 		public Category Category { get; set; }
 
 		public ICollection<Rating> Rating { get; set; }
+
+		public ICollection<Ordering> Orderings { get; set; }
+
+		public ICollection<Cart> Carts { get; set; }
 	}
 }

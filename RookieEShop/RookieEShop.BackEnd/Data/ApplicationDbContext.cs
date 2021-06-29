@@ -12,6 +12,8 @@ namespace RookieEShop.BackEnd.Data
 		
 		public DbSet<Rating> Ratings { get; set; }
 
+		public DbSet<Ordering> Orderings { get; set; }
+
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)
 		{
@@ -35,6 +37,21 @@ namespace RookieEShop.BackEnd.Data
 				.HasOne<Product>(s => s.Product)
 				.WithMany(g => g.Rating)
 				.HasForeignKey(s => s.ProductId);
+
+			modelBuilder.Entity<Cart>()
+				.HasKey(x => new { x.ProductId });
+
+			modelBuilder.Entity<Cart>()
+				.HasOne<Product>(x => x.Product)
+				.WithMany(s => s.Carts)
+				.HasForeignKey(s => s.ProductId);
+
+			modelBuilder.Entity<Cart>()
+				.HasOne<User>(s => s.User)
+				.WithOne(x => x.Cart)
+				.HasForeignKey<Cart>(x => x.UserId);
+
+
 
 			modelBuilder.Entity<User>()
 				.ToTable("AspNetUsers");

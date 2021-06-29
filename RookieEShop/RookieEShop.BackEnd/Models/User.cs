@@ -12,6 +12,10 @@ namespace RookieEShop.BackEnd.Models
         {
         }
 
+        public Ordering Order { get; set; }
+
+        public Cart Cart { get; set; }
+
         [PersonalData]
         public string FullName { get; set; }
     }
