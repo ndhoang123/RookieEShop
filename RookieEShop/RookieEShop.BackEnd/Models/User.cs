@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace RookieEShop.BackEnd.Models
 {
@@ -12,7 +13,7 @@ namespace RookieEShop.BackEnd.Models
         {
         }
 
-        public Ordering Order { get; set; }
+        public ICollection<Ordering> Orderings { get; set; }
 
         public Cart Cart { get; set; }
 

@@ -9,10 +9,12 @@ namespace RookieEShop.BackEnd.Data
 		public DbSet<Category> Categories { get; set; }
 
 		public DbSet<Product> Products { get; set; }
-		
+
 		public DbSet<Rating> Ratings { get; set; }
 
 		public DbSet<Ordering> Orderings { get; set; }
+
+		public DbSet<Cart> Carts { get; set; }
 
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)
@@ -51,10 +53,17 @@ namespace RookieEShop.BackEnd.Data
 				.WithOne(x => x.Cart)
 				.HasForeignKey<Cart>(x => x.UserId);
 
+			modelBuilder.Entity<Ordering>().HasKey(x => new { x.UserId });
+
 			modelBuilder.Entity<Ordering>()
 				.HasOne<Cart>(s => s.Cart)
 				.WithOne(x => x.Order)
 				.HasForeignKey<Ordering>(x => x.CartId);
+
+			modelBuilder.Entity<Ordering>()
+				.HasOne<User>(s => s.User)
+				.WithMany(x => x.Orderings)
+				.HasForeignKey(x => x.UserId);
 
 			modelBuilder.Entity<User>()
 				.ToTable("AspNetUsers");
