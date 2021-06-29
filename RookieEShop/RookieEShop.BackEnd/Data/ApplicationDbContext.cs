@@ -41,7 +41,7 @@ namespace RookieEShop.BackEnd.Data
 				.HasForeignKey(s => s.ProductId);
 
 			modelBuilder.Entity<Cart>()
-				.HasKey(x => new { x.ProductId });
+				.HasKey(x => new { x.Id });
 
 			modelBuilder.Entity<Cart>()
 				.HasOne<Product>(x => x.Product)
@@ -53,7 +53,7 @@ namespace RookieEShop.BackEnd.Data
 				.WithOne(x => x.Cart)
 				.HasForeignKey<Cart>(x => x.UserId);
 
-			modelBuilder.Entity<Ordering>().HasKey(x => new { x.UserId });
+			modelBuilder.Entity<Ordering>().HasKey(x => new { x.Id });
 
 			modelBuilder.Entity<Ordering>()
 				.HasOne<Cart>(s => s.Cart)

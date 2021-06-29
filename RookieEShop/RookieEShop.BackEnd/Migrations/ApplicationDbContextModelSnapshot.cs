@@ -156,16 +156,20 @@ namespace RookieEShop.BackEnd.Migrations
 
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Cart", b =>
                 {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.HasIndex("UserId")
                         .IsUnique()
@@ -191,13 +195,12 @@ namespace RookieEShop.BackEnd.Migrations
 
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Ordering", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CartId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<int>("NumberOfStuff")
@@ -209,10 +212,15 @@ namespace RookieEShop.BackEnd.Migrations
                     b.Property<int>("TotalMoney")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("CartId")
                         .IsUnique();
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orderings");
                 });
@@ -432,9 +440,7 @@ namespace RookieEShop.BackEnd.Migrations
 
                     b.HasOne("RookieEShop.BackEnd.Models.User", "User")
                         .WithMany("Orderings")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Cart");
 
