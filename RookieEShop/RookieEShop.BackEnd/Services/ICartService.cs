@@ -10,6 +10,6 @@ namespace RookieEShop.BackEnd.Services
 	{
 		public Task<IEnumerable<CartVm>> GetAllList();
 
-		public Task<CartVm> GetDetailList();
+		public Task<CartVm> GetDetailList(int id);
 	}
 }
