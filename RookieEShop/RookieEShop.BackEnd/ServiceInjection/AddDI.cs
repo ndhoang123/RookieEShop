@@ -15,6 +15,8 @@ namespace RookieEShop.BackEnd.ServiceInjection
 			services.AddTransient<IRatingRepository, RatingRepository>();
 			services.AddTransient<IProductService, ProductService>();
 			services.AddTransient<IProductRepository, ProductRepository>();
+			services.AddTransient<ICartService, CartService>();
+			services.AddTransient<ICartRepository, CartRepository>();
 
 			return services;
 		}
