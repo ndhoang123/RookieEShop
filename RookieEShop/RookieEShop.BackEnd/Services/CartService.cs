@@ -1,4 +1,5 @@
-﻿using RookieEShop.BackEnd.Repositories;
+﻿using RookieEShop.BackEnd.Models;
+using RookieEShop.BackEnd.Repositories;
 using RookieEShop.Shared;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,11 @@ namespace RookieEShop.BackEnd.Services
 		public async Task<CartVm> GetDetailList(int id)
 		{
 			return await _cartRepository.GetDetailCart(id);
+		}
+
+		public async Task<bool> CreateCart(Cart cart)
+		{
+			return await _cartRepository.CreateCart(cart);
 		}
 	}
 }

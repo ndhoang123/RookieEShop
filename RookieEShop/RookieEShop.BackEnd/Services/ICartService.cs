@@ -1,4 +1,5 @@
-﻿using RookieEShop.Shared;
+﻿using RookieEShop.BackEnd.Models;
+using RookieEShop.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,7 @@ namespace RookieEShop.BackEnd.Services
 		public Task<IEnumerable<CartVm>> GetAllList();
 
 		public Task<CartVm> GetDetailList(int id);
+
+		public Task<bool> CreateCart(Cart cart);
 	}
 }
