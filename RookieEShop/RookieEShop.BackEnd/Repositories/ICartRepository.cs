@@ -14,5 +14,7 @@ namespace RookieEShop.BackEnd.Repositories
 		Task<CartVm> GetDetailCart(int id);
 
 		Task<bool> CreateCart(Cart cart);
+
+		Task<bool> DeleteCart(int id);
 	}
 }

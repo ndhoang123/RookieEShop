@@ -61,5 +61,27 @@ namespace RookieEShop.BackEnd.Repositories
 				return false;
 			}
 		}
+
+		public async Task<bool> DeleteCart(int id)
+		{
+			var cart = await _dbContext.Carts
+								.Where(x => x.Id.Equals(id))
+								.AsNoTracking()
+								.SingleAsync();
+
+			if (cart == null) return false;
+
+			_dbContext.Carts.Remove(cart);
+
+			if(await _dbContext.SaveChangesAsync() > 0)
+			{
+				return true;
+			}
+
+			else
+			{
+				return false;
+			}
+		}
 	}
 }
