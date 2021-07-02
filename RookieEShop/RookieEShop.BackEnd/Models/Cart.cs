@@ -21,5 +21,7 @@ namespace RookieEShop.BackEnd.Models
 		public Product Product { get; set; }
 
 		public Ordering Order { get; set; }
+
+		public int Quantity { get; set; }
 	}
 }
