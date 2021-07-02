@@ -56,7 +56,8 @@ namespace RookieEShop.BackEnd.Controllers
 			var cart = new Cart
 			{
 				UserId = userId,
-				ProductId = request.productId
+				ProductId = request.productId,
+				Quantity = 1
 			};
 
 			if(await _cartService.CreateCart(cart))

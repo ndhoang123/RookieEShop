@@ -49,6 +49,8 @@ namespace RookieEShop.BackEnd.Repositories
 
 		public async Task<bool> CreateCart(Cart cart)
 		{
+			cart.Quantity = countDuplicatedItem(cart.ProductId);
+
 			_dbContext.Carts.Add(cart);
 
 			if (await _dbContext.SaveChangesAsync() > 0)
@@ -82,6 +84,21 @@ namespace RookieEShop.BackEnd.Repositories
 			{
 				return false;
 			}
+		}
+
+		private int countDuplicatedItem(int productId)
+		{
+			var duplicatedItem = _dbContext.Carts
+									.Where(x => x.ProductId.Equals(productId))
+									.AsNoTracking()
+									.Count();
+
+			if (duplicatedItem > 0)
+			{
+				return duplicatedItem + 1;
+			}
+			
+			return 1;
 		}
 	}
 }
