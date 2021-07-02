@@ -69,5 +69,21 @@ namespace RookieEShop.BackEnd.Controllers
 				return StatusCode(404);
 			}
 		}
+
+		[HttpDelete("{id}")]
+		public async Task<ActionResult> RemoveItemInCart(int id)
+		{
+			if (id < 1) return BadRequest();
+
+			if(await _cartService.DeleteCart(id))
+			{
+				return StatusCode(204);
+			}
+
+			else
+			{
+				return NotFound();
+			}
+		}
 	}
 }
