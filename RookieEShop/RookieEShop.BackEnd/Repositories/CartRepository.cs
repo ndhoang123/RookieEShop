@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RookieEShop.BackEnd.Data;
+using RookieEShop.BackEnd.Models;
 using RookieEShop.Shared;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,21 @@ namespace RookieEShop.BackEnd.Repositories
 				.SingleAsync();
 
 			return detailCart;
+		}
+
+		public async Task<bool> CreateCart(Cart cart)
+		{
+			_dbContext.Carts.Add(cart);
+
+			if (await _dbContext.SaveChangesAsync() > 0)
+			{
+				return true;
+			}
+
+			else
+			{
+				return false;
+			}
 		}
 	}
 }
