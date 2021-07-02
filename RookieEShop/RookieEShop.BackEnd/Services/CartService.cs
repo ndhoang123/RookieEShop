@@ -31,5 +31,10 @@ namespace RookieEShop.BackEnd.Services
 		{
 			return await _cartRepository.CreateCart(cart);
 		}
+
+		public async Task<bool> DeleteCart(int id)
+		{
+			return await _cartRepository.DeleteCart(id);
+		}
 	}
 }

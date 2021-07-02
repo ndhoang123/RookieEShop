@@ -14,5 +14,7 @@ namespace RookieEShop.BackEnd.Services
 		public Task<CartVm> GetDetailList(int id);
 
 		public Task<bool> CreateCart(Cart cart);
+
+		public Task<bool> DeleteCart(int id);
 	}
 }
