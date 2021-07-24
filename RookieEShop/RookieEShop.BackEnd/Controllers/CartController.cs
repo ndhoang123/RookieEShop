@@ -57,12 +57,26 @@ namespace RookieEShop.BackEnd.Controllers
 			{
 				UserId = userId,
 				ProductId = request.productId,
-				Quantity = 1
+				Quantity = request.quantity
 			};
 
 			if(await _cartService.CreateCart(cart))
 			{
 				return StatusCode(201);
+			}
+
+			else
+			{
+				return StatusCode(404);
+			}
+		}
+
+		[HttpPut("{id}")]
+		public async Task<ActionResult> UpdateCart(int id, CartEdit edit)
+		{
+			if (await _cartService.UpdateCart(id, edit))
+			{
+				return StatusCode(204);
 			}
 
 			else
