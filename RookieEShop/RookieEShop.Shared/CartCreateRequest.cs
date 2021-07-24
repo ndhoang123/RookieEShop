@@ -9,5 +9,7 @@ namespace RookieEShop.Shared
 	public class CartCreateRequest
 	{
 		public int productId { get; set; }
+
+		public int quantity { get; set; }
 	}
 }

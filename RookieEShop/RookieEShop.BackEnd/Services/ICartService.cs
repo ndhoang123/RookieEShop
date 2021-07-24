@@ -15,6 +15,8 @@ namespace RookieEShop.BackEnd.Services
 
 		public Task<bool> CreateCart(Cart cart);
 
+		public Task<bool> UpdateCart(int id, CartEdit edit);
+
 		public Task<bool> DeleteCart(int id);
 	}
 }
