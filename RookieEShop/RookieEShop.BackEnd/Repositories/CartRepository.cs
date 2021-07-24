@@ -24,7 +24,8 @@ namespace RookieEShop.BackEnd.Repositories
 			{
 				Id = x.Id,
 				ProductName = x.Product.Name,
-				UserName = x.User.UserName
+				UserName = x.User.UserName,
+				Quantity = x.Quantity
 			})
 				.AsNoTracking()
 				.ToListAsync();
@@ -38,7 +39,8 @@ namespace RookieEShop.BackEnd.Repositories
 			{
 				Id = x.Id,
 				ProductName = x.Product.Name,
-				UserName = x.User.UserName
+				UserName = x.User.UserName,
+				Quantity = x.Quantity
 			})
 				.Where(item => item.Id.Equals(id))
 				.AsNoTracking()
@@ -49,7 +51,6 @@ namespace RookieEShop.BackEnd.Repositories
 
 		public async Task<bool> CreateCart(Cart cart)
 		{
-			cart.Quantity = countDuplicatedItem(cart.ProductId);
 
 			_dbContext.Carts.Add(cart);
 
@@ -64,11 +65,28 @@ namespace RookieEShop.BackEnd.Repositories
 			}
 		}
 
+		public async Task<bool> UpdateQuantity(int id, CartEdit cart)
+		{
+			var itemCart = await _dbContext.Carts.Where(x => x.Id.Equals(id))
+									.SingleAsync();
+
+			itemCart.Quantity = cart.Quantity;
+
+			if(await _dbContext.SaveChangesAsync() > 0)
+			{
+				return true;
+			}
+
+			else
+			{
+				return false;
+			}
+		}
+
 		public async Task<bool> DeleteCart(int id)
 		{
 			var cart = await _dbContext.Carts
 								.Where(x => x.Id.Equals(id))
-								.AsNoTracking()
 								.SingleAsync();
 
 			if (cart == null) return false;
@@ -84,21 +102,6 @@ namespace RookieEShop.BackEnd.Repositories
 			{
 				return false;
 			}
-		}
-
-		private int countDuplicatedItem(int productId)
-		{
-			var duplicatedItem = _dbContext.Carts
-									.Where(x => x.ProductId.Equals(productId))
-									.AsNoTracking()
-									.Count();
-
-			if (duplicatedItem > 0)
-			{
-				return duplicatedItem + 1;
-			}
-			
-			return 1;
 		}
 	}
 }
