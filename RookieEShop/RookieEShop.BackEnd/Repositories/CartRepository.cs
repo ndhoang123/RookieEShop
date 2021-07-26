@@ -25,7 +25,10 @@ namespace RookieEShop.BackEnd.Repositories
 				Id = x.Id,
 				ProductName = x.Product.Name,
 				UserName = x.User.UserName,
-				Quantity = x.Quantity
+				Quantity = x.Quantity,
+				Price = x.Price,
+				ProductPrice = x.Product.Price,
+				ProductId = x.ProductId
 			})
 				.AsNoTracking()
 				.ToListAsync();
@@ -40,7 +43,10 @@ namespace RookieEShop.BackEnd.Repositories
 				Id = x.Id,
 				ProductName = x.Product.Name,
 				UserName = x.User.UserName,
-				Quantity = x.Quantity
+				Quantity = x.Quantity,
+				Price = x.Price,
+				ProductPrice = x.Product.Price,
+				ProductId = x.ProductId
 			})
 				.Where(item => item.Id.Equals(id))
 				.AsNoTracking()

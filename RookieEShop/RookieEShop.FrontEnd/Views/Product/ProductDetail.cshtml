@@ -36,27 +36,31 @@
 					<p class="card-text">Publisher: @Model.Publisher</p>
 					<h3 class="card-text"><strong>Price:</strong> @Model.Price VND</h3>
 					<p class="card-text"><strong>Description:</strong> @Model.Description</p>
-					@if (User.Identity.IsAuthenticated) {
-				<form asp-controller="Product" asp-action="ProductRating" method="post">
-					<input type="hidden" name="productId" value="@Model.Id" />
-					<b>Choose your rating: </b>
-					<div>
-						<fieldset class="rate">
-							<input type="radio" id="5-star" name="val" value="5" />
-							<label for="5-star" title="Amazing"><i class="fas fa-star"></i></label>
-							<input type="radio" id="4-star" name="val" value="4" />
-							<label for="4-star" title="Good"><i class="fas fa-star"></i></label>
-							<input type="radio" id="3-star" name="val" value="3" />
-							<label for="3-star" title="Average"><i class="fas fa-star"></i></label>
-							<input type="radio" id="2-star" name="val" value="2" />
-							<label for="2-star" title="Not Good"><i class="fas fa-star"></i></label>
-							<input type="radio" id="1-star" name="val" value="1" />
-							<label for="1-star" title="Bad"><i class="fas fa-star"></i></label>
-						</fieldset>
-					</div>
-					<textarea name="comment" placeholder="Please give me some real reviews!"></textarea>
-					<button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
-				</form>
+					@if (User.Identity.IsAuthenticated)
+					{
+						<form asp-controller="Product" asp-action="ProductRating" method="post">
+							<input type="hidden" name="productId" value="@Model.Id" />
+							<b>Choose your rating: </b>
+							<div>
+								<fieldset class="rate">
+									<input type="radio" id="5-star" name="val" value="5" />
+									<label for="5-star" title="Amazing"><i class="fas fa-star"></i></label>
+									<input type="radio" id="4-star" name="val" value="4" />
+									<label for="4-star" title="Good"><i class="fas fa-star"></i></label>
+									<input type="radio" id="3-star" name="val" value="3" />
+									<label for="3-star" title="Average"><i class="fas fa-star"></i></label>
+									<input type="radio" id="2-star" name="val" value="2" />
+									<label for="2-star" title="Not Good"><i class="fas fa-star"></i></label>
+									<input type="radio" id="1-star" name="val" value="1" />
+									<label for="1-star" title="Bad"><i class="fas fa-star"></i></label>
+								</fieldset>
+							</div>
+							<textarea name="comment" placeholder="Please give me some real reviews!"></textarea>
+							<button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+						</form>
+						<form asp-controller="Product" asp-action="AddCart" method="post">
+							<button type="submit" class="btn btn-success btn-lg btn-block">Add to Cart</button>
+						</form>
 					}
 				</div>
 			</div>
@@ -70,25 +74,25 @@
 			<div>
 				<div id="reviews">
 					<div class="col-sm-12">
-							@foreach (var rating in ViewBag.listRating)
-							{
-								<div>
-									@for (var star = 0; star < rating.Val; star++)
-									{
-										<span class="fas fa-star checked yellowcolor"></span>
-									}
-									@for (var star = 0; star < 5 - rating.Val; star++)
-									{
-										<span class="far fa-star"></span>
-									}
-								</div>
-								<p>@rating.UserName</p>
-								<p>@rating.Comment</p>
-							}
+						@foreach (var rating in ViewBag.listRating)
+						{
+							<div>
+								@for (var star = 0; star < rating.Val; star++)
+								{
+									<span class="fas fa-star checked yellowcolor"></span>
+								}
+								@for (var star = 0; star < 5 - rating.Val; star++)
+								{
+									<span class="far fa-star"></span>
+								}
+							</div>
+							<p>@rating.UserName</p>
+							<p>@rating.Comment</p>
+						}
 					</div>
 				</div>
 			</div>
-				
+
 
 		</div>
 	</div>

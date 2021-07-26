@@ -10,6 +10,8 @@ namespace RookieEShop.Shared
 	{
 		public int productId { get; set; }
 
-		public int quantity { get; set; }
+		public int Quantity { get; set; }
+
+		public decimal Price { get; set; }
 	}
 }

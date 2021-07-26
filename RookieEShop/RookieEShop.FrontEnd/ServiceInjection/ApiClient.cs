@@ -10,6 +10,7 @@ namespace RookieEShop.FrontEnd.ServiceInjection
 			services.AddTransient<IProductApiClient, ProductApiClient>();
 			services.AddTransient<ICategoryApiClient, CategoryApiClient>();
 			services.AddTransient<IRatingApiClient, RatingApiClient>();
+			services.AddTransient<ICartApiClient, CartApiClient>();
 			return services;
 		}
 	}

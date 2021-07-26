@@ -57,7 +57,8 @@ namespace RookieEShop.BackEnd.Controllers
 			{
 				UserId = userId,
 				ProductId = request.productId,
-				Quantity = request.Quantity
+				Quantity = request.Quantity,
+				Price = request.Price
 			};
 
 			if(await _cartService.CreateCart(cart))

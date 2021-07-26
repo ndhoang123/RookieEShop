@@ -2,6 +2,9 @@
 	@if (User.Identity.IsAuthenticated)
 	{
 		<li class="nav-item">
+			<a class="nav-link text-dark" asp-controller="Product" asp-action="GetCart"><i class="bi bi-cart">Cart</i></a>
+		</li>
+		<li class="nav-item">
 			<span class="navbar-text text-dark">Hello <a class="text-dark" asp-controller="Account" asp-action="MyProfile">@User.Identity.Name</a></span>
 		</li>
 		<li class="nav-item">
