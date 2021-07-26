@@ -23,5 +23,7 @@ namespace RookieEShop.BackEnd.Models
 		public Ordering Order { get; set; }
 
 		public int Quantity { get; set; }
+
+		public decimal Price { get; set; }
 	}
 }
