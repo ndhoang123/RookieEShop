@@ -39,7 +39,7 @@ namespace RookieEShop.FrontEnd
 
 			services.AddSession(options =>
 			{
-				options.IdleTimeout = TimeSpan.FromMinutes(30)
+				options.IdleTimeout = TimeSpan.FromMinutes(30);
 			});
 		}
 
@@ -64,6 +64,8 @@ namespace RookieEShop.FrontEnd
 
 			app.UseAuthentication();
 			app.UseAuthorization();
+
+			app.UseSession();
 
 			app.UseEndpoints(endpoints =>
 			{
