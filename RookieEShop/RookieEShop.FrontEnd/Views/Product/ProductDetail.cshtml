@@ -5,7 +5,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-4">
-				<img class="bd-placeholder-img card-img-top" src="https://backend-ndhoang123.azurewebsites.net/@Model.ThumbnailImageUrl" />
+				<img class="bd-placeholder-img card-img-top" src="https://localhost:44305/@Model.ThumbnailImageUrl" />
 			</div>
 			<div class="col">
 				<div class="card-body">
@@ -58,9 +58,10 @@
 							<textarea name="comment" placeholder="Please give me some real reviews!"></textarea>
 							<button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
 						</form>
-						<form asp-controller="Product" asp-action="AddCart" method="post">
-							<button type="submit" class="btn btn-success btn-lg btn-block">Add to Cart</button>
-						</form>
+						@*<form asp-controller="Product" asp-action="AddItem" asp-route-id="@Model.Id">
+								<button type="submit" class="btn btn-success btn-lg btn-block">Add to Cart</button>
+							</form>*@
+						<a asp-controller="Cart" asp-action="AddItem" asp-route-id="@Model.Id">Add Order</a>
 					}
 				</div>
 			</div>
