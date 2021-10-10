@@ -35,7 +35,7 @@ namespace RookieEShop.FrontEnd.Services
 
 		public async Task<IList<CartVm>> GetDetailCart(int id)
 		{
-			var response = await _client.GetAsync("/api/Cart" + id.ToString());
+			var response = await _client.GetAsync("/api/Cart/" + id.ToString());
 
 			response.EnsureSuccessStatusCode();
 
@@ -69,7 +69,7 @@ namespace RookieEShop.FrontEnd.Services
 
 			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-			var response = await _client.PutAsJsonAsync("/api/Cart" + id.ToString(), edit);
+			var response = await _client.PutAsJsonAsync("/api/Cart/" + id.ToString(), edit);
 
 			response.EnsureSuccessStatusCode();
 

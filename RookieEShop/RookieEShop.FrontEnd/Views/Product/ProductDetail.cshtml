@@ -61,7 +61,7 @@
 						@*<form asp-controller="Product" asp-action="AddItem" asp-route-id="@Model.Id">
 								<button type="submit" class="btn btn-success btn-lg btn-block">Add to Cart</button>
 							</form>*@
-						<a asp-controller="Cart" asp-action="AddItem" asp-route-id="@Model.Id">Add Order</a>
+						<a class="nav-link text-dark" href="~/Product/ProductDetail?productId=@Model.Id">Add Order</a>
 					}
 				</div>
 			</div>

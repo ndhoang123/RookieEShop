@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http.Extensions;
+using System;
 using RookieEShop.FrontEnd.Services;
 using RookieEShop.Shared;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
+using Hanssens.Net;
+using Newtonsoft.Json;
 
 namespace RookieEShop.FrontEnd.Controllers
 {
@@ -33,7 +34,8 @@ namespace RookieEShop.FrontEnd.Controllers
 
 			var result = await _productApiClient.GetRatingResult(productId); // call api
 
-			if (result == null) {
+			if (result == null)
+			{
 
 				ViewBag.avgRating = 0;
 
@@ -75,7 +77,7 @@ namespace RookieEShop.FrontEnd.Controllers
 		}
 
 		[Authorize]
-		public async Task<IActionResult> ProductToCart(int id)
+		public async Task<IActionResult> ProductToCart(int id, int qty)
 		{
 			var cart = HttpContext.Session.GetString("Cart");
 
@@ -137,7 +139,7 @@ namespace RookieEShop.FrontEnd.Controllers
 			//	return NoContent();
 			//}
 
-			return RedirectToAction("Details", "Cart", new { id = product.Id });
+			return RedirectToAction("ProductDetails", "Product", new { id = id });
 		}
 	}
 }

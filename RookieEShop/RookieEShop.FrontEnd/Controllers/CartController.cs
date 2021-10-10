@@ -48,11 +48,9 @@ namespace RookieEShop.FrontEnd.Controllers
 			return View(response);
 		}
 
-
-
 		[Authorize]
-		[HttpPost("[controller]/{id}")]
-		public async Task<IActionResult> AddItem(int productId, decimal Price)
+		//[HttpPost("[controller]/{id}")]
+		public async Task<IActionResult> AddItem(int productId)
 		{
 			var cart = HttpContext.Session.GetString("Cart");
 
@@ -64,7 +62,7 @@ namespace RookieEShop.FrontEnd.Controllers
 					{
 						productId = productId,
 						Quantity = 1,
-						Price = Price
+						Price = 0
 					}
 				};
 				HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(item));
@@ -90,7 +88,7 @@ namespace RookieEShop.FrontEnd.Controllers
 					{
 						productId = productId,
 						Quantity = 1,
-						Price = Price
+						Price = 0
 					});
 				}
 
