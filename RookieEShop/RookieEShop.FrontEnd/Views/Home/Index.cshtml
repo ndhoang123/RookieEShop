@@ -11,7 +11,7 @@
 					<img class="bd-placeholder-img card-img-top" src="https://localhost:44305/@product.ThumbnailImageUrl" />
 					<div class="card-body">
 						<h3 class="card-text">@product.Name</h3>
-						<p class="card-text"><strong>Price:</strong> @product.Price VND</p>
+						<p class="card-text"><strong>Price:</strong> @String.Concat(String.Format("{0:#,##0}", product.Price), "VND")</p>
 					</div>
 				</a>
 			</div>
