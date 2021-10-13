@@ -17,6 +17,7 @@ namespace RookieEShop.FrontEnd.Controllers
 	{
 		private readonly IProductApiClient _productApiClient;
 		private readonly IRatingApiClient _ratingApiClient;
+		public const string CARTKEY = "Cart";
 		public ProductController(IProductApiClient productApiClient, IRatingApiClient ratingApiClient)
 		{
 			_productApiClient = productApiClient;
@@ -76,70 +77,57 @@ namespace RookieEShop.FrontEnd.Controllers
 			return RedirectToAction("Details", "Product", new { id = productId });
 		}
 
-		[Authorize]
-		public async Task<IActionResult> ProductToCart(int id, int qty)
+		List<CartCreateRequest> GetCartItem()
 		{
-			var cart = HttpContext.Session.GetString("Cart");
-
-			var product = await _productApiClient.GetProductsById(id);
-
-			if (cart == null)
+			var session = HttpContext.Session;
+			string jsoncart = session.GetString("Cart");
+			if (jsoncart != null)
 			{
-				List<CartCreateRequest> item = new List<CartCreateRequest>()
-				{
-					new CartCreateRequest
-					{
-						productId = product.Id,
-						Quantity = 1,
-						Price = product.Price
-					}
-				};
+				return JsonConvert.DeserializeObject<List<CartCreateRequest>>(jsoncart);
+			}
+			return new List<CartCreateRequest>();
+		}
 
-				HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(item));
+		void SaveCartItem(List<CartCreateRequest> listCart)
+		{
+			var session = HttpContext.Session;
+			string jsoncart = JsonConvert.SerializeObject(listCart);
+			session.SetString("Cart", jsoncart);
+		}
+
+		[Authorize]
+		[Route("addcart/{productId:int}", Name = "addcart")]
+		private async Task<IActionResult> ProductToCart([FromRoute] int productId)
+		{
+			var product = await _productApiClient.GetProductsById(productId);
+
+			if (product == null)
+			{
+				return NotFound("Have no item. Try it again");
+			}
+
+			var cart = GetCartItem();
+			var cartItem = cart.Find(s => s.productId.Equals(productId));
+			if (cartItem != null)
+			{
+				cartItem.Quantity++;
 			}
 
 			else
 			{
-				List<CartCreateRequest> dataCart = JsonConvert.DeserializeObject<List<CartCreateRequest>>(cart);
-				bool check = true;
-				for (var i = 0; i < dataCart.Count; i++)
+				cart.Add(new CartCreateRequest
 				{
-					if (dataCart[i].productId == product.Id)
-					{
-						dataCart[i].Quantity++;
-						dataCart[i].Price = dataCart[i].Price + dataCart[i].Price;
-						check = false;
-					}
-				}
-
-				if (check)
-				{
-					dataCart.Add(new CartCreateRequest
-					{
-						productId = product.Id,
-						Quantity = 1,
-						Price = product.Price
-					});
-				}
-
-				HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(dataCart));
+					Quantity = 1,
+					productId = product.Id,
+					Price = product.Price
+				});
 			}
 
-			//CartCreateRequest request = new CartCreateRequest
-			//{
-			//	productId = productId,
-			//	Quantity = 1,
-			//	Price = Price
-			//};
+			Console.WriteLine(cart);
 
-			//var addItem = await _cartApiClient.AddNewItem(request);
-
-			//if (!addItem)
-			//{
-			//	return NoContent();
-			//}
-
-			return RedirectToAction("ProductDetails", "Product", new { id = id });
+			// Save Cart
+			SaveCartItem(cart);
+			return RedirectToAction(nameof(ProductDetail));
 		}
 	}
 }
