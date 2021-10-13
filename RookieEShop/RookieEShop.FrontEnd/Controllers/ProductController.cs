@@ -95,9 +95,9 @@ namespace RookieEShop.FrontEnd.Controllers
 			session.SetString("Cart", jsoncart);
 		}
 
-		[Authorize]
+
 		[Route("addcart/{productId:int}", Name = "addcart")]
-		private async Task<IActionResult> ProductToCart([FromRoute] int productId)
+		public async Task<IActionResult> ProductToCart([FromRoute] int productId)
 		{
 			var product = await _productApiClient.GetProductsById(productId);
 
@@ -111,6 +111,7 @@ namespace RookieEShop.FrontEnd.Controllers
 			if (cartItem != null)
 			{
 				cartItem.Quantity++;
+				System.Diagnostics.Debug.WriteLine("1" + cart);
 			}
 
 			else
@@ -121,9 +122,10 @@ namespace RookieEShop.FrontEnd.Controllers
 					productId = product.Id,
 					Price = product.Price
 				});
+				System.Diagnostics.Debug.WriteLine(cart);
 			}
 
-			Console.WriteLine(cart);
+			
 
 			// Save Cart
 			SaveCartItem(cart);
