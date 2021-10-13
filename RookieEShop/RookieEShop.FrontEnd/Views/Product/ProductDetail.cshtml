@@ -69,23 +69,9 @@
 								<input type="hidden" name="id" value="@Model.Id" />
 								<button type="submit" class="btn btn-primary btn-lg btn-block">Add to Cart</button>
 							</form>*@
-						@using (Html.BeginForm("ProductToCart", "Product", FormMethod.Post))
-						{
-							<div>
-								<a>@Model.Name</a>
-							</div>
-							<div>
-								<a>@String.Concat(String.Format("{0:#, ##0}", Model.Price), "VND")</a>
-							</div>
-							<div>
-								<a>Quality: </a><input id="qty" value="1" name="qty" type="number" min="1" max="100"/>
-								<input hidden name="ProductID" value="@Model.Id"/>
-								<input hidden value="false" name="isRating"/>
-							</div>
-							<div>
-								<button id="addCart" name="addCart" type="submit" onclick="successAlert('Thêm thành công <3', 'Gì cũng có mua hết tại TheFakeShop nha!')"><i class="btn btn-primary btn-lg btn-block"></i>Thêm vào giỏ hàng</button>
-							</div>
-						}
+						<a asp-route="addcart"
+						   asp-route-productId="@Model.Id"
+						   class="btn btn-secondary btn-sm float-right">Add to Cart</a>
 					}
 				</div>
 			</div>
