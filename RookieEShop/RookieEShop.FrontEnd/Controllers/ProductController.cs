@@ -18,6 +18,7 @@ namespace RookieEShop.FrontEnd.Controllers
 		private readonly IProductApiClient _productApiClient;
 		private readonly IRatingApiClient _ratingApiClient;
 		public const string CARTKEY = "Cart";
+		private const string URL = "/Product/ProductDetail?productId=";
 		public ProductController(IProductApiClient productApiClient, IRatingApiClient ratingApiClient)
 		{
 			_productApiClient = productApiClient;
@@ -27,6 +28,11 @@ namespace RookieEShop.FrontEnd.Controllers
 		public IActionResult Index()
 		{
 			return View();
+		}
+
+		private string AddressPage(string url, int productId)
+		{
+			return url + productId.ToString();
 		}
 
 		public async Task<IActionResult> ProductDetail(int productId)
@@ -68,14 +74,13 @@ namespace RookieEShop.FrontEnd.Controllers
 			};
 
 			var productRating = await _ratingApiClient.PostRating(ratingCreateRequest);
-			var url = "/Product/ProductDetail?productId=" + productId.ToString();
 
 			if (!productRating)
 			{
-				return Redirect(url);
+				return Redirect(AddressPage(URL, productId));
 			}
 
-			return Redirect(url);
+			return Redirect(AddressPage(URL, productId));
 		}
 
 		public List<CartCreateRequest> GetCartItem()
@@ -126,8 +131,7 @@ namespace RookieEShop.FrontEnd.Controllers
 
 			// Save Cart
 			SaveCartItem(cart);
-			var url = "/Product/ProductDetail?productId=" + productId.ToString();
-			return Redirect(url);
+			return Redirect(AddressPage(URL, productId));
 		}
 	}
 }
