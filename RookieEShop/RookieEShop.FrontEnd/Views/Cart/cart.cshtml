@@ -1,6 +1,8 @@
-﻿@model List<RookieEShop.Shared.CartCreateRequest>
+﻿@model List<RookieEShop.Shared.CartVm>
 
-<h2>GIỎ HÀNG</h2>
+@{ ViewData["Title"] = "Cart"}
+
+<h2>@ViewData["Title"]</h2>
 
 @if (Model.Count > 0)
 {
@@ -23,15 +25,16 @@
 
 			<tr>
 				<td>@(stt++)</td>
+				<td>@cartitem.ProductName</td>
 				<td>@(cartitem.Price.ToString("n0"))</td>
-				<td><input asp-for="@cartitem.Quantity" id="@($"quantity-{cartitem.productId}")" /></td>
+				<td><input asp-for="@cartitem.Quantity" id="@($"quantity-{cartitem.ProductId}")" /></td>
 				<td>@(thanhtien.ToString("n0"))</td>
 				<td>
 					<button class="btn btn-success updatecartitem"
-							data-productid="@cartitem.productId">
+							data-productid="@cartitem.ProductId">
 						Cập nhật
 					</button>
-					<a asp-route="removecart" asp-route-productid="@cartitem.productId"
+					<a asp-route="removecart" asp-route-productid="@cartitem.ProductId"
 					   class="btn btn-danger">Xóa</a>
 				</td>
 			</tr>
