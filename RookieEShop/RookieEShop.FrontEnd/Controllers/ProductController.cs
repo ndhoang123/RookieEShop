@@ -68,16 +68,17 @@ namespace RookieEShop.FrontEnd.Controllers
 			};
 
 			var productRating = await _ratingApiClient.PostRating(ratingCreateRequest);
+			var url = "/Product/ProductDetail?productId=" + productId.ToString();
 
 			if (!productRating)
 			{
-				return NoContent();
+				return Redirect(url);
 			}
 
-			return RedirectToAction("Details", "Product", new { id = productId });
+			return Redirect(url);
 		}
 
-		List<CartCreateRequest> GetCartItem()
+		public List<CartCreateRequest> GetCartItem()
 		{
 			var session = HttpContext.Session;
 			string jsoncart = session.GetString("Cart");
@@ -88,7 +89,7 @@ namespace RookieEShop.FrontEnd.Controllers
 			return new List<CartCreateRequest>();
 		}
 
-		void SaveCartItem(List<CartCreateRequest> listCart)
+		public void SaveCartItem(List<CartCreateRequest> listCart)
 		{
 			var session = HttpContext.Session;
 			string jsoncart = JsonConvert.SerializeObject(listCart);
@@ -111,7 +112,6 @@ namespace RookieEShop.FrontEnd.Controllers
 			if (cartItem != null)
 			{
 				cartItem.Quantity++;
-				System.Diagnostics.Debug.WriteLine("1" + cart);
 			}
 
 			else
@@ -122,14 +122,12 @@ namespace RookieEShop.FrontEnd.Controllers
 					productId = product.Id,
 					Price = product.Price
 				});
-				System.Diagnostics.Debug.WriteLine(cart);
 			}
-
-			
 
 			// Save Cart
 			SaveCartItem(cart);
-			return RedirectToAction(nameof(ProductDetail));
+			var url = "/Product/ProductDetail?productId=" + productId.ToString();
+			return Redirect(url);
 		}
 	}
 }

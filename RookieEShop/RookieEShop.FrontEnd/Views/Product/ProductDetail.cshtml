@@ -61,14 +61,6 @@
 							<textarea name="comment" placeholder="Please give me some real reviews!"></textarea>
 							<button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
 						</form>
-						@*<form asp-controller="Product" asp-action="AddItem" asp-route-id="@Model.Id">
-								<button type="submit" class="btn btn-success btn-lg btn-block">Add to Cart</button>
-							</form>*@
-						@*<a class="nav-link text-dark" href="~/Product/ProductDetail?productId=@Model.Id">Add Order</a>*@
-						@*<form asp-controller="Product" asp-action="ProductToCart" method="post">
-								<input type="hidden" name="id" value="@Model.Id" />
-								<button type="submit" class="btn btn-primary btn-lg btn-block">Add to Cart</button>
-							</form>*@
 						<a asp-route="addcart"
 						   asp-route-productId="@Model.Id"
 						   class="btn btn-secondary btn-sm float-right">Add to Cart</a>
