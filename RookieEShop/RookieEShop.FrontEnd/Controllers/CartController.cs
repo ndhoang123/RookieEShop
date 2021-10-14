@@ -33,15 +33,15 @@ namespace RookieEShop.FrontEnd.Controllers
 			return View(NotFound("No item"));
 		}
 
-		List<CartCreateRequest> GetAllCart()
+		List<CartVm> GetAllCart()
 		{
 			var session = HttpContext.Session;
 			string jsoncart = session.GetString("Cart");
 			if (jsoncart != null)
 			{
-				return JsonConvert.DeserializeObject<List<CartCreateRequest>>(jsoncart);
+				return JsonConvert.DeserializeObject<List<CartVm>>(jsoncart);
 			}
-			return new List<CartCreateRequest>();
+			return new List<CartVm>();
 
 		}
 
@@ -53,7 +53,7 @@ namespace RookieEShop.FrontEnd.Controllers
 		[HttpPost]
 		public IActionResult UpdateCart(int id, int qty)
 		{
-			var cart = HttpContext.Session.GetString("cart");
+			var cart = HttpContext.Session.GetString("Cart");
 
 			if(cart != null)
 			{
@@ -67,7 +67,7 @@ namespace RookieEShop.FrontEnd.Controllers
 							i.Quantity = qty;
 						}
 					}
-					HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(cartList));
+					HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cartList));
 				}
 				return Ok();
 			}
@@ -77,7 +77,7 @@ namespace RookieEShop.FrontEnd.Controllers
 
 		public IActionResult DeleteCart(int id)
 		{
-			var cart = HttpContext.Session.GetString("cart");
+			var cart = HttpContext.Session.GetString("Cart");
 			if(cart != null)
 			{
 				List<CartCreateRequest> listCart = JsonConvert.DeserializeObject<List<CartCreateRequest>>(cart);

@@ -83,18 +83,18 @@ namespace RookieEShop.FrontEnd.Controllers
 			return Redirect(AddressPage(URL, productId));
 		}
 
-		public List<CartCreateRequest> GetCartItem()
+		public List<CartVm> GetCartItem()
 		{
 			var session = HttpContext.Session;
 			string jsoncart = session.GetString("Cart");
 			if (jsoncart != null)
 			{
-				return JsonConvert.DeserializeObject<List<CartCreateRequest>>(jsoncart);
+				return JsonConvert.DeserializeObject<List<CartVm>>(jsoncart);
 			}
-			return new List<CartCreateRequest>();
+			return new List<CartVm>();
 		}
 
-		public void SaveCartItem(List<CartCreateRequest> listCart)
+		public void SaveCartItem(List<CartVm> listCart)
 		{
 			var session = HttpContext.Session;
 			string jsoncart = JsonConvert.SerializeObject(listCart);
@@ -113,7 +113,7 @@ namespace RookieEShop.FrontEnd.Controllers
 			}
 
 			var cart = GetCartItem();
-			var cartItem = cart.Find(s => s.productId.Equals(productId));
+			var cartItem = cart.Find(s => s.ProductId.Equals(productId));
 			if (cartItem != null)
 			{
 				cartItem.Quantity++;
@@ -121,11 +121,12 @@ namespace RookieEShop.FrontEnd.Controllers
 
 			else
 			{
-				cart.Add(new CartCreateRequest
+				cart.Add(new CartVm
 				{
 					Quantity = 1,
-					productId = product.Id,
-					Price = product.Price
+					ProductId = product.Id,
+					Price = product.Price,
+					ProductName = product.Name
 				});
 			}
 
