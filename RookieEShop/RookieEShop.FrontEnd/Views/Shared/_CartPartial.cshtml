@@ -10,4 +10,8 @@
 		var cart = JsonConvert.DeserializeObject<List<CartCreateRequest>>(jsoncart);
 		<div class="nav-item"><a asp-route="cart">Cart(@cart.Count)</a></div>
 	}
+	else
+	{
+		<div class="nav-item"><a asp-route="cart">Cart(0)</a></div>
+	}
 }

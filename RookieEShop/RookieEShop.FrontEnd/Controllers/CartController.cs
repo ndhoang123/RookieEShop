@@ -79,7 +79,7 @@ namespace RookieEShop.FrontEnd.Controllers
 		{
 			var session = HttpContext.Session;
 			session.Remove("Cart");
-			return View(GetAllCart());
+			return RedirectToAction(nameof(Cart));
 		}
 
 		[Route("/cart", Name ="cart")]
