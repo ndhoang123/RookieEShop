@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RookieEShop.FrontEnd.Services;
 using RookieEShop.Shared;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using RookieEShop.FrontEnd.Controllers;
 
 namespace RookieEShop.FrontEnd.Controllers
 {
@@ -21,16 +18,7 @@ namespace RookieEShop.FrontEnd.Controllers
 
 		public IActionResult Index()
 		{
-			var session = HttpContext.Session;
-			string jsonCart = session.GetString("Cart");
-			if(jsonCart != null)
-			{
-				var json = JsonConvert.DeserializeObject<List<CartCreateRequest>> (jsonCart);
-				ViewBag.json = json;
-				return View();
-			}
-
-			return View(NotFound("No item"));
+			return View();
 		}
 
 		List<CartVm> GetAllCart()
@@ -45,37 +33,35 @@ namespace RookieEShop.FrontEnd.Controllers
 
 		}
 
+		private void SaveCartItem(List<CartVm> ls)
+		{
+			var session = HttpContext.Session;
+			string jsonCart = JsonConvert.SerializeObject(ls);
+			session.SetString("Cart", jsonCart);
+		}
+
 		public IActionResult AllCart()
 		{
 			return View();
 		}
 
+		[Route("/updatecart", Name ="updatecart")]
 		[HttpPost]
-		public IActionResult UpdateCart(int id, int qty)
+		public IActionResult UpdateCart([FromForm] int id, [FromForm] int qty)
 		{
-			var cart = HttpContext.Session.GetString("Cart");
-
-			if(cart != null)
+			var cart = GetAllCart();
+			var cartItem = cart.Find(s => s.Id.Equals(id));
+			if(cartItem != null)
 			{
-				List<CartCreateRequest> cartList = JsonConvert.DeserializeObject<List<CartCreateRequest>>(cart);
-				if(qty > 0) 
-				{
-					foreach (var i in cartList)
-					{
-						if (i.productId == id)
-						{
-							i.Quantity = qty;
-						}
-					}
-					HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cartList));
-				}
-				return Ok();
+				cartItem.Quantity = qty;
 			}
 
-			return BadRequest();
+			SaveCartItem(cart);
+			return RedirectToAction(nameof(Cart));
 		}
 
-		public IActionResult DeleteCart(int id)
+		[Route("/removecart/{productid:int}", Name ="removecart")]
+		public IActionResult DeleteCart(int productid)
 		{
 			var cart = HttpContext.Session.GetString("Cart");
 			if(cart != null)
@@ -83,7 +69,7 @@ namespace RookieEShop.FrontEnd.Controllers
 				List<CartCreateRequest> listCart = JsonConvert.DeserializeObject<List<CartCreateRequest>>(cart);
 				foreach(var i in listCart)
 				{
-					if(i.productId == id)
+					if(i.productId == productid)
 					{
 						listCart.Remove(i);
 					}
