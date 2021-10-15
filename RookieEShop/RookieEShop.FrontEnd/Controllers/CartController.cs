@@ -75,10 +75,11 @@ namespace RookieEShop.FrontEnd.Controllers
 		}
 
 		[Route("/deletecart", Name ="deletecart")]
-		public void DeleteCart()
+		public IActionResult DeleteCart()
 		{
 			var session = HttpContext.Session;
 			session.Remove("Cart");
+			return View(GetAllCart());
 		}
 
 		[Route("/cart", Name ="cart")]
