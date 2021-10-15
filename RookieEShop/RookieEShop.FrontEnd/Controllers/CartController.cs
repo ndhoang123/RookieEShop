@@ -50,7 +50,7 @@ namespace RookieEShop.FrontEnd.Controllers
 		public IActionResult UpdateCart([FromForm] int id, [FromForm] int qty)
 		{
 			var cart = GetAllCart();
-			var cartItem = cart.Find(s => s.Id.Equals(id));
+			var cartItem = cart.Find(s => s.ProductId.Equals(id));
 			if(cartItem != null)
 			{
 				cartItem.Quantity = qty;
@@ -64,7 +64,7 @@ namespace RookieEShop.FrontEnd.Controllers
 		public IActionResult DeleteCart(int productid)
 		{
 			var cart = GetAllCart();
-			var cartItem = cart.Find(s => s.Id.Equals(productid));
+			var cartItem = cart.Find(s => s.ProductId.Equals(productid));
 			if(cartItem != null)
 			{
 				cart.Remove(cartItem);
