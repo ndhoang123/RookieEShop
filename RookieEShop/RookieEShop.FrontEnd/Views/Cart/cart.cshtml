@@ -1,6 +1,8 @@
 ﻿@model List<RookieEShop.Shared.CartVm>
 
-@{ ViewData["Title"] = "Cart"}
+@{
+	ViewData["Title"] = "Cart";
+}
 
 <h2>@ViewData["Title"]</h2>
 
@@ -32,21 +34,21 @@
 				<td>
 					<button class="btn btn-success updatecartitem"
 							data-productid="@cartitem.ProductId">
-						Cập nhật
+						Update
 					</button>
 					<a asp-route="removecart" asp-route-productid="@cartitem.ProductId"
-					   class="btn btn-danger">Xóa</a>
+					   class="btn btn-danger">Remove</a>
 				</td>
 			</tr>
 		}
 		<tr>
-			<td colspan="4" class="text-right">Tổng tiền</td>
+			<td colspan="4" class="text-right">Total</td>
 			<td>@(total.ToString("n0"))</td>
 			<td></td>
 		</tr>
 	</table>
 
-	<a asp-controller="Product" asp-action="Checkout" class="btn btn-success">Gửi đơn hàng</a>
+	<a asp-controller="Product" asp-action="Checkout" class="btn btn-success">Checkout</a>
 
 	@section Scripts {
 		<script>
@@ -59,8 +61,8 @@
                       type: "POST",
                       url:"@Url.RouteUrl("updatecart")",
                       data: {
-                          productid: productid,
-                          quantity:quantity
+                          id: productid,
+                          qty: quantity
                       },
                       success: function (result) {
                           window.location.href = "@Url.RouteUrl("cart")";
