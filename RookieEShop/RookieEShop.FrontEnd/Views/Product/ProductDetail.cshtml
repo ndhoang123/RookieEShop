@@ -58,12 +58,16 @@
 									<label for="1-star" title="Bad"><i class="fas fa-star"></i></label>
 								</fieldset>
 							</div>
-							<textarea name="comment" placeholder="Please give me some real reviews!"></textarea>
-							<button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+							<div>
+								<textarea rows="3" cols="88" name="comment" placeholder="Please give me some real reviews!"></textarea>
+							</div>
+							<div>
+								<button type="submit" class="btn btn-primary btn-lg btn-block">Rate</button>
+							</div>
 						</form>
 						<a asp-route="addcart"
 						   asp-route-productId="@Model.Id"
-						   class="btn btn-secondary btn-sm float-right">Add to Cart</a>
+						   class="btn btn-secondary btn-lg btn-block">Add to Cart</a>
 					}
 				</div>
 			</div>
@@ -71,7 +75,7 @@
 		<div class="row">
 			<div class="col-sm-12 size-tab-product-detail">
 				<a name="review-page">
-					<h1 class="tab-title-custom">Reviews </h1>
+					<h1 class="tab-title-custom">Reviews</h1>
 				</a>
 			</div>
 			<div>
