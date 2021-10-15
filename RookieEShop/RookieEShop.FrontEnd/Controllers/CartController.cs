@@ -63,22 +63,15 @@ namespace RookieEShop.FrontEnd.Controllers
 		[Route("/removecart/{productid:int}", Name ="removecart")]
 		public IActionResult DeleteCart(int productid)
 		{
-			var cart = HttpContext.Session.GetString("Cart");
-			if(cart != null)
+			var cart = GetAllCart();
+			var cartItem = cart.Find(s => s.Id.Equals(productid));
+			if(cartItem != null)
 			{
-				List<CartCreateRequest> listCart = JsonConvert.DeserializeObject<List<CartCreateRequest>>(cart);
-				foreach(var i in listCart)
-				{
-					if(i.productId == productid)
-					{
-						listCart.Remove(i);
-					}
-				}
-				HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(listCart));
-				return RedirectToAction(nameof(AllCart));
+				cart.Remove(cartItem);
 			}
 
-			return RedirectToAction(nameof(Index));
+			SaveCartItem(cart);
+			return RedirectToAction(nameof(Cart));
 		}
 
 		[Route("/cart", Name ="cart")]
