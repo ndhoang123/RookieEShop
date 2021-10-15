@@ -61,7 +61,7 @@ namespace RookieEShop.FrontEnd.Controllers
 		}
 
 		[Route("/removecart/{productid:int}", Name ="removecart")]
-		public IActionResult DeleteCart(int productid)
+		public IActionResult RemoveCart(int productid)
 		{
 			var cart = GetAllCart();
 			var cartItem = cart.Find(s => s.ProductId.Equals(productid));
@@ -72,6 +72,13 @@ namespace RookieEShop.FrontEnd.Controllers
 
 			SaveCartItem(cart);
 			return RedirectToAction(nameof(Cart));
+		}
+
+		[Route("/deletecart", Name ="deletecart")]
+		public void DeleteCart()
+		{
+			var session = HttpContext.Session;
+			session.Remove("Cart");
 		}
 
 		[Route("/cart", Name ="cart")]
