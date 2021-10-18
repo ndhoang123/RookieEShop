@@ -8,12 +8,6 @@ namespace RookieEShop.FrontEnd.Services
 {
 	public interface ICartApiClient
 	{
-		Task<IList<CartVm>> GetAllCarts();
-
-		Task<IList<CartVm>> GetDetailCart(int id);
-
-		Task<bool> AddNewItem(CartCreateRequest request);
-
-		Task<bool> UpdateItem(int id, CartEdit edit);
+		Task<bool> PostCheckout(OrderVm order);
 	}
 }
