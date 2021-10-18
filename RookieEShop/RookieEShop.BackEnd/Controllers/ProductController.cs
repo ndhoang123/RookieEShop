@@ -138,7 +138,7 @@ namespace RookieEShop.BackEnd.Controllers
 
 			if (isDeletedProduct)
 			{
-				return StatusCode(204); ;
+				return StatusCode(204);
 			}
 
 			else
