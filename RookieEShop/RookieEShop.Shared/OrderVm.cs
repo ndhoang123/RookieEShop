@@ -11,5 +11,9 @@
 		public int TotalMoney { get; set; }
 
 		public int NumberOfStuff { get; set; }
+
+		public string UserId { get; set; }
+
+		public int CartId { get; set; }
 	}
 }
