@@ -1,0 +1,52 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using RookieEShop.BackEnd.Models;
+using RookieEShop.BackEnd.Services;
+using RookieEShop.Shared;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace RookieEShop.BackEnd.Controllers
+{
+	[Route("api/[controller]")]
+	[ApiController]
+	[Authorize("Bearer")]
+	public class OrderController : Controller
+	{
+		private readonly IOrderService _IOrderService;
+
+		public OrderController (IOrderService IOrderService)
+		{
+			_IOrderService = IOrderService;
+		}
+
+		[HttpPost]
+		public async Task<ActionResult> AddOrder(OrderVm order)
+		{
+			var orders = new Ordering
+			{
+				TotalMoney = order.TotalMoney,
+				NumberOfStuff = order.NumberOfStuff,
+				Name = order.ClientName,
+				Address = order.Address,
+				CreatedAt = DateTime.Now,
+				Phone = order.Phone,
+				StatusCart = "Processing",
+				UserId = order.UserId,
+				CartId = order.CartId
+			};
+
+			if (await _IOrderService.AddOrder(orders))
+			{
+				return StatusCode(201);
+			}
+
+			else
+			{
+				return StatusCode(400);
+			}
+		}
+	}
+}
