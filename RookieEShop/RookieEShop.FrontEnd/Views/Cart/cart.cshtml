@@ -15,6 +15,7 @@
 		<tr>
 			<th>#</th>
 			<th>Product Name</th>
+			<th>Product Image</th>
 			<th>Price</th>
 			<th>Quantity</th>
 			<th>Total</th>
@@ -28,6 +29,7 @@
 			<tr>
 				<td>@(stt++)</td>
 				<td>@cartitem.ProductName</td>
+				<td><img src="https://localhost:44305/@cartitem.ThumbnailImageUrl" alt="cartImage" style="width:95px"/></td>
 				<td>@(cartitem.Price.ToString("n0"))</td>
 				<td><input asp-for="@cartitem.Quantity" id="@($"quantity-{cartitem.ProductId}")" /></td>
 				<td>@(thanhtien.ToString("n0"))</td>
@@ -49,7 +51,7 @@
 	</table>
 
 	<div>
-		<a asp-controller="Product" asp-action="Checkout" class="btn btn-success float-left">Checkout</a>
+		<a asp-route="checkout" asp-route-total="@total" class="btn btn-success float-left">Checkout</a>
 		<a asp-route="deletecart" class="btn btn-danger float-right">Delete Cart</a>
 	</div>
 
