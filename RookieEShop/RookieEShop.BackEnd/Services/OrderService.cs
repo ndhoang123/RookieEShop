@@ -1,5 +1,6 @@
 ﻿using RookieEShop.BackEnd.Models;
 using RookieEShop.BackEnd.Repositories;
+using RookieEShop.Shared;
 using System.Threading.Tasks;
 
 namespace RookieEShop.BackEnd.Services
@@ -16,6 +17,11 @@ namespace RookieEShop.BackEnd.Services
 		public async Task<bool> AddOrder(Ordering order)
 		{
 			return await _orderRepo.AddOrder(order);
+		}
+
+		public async Task<bool> ChangeStatus(int id, OrderEdit edit)
+		{
+			return await _orderRepo.ChangeStatus(id, edit);
 		}
 	}
 }
