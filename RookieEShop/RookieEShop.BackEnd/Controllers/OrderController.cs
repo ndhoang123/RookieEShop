@@ -48,5 +48,21 @@ namespace RookieEShop.BackEnd.Controllers
 				return StatusCode(400);
 			}
 		}
+
+		[HttpPut("{id}")]
+		public async Task<ActionResult> ChangeOrderStatus(int id, OrderEdit edit)
+		{
+			if (id <= 0) return StatusCode(400);
+			
+			if(await _IOrderService.ChangeStatus(id, edit))
+			{
+				return StatusCode(204);
+			}
+
+			else
+			{
+				return StatusCode(404);
+			}
+		}
 	}
 }
