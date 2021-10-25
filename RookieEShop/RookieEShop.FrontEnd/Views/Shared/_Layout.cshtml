@@ -1,22 +1,4 @@
-﻿@{
-	var data = Context.Session.GetString("cart");
-
-	int coutCart = 0;
-	if (data == null)
-	{
-		coutCart = 0;
-	}
-	else
-	{
-		var data2 = Context.Session.GetString("cart");
-		List<CartCreateRequest> dataCart = JsonConvert.DeserializeObject<List<CartCreateRequest>>(data2);
-		foreach (var item in dataCart)
-		{
-			coutCart += item.Quantity;
-		}
-	}
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -25,6 +7,7 @@
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+	@RenderSection("Styles", false);
 </head>
 <body>
 	<header>
