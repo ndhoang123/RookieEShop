@@ -81,8 +81,8 @@ namespace RookieEShop.FrontEnd.Controllers
 			return RedirectToAction(nameof(Cart));
 		}
 
-		[Route("/checkout", Name ="checkout")]
-		public IActionResult Checkout()
+		[Route("/ordering", Name = "ordering")]
+		public IActionResult Ordering()
 		{
 			var cart = GetAllCart();
 			return View(cart);
