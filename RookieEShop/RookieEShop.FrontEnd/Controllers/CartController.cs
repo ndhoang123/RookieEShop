@@ -30,7 +30,6 @@ namespace RookieEShop.FrontEnd.Controllers
 				return JsonConvert.DeserializeObject<List<CartVm>>(jsoncart);
 			}
 			return new List<CartVm>();
-
 		}
 
 		private void SaveCartItem(List<CartVm> ls)
@@ -80,6 +79,14 @@ namespace RookieEShop.FrontEnd.Controllers
 			var session = HttpContext.Session;
 			session.Remove("Cart");
 			return RedirectToAction(nameof(Cart));
+		}
+
+		[Route("/checkout", Name ="checkout")]
+		public IActionResult Checkout(int total)
+		{
+			var cart = GetAllCart();
+			cart[0].Price = total;
+			return View(cart);
 		}
 
 		[Route("/cart", Name ="cart")]
