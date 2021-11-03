@@ -82,10 +82,9 @@ namespace RookieEShop.FrontEnd.Controllers
 		}
 
 		[Route("/checkout", Name ="checkout")]
-		public IActionResult Checkout(int total)
+		public IActionResult Checkout()
 		{
 			var cart = GetAllCart();
-			cart[0].Price = total;
 			return View(cart);
 		}
 

@@ -6,6 +6,7 @@
 
 @{
 	ViewData["Title"] = "Checkout Page";
+	decimal total = 0;
 }
 
 <div class="container">
@@ -43,6 +44,7 @@
 				<input type="email" name="city" required>
 			</label>
 		</form>
+
 		<div class="Yorder">
 			<table>
 				<tr>
@@ -50,24 +52,24 @@
 				</tr>
 				@foreach (var cartitem in Model)
 				{
-					decimal total = 0;
 					var thanhtien = cartitem.Quantity * cartitem.Price;
 					total += thanhtien;
 
 					<tr>
-						<td>@(cartitem.ProductName)</td>
-						<td>@(cartitem.ProductPrice)</td>
-					</tr>
-
-					<tr>
-						<td>Subtotal</td>
-						<td>$88.00</td>
+						<td>@(cartitem.ProductName) x @(cartitem.Quantity)</td>
+						<td>@(thanhtien.ToString("n0")) VND</td>
 					</tr>
 				}
+				<tr>
+					<td>Total</td>
+					<td>@total.ToString("n0") VND</td>
+				</tr>
+
 				<tr>
 					<td>Shipping</td>
 					<td>Free shipping</td>
 				</tr>
+
 			</table><br>
 			<div>
 				<input type="radio" name="dbt" value="dbt" checked> Direct Bank Transfer
