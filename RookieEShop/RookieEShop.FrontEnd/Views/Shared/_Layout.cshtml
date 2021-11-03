@@ -28,7 +28,10 @@
 						</li>
 					</ul>
 				</div>
-				@await Html.PartialAsync("_CartPartial")
+				@if (User.Identity.IsAuthenticated)
+				{
+					@await Html.PartialAsync("_CartPartial")
+				}
 				<partial name="_LoginPartial" />
 
 			</div>
