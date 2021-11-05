@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RookieEShop.FrontEnd.Services;
 using RookieEShop.Shared;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RookieEShop.FrontEnd.Controllers
 {
@@ -97,9 +99,30 @@ namespace RookieEShop.FrontEnd.Controllers
 		}
 
 		[Route("/checkout", Name ="checkout")]
-		public IActionResult Checkout()
+		public async Task<IActionResult> Checkout(string lname, string fname, string city,
+			string state, string houseadd, string email, string phone)
 		{
+			var order = CreateCheckout(lname, fname, city, state, houseadd, email, phone);
+			var isDone = await _orderApiClient.CreateOrder(order);
 			return View();
+		}
+
+		private OrderVm CreateCheckout(string lname, string fname, string city,
+			string state, string houseadd, string email, string phone)
+		{
+			var cart = GetAllCart();
+
+			var order = new OrderVm
+			{
+				ClientName = fname + " " + lname,
+				Phone = Convert.ToInt32(phone),
+				Address = houseadd + " " + state + " " + city,
+				CreatedAt = DateTime.Now,
+				Status = "Processing"
+			};
+
+
+			return order;
 		}
 	}
 }
