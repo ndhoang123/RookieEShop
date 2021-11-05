@@ -5,7 +5,6 @@ namespace RookieEShop.BackEnd.Models
 {
 	public class Product
 	{
-
 		public int Id { get; set; }
 
 		public string Name { get; set; }
@@ -30,7 +29,5 @@ namespace RookieEShop.BackEnd.Models
 		public Category Category { get; set; }
 
 		public ICollection<Rating> Rating { get; set; }
-
-		public ICollection<Cart> Carts { get; set; }
 	}
 }

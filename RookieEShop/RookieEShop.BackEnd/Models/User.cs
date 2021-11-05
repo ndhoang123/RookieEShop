@@ -15,8 +15,6 @@ namespace RookieEShop.BackEnd.Models
 
         public ICollection<Ordering> Orderings { get; set; }
 
-        public Cart Cart { get; set; }
-
         [PersonalData]
         public string FullName { get; set; }
     }

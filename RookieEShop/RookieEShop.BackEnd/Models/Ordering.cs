@@ -21,13 +21,8 @@ namespace RookieEShop.BackEnd.Models
 
 		public string StatusCart { get; set; }
 
-		[ForeignKey("User")]
 		public string UserId { get; set; }
 
 		public User User { get; set; }
-
-		public int CartId { get; set; }
-
-		public Cart Cart { get; set; }
 	}
 }
