@@ -1,4 +1,6 @@
-﻿namespace RookieEShop.Shared
+﻿using System;
+
+namespace RookieEShop.Shared
 {
 	public class OrderVm
 	{
@@ -15,5 +17,9 @@
 		public string UserId { get; set; }
 
 		public int CartId { get; set; }
+
+		public DateTime CreatedAt { get; set; }
+
+		public string Status { get; set; }
 	}
 }
