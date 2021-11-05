@@ -10,10 +10,12 @@ namespace RookieEShop.FrontEnd.Controllers
 	public class CartController : Controller
 	{
 		private readonly ICartApiClient _cartApiClient;
+		private readonly IOrderApiClient _orderApiClient;
 
-		public CartController(ICartApiClient cartApiClient)
+		public CartController(ICartApiClient cartApiClient, IOrderApiClient orderApiClient)
 		{
 			_cartApiClient = cartApiClient;
+			_orderApiClient = orderApiClient;
 		}
 
 		public IActionResult Index()
@@ -92,6 +94,12 @@ namespace RookieEShop.FrontEnd.Controllers
 		public IActionResult Cart()
 		{
 			return View(GetAllCart());
+		}
+
+		[Route("/checkout", Name ="checkout")]
+		public IActionResult Checkout()
+		{
+			return View();
 		}
 	}
 }
