@@ -16,8 +16,6 @@ namespace RookieEShop.Shared
 
 		public string UserId { get; set; }
 
-		public int CartId { get; set; }
-
 		public DateTime CreatedAt { get; set; }
 
 		public string Status { get; set; }

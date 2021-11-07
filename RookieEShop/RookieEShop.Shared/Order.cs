@@ -1,4 +1,6 @@
-﻿namespace RookieEShop.Shared
+﻿using System;
+
+namespace RookieEShop.Shared
 {
 	public class Order
 	{
@@ -6,9 +8,9 @@
 
 		public string Status { get; set; }
 
-		public string TotalMoney { get; set;  }
+		public int TotalMoney { get; set;  }
 
-		public string CreatedAt { get; set; }
+		public DateTime CreatedAt { get; set; }
 
 		public int NumOfStuff { get; set; }
 
