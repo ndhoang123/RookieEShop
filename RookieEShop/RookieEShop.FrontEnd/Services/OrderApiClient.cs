@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using RookieEShop.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace RookieEShop.FrontEnd.Services
@@ -17,7 +20,7 @@ namespace RookieEShop.FrontEnd.Services
 		private readonly IHttpContextAccessor _httpContextAccessor;
 		private readonly IHttpClientFactory _httpClientFactory;
 		public OrderApiClient(IHttpClientFactory httpClientFactory, 
-			IHttpContextAccessor httpContextAccessor)
+			IHttpContextAccessor httpContextAccessor, HttpClient client)
 		{
 			_httpClientFactory = httpClientFactory;
 			_httpContextAccessor = httpContextAccessor;
@@ -26,9 +29,9 @@ namespace RookieEShop.FrontEnd.Services
 
 		public async Task<bool> CreateOrder(OrderVm cart)
 		{
-			var accessToken = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+			var userId = _httpContextAccessor.HttpContext.User.FindFirstValue("sub");
 
-			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+			cart.UserId = userId;
 
 			var response = await _client.PostAsJsonAsync("api/Order", cart);
 

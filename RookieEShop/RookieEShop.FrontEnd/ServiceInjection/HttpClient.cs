@@ -13,8 +13,6 @@ namespace RookieEShop.FrontEnd.ServiceInjection
 		{
 			Startup.HostUri = configuration["HostUrls:Host"].ToString();
 
-			services.AddHttpClient();
-
 			services.AddHttpContextAccessor();
 
 			services.AddHttpClient("owner", configureClient =>
