@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RookieEShop.FrontEnd.Services;
@@ -98,12 +99,19 @@ namespace RookieEShop.FrontEnd.Controllers
 			return View(GetAllCart());
 		}
 
+		[Authorize]
 		[Route("/checkout", Name ="checkout")]
+		[HttpPost("[controller]")]
 		public async Task<IActionResult> Checkout(string lname, string fname, string city,
 			string state, string houseadd, string email, string phone)
 		{
 			var order = CreateCheckout(lname, fname, city, state, houseadd, email, phone);
 			var isDone = await _orderApiClient.CreateOrder(order);
+			if (!isDone)
+			{
+				DeleteCart();
+				return View();
+			}
 			return View();
 		}
 
