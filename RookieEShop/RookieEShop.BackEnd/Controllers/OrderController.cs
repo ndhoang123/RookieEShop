@@ -22,7 +22,17 @@ namespace RookieEShop.BackEnd.Controllers
 			_IOrderService = IOrderService;
 		}
 
+		[HttpGet]
+		[AllowAnonymous]
+		public async Task<ActionResult> GetList(string userId)
+		{
+			var listOrder = await _IOrderService.GetOrderByUserId(userId);
+
+			return Ok(listOrder);
+		}
+
 		[HttpPost]
+		[AllowAnonymous]
 		public async Task<ActionResult> AddOrder(OrderVm order)
 		{
 			var orders = new Ordering
@@ -34,8 +44,7 @@ namespace RookieEShop.BackEnd.Controllers
 				CreatedAt = DateTime.Now,
 				Phone = order.Phone,
 				StatusCart = "Processing",
-				UserId = order.UserId,
-				CartId = order.CartId
+				UserId = order.UserId
 			};
 
 			if (await _IOrderService.AddOrder(orders))
