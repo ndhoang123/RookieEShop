@@ -1,6 +1,7 @@
 ﻿using RookieEShop.BackEnd.Models;
 using RookieEShop.BackEnd.Repositories;
 using RookieEShop.Shared;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RookieEShop.BackEnd.Services
@@ -12,6 +13,11 @@ namespace RookieEShop.BackEnd.Services
 		public OrderService(IOrderRepository orderRepo)
 		{
 			_orderRepo = orderRepo;
+		}
+
+		public async Task<IEnumerable<Order>> GetOrderByUserId(string userId)
+		{
+			return await _orderRepo.GetOrderByUserId(userId);
 		}
 
 		public async Task<bool> AddOrder(Ordering order)
