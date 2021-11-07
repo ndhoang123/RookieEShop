@@ -2,6 +2,7 @@
 using RookieEShop.BackEnd.Data;
 using RookieEShop.BackEnd.Models;
 using RookieEShop.Shared;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +15,25 @@ namespace RookieEShop.BackEnd.Repositories
 		public OrderRepository(ApplicationDbContext dbContext)
 		{
 			_dbContext = dbContext;
+		}
+
+		public async Task<IEnumerable<Order>> GetOrderByUserId(string userId)
+		{
+			var listOrder = await _dbContext.Orderings
+									.Where(x => x.UserId.Equals(userId))
+									.Select(x => new Order
+									{
+										Id = x.Id,
+										Address = x.Address,
+										Status = x.StatusCart,
+										ClientName = x.Name,
+										Phone = x.Phone,
+										TotalMoney = x.TotalMoney,
+										CreatedAt = x.CreatedAt
+									})
+									.AsNoTracking()
+									.ToListAsync();
+			return listOrder;
 		}
 
 		public async Task<bool> AddOrder(Ordering order)
