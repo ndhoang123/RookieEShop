@@ -2,7 +2,7 @@
 
 namespace RookieEShop.Shared
 {
-	public class Order
+	public class OrderShow
 	{
 		public int Id { get; set; }
 
