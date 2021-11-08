@@ -22,14 +22,14 @@ namespace RookieEShop.BackEnd.Controllers
 			_IOrderService = IOrderService;
 		}
 
-		[HttpGet]
-		[AllowAnonymous]
-		public async Task<ActionResult> GetList(string userId)
-		{
-			var listOrder = await _IOrderService.GetOrderByUserId(userId);
+		//[HttpGet]
+		//[AllowAnonymous]
+		//public async Task<ActionResult> GetList(string userId)
+		//{
+		//	var listOrder = await _IOrderService.GetOrderByUserId(userId);
 
-			return Ok(listOrder);
-		}
+		//	return Ok(listOrder);
+		//}
 
 		[HttpPost]
 		[AllowAnonymous]
