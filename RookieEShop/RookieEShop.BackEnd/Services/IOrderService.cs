@@ -7,7 +7,7 @@ namespace RookieEShop.BackEnd.Services
 {
 	public interface IOrderService
 	{
-		Task<IEnumerable<Order>> GetOrderByUserId(string userId);
+		//Task<IEnumerable<OrderVkb>> GetOrderByUserId(string userId);
 
 		Task<bool> AddOrder(Ordering order);
 

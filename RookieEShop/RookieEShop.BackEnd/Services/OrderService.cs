@@ -15,10 +15,10 @@ namespace RookieEShop.BackEnd.Services
 			_orderRepo = orderRepo;
 		}
 
-		public async Task<IEnumerable<Order>> GetOrderByUserId(string userId)
-		{
-			return await _orderRepo.GetOrderByUserId(userId);
-		}
+		//public async Task<IEnumerable<OrderVkb>> GetOrderByUserId(string userId)
+		//{
+		//	return await _orderRepo.GetOrderByUserId(userId);
+		//}
 
 		public async Task<bool> AddOrder(Ordering order)
 		{

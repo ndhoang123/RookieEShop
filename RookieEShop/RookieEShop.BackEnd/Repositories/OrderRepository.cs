@@ -17,24 +17,24 @@ namespace RookieEShop.BackEnd.Repositories
 			_dbContext = dbContext;
 		}
 
-		public async Task<IEnumerable<Order>> GetOrderByUserId(string userId)
-		{
-			var listOrder = await _dbContext.Orderings
-									.Where(x => x.UserId.Equals(userId))
-									.Select(x => new Order
-									{
-										Id = x.Id,
-										Address = x.Address,
-										Status = x.StatusCart,
-										ClientName = x.Name,
-										Phone = x.Phone,
-										TotalMoney = x.TotalMoney,
-										CreatedAt = x.CreatedAt
-									})
-									.AsNoTracking()
-									.ToListAsync();
-			return listOrder;
-		}
+		//public async Task<IEnumerable<OrderVkb>> GetOrderByUserId(string userId)
+		//{
+		//	var listOrder = await _dbContext.Orderings
+		//							.Where(x => x.UserId.Equals(userId))
+		//							.Select(x => new OrderVkb
+		//							{
+		//								Id = x.Id,
+		//								Address = x.Address,
+		//								Status = x.StatusCart,
+		//								ClientName = x.Name,
+		//								Phone = x.Phone,
+		//								TotalMoney = x.TotalMoney,
+		//								CreatedAt = x.CreatedAt
+		//							})
+		//							.AsNoTracking()
+		//							.ToListAsync();
+		//	return listOrder;
+		//}
 
 		public async Task<bool> AddOrder(Ordering order)
 		{
