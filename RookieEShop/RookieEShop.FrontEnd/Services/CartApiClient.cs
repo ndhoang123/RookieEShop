@@ -24,56 +24,17 @@ namespace RookieEShop.FrontEnd.Services
 			_client = _factory.CreateClient("Owner");
 		}
 
-		public async Task<IList<CartVm>> GetAllCarts()
-		{
-			var response = await _client.GetAsync("/api/Cart");
-
-			response.EnsureSuccessStatusCode();
-
-			return await response.Content.ReadAsAsync<IList<CartVm>>();
-		}
-
-		public async Task<IList<CartVm>> GetDetailCart(int id)
-		{
-			var response = await _client.GetAsync("/api/Cart/" + id.ToString());
-
-			response.EnsureSuccessStatusCode();
-
-			return await response.Content.ReadAsAsync<IList<CartVm>>();
-		}
-
-		public async Task<bool> AddNewItem(CartCreateRequest request)
+		public async Task<bool> PostCheckout(OrderVm order)
 		{
 			var accessToken = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
 
 			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-			var response = await _client.PostAsJsonAsync("/api/Cart", request);
+			var response = await _client.PostAsJsonAsync("/api/Order", order);
 
 			response.EnsureSuccessStatusCode();
 
-			if (response.StatusCode.Equals(201))
-			{
-				return true;
-			}
-
-			else
-			{
-				return false;
-			}
-		}
-
-		public async Task<bool> UpdateItem(int id, CartEdit edit)
-		{
-			var accessToken = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
-
-			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-			var response = await _client.PutAsJsonAsync("/api/Cart/" + id.ToString(), edit);
-
-			response.EnsureSuccessStatusCode();
-
-			if (response.StatusCode.Equals(204))
+			if (response.ReasonPhrase.Equals("GetCheckout"))
 			{
 				return true;
 			}

@@ -1,19 +1,24 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RookieEShop.FrontEnd.Services;
 using RookieEShop.Shared;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RookieEShop.FrontEnd.Controllers
 {
 	public class CartController : Controller
 	{
 		private readonly ICartApiClient _cartApiClient;
+		private readonly IOrderApiClient _orderApiClient;
 
-		public CartController(ICartApiClient cartApiClient)
+		public CartController(ICartApiClient cartApiClient, IOrderApiClient orderApiClient)
 		{
 			_cartApiClient = cartApiClient;
+			_orderApiClient = orderApiClient;
 		}
 
 		public IActionResult Index()
@@ -30,7 +35,6 @@ namespace RookieEShop.FrontEnd.Controllers
 				return JsonConvert.DeserializeObject<List<CartVm>>(jsoncart);
 			}
 			return new List<CartVm>();
-
 		}
 
 		private void SaveCartItem(List<CartVm> ls)
@@ -82,10 +86,51 @@ namespace RookieEShop.FrontEnd.Controllers
 			return RedirectToAction(nameof(Cart));
 		}
 
+		[Route("/ordering", Name = "ordering")]
+		public IActionResult Ordering()
+		{
+			var cart = GetAllCart();
+			return View(cart);
+		}
+
 		[Route("/cart", Name ="cart")]
 		public IActionResult Cart()
 		{
 			return View(GetAllCart());
+		}
+
+		[Authorize]
+		[Route("/checkout", Name ="checkout")]
+		[HttpPost("[controller]")]
+		public async Task<IActionResult> Checkout(string lname, string fname, string city,
+			string state, string houseadd, string email, string phone)
+		{
+			var order = CreateCheckout(lname, fname, city, state, houseadd, email, phone);
+			var isDone = await _orderApiClient.CreateOrder(order);
+			if (!isDone)
+			{
+				DeleteCart();
+				return View();
+			}
+			return View();
+		}
+
+		private OrderVm CreateCheckout(string lname, string fname, string city,
+			string state, string houseadd, string email, string phone)
+		{
+			var cart = GetAllCart();
+
+			var order = new OrderVm
+			{
+				ClientName = fname + " " + lname,
+				Phone = Convert.ToInt32(phone),
+				Address = houseadd + " " + state + " " + city,
+				CreatedAt = DateTime.Now,
+				Status = "Processing"
+			};
+
+
+			return order;
 		}
 	}
 }

@@ -126,7 +126,8 @@ namespace RookieEShop.FrontEnd.Controllers
 					Quantity = 1,
 					ProductId = product.Id,
 					Price = product.Price,
-					ProductName = product.Name
+					ProductName = product.Name,
+					ThumbnailImageUrl = product.ThumbnailImageUrl
 				});
 			}
 

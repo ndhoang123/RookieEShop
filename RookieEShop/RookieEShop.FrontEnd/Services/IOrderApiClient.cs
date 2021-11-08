@@ -1,4 +1,5 @@
-﻿using RookieEShop.Shared;
+﻿using Microsoft.AspNetCore.Mvc;
+using RookieEShop.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace RookieEShop.FrontEnd.Services
 {
-	public interface ICartApiClient
+	public interface IOrderApiClient
 	{
-		Task<bool> PostCheckout(OrderVm order);
+		Task<bool> CreateOrder(OrderVm cart);
 	}
 }

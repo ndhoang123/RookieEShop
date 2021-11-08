@@ -52,13 +52,13 @@ namespace RookieEShop.BackEnd
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 
+			app.UseRouting();
+
 			app.UseCors(options => {
 				options.AllowAnyOrigin();
 				options.AllowAnyHeader();
 				options.AllowAnyMethod();
 			});
-
-			app.UseRouting();
 
 			app.UseIdentityServer();
 			app.UseAuthorization();

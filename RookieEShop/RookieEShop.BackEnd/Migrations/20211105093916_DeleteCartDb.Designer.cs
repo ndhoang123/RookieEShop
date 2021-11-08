@@ -10,8 +10,8 @@ using RookieEShop.BackEnd.Data;
 namespace RookieEShop.BackEnd.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210629151553_Initial")]
-    partial class Initial
+    [Migration("20211105093916_DeleteCartDb")]
+    partial class DeleteCartDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -156,30 +156,6 @@ namespace RookieEShop.BackEnd.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("RookieEShop.BackEnd.Models.Cart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
-
-                    b.ToTable("Carts");
-                });
-
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -202,10 +178,19 @@ namespace RookieEShop.BackEnd.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NumberOfStuff")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Phone")
                         .HasColumnType("int");
 
                     b.Property<string>("StatusCart")
@@ -218,9 +203,6 @@ namespace RookieEShop.BackEnd.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CartId")
-                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -415,36 +397,11 @@ namespace RookieEShop.BackEnd.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RookieEShop.BackEnd.Models.Cart", b =>
-                {
-                    b.HasOne("RookieEShop.BackEnd.Models.Product", "Product")
-                        .WithMany("Carts")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RookieEShop.BackEnd.Models.User", "User")
-                        .WithOne("Cart")
-                        .HasForeignKey("RookieEShop.BackEnd.Models.Cart", "UserId");
-
-                    b.Navigation("Product");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Ordering", b =>
                 {
-                    b.HasOne("RookieEShop.BackEnd.Models.Cart", "Cart")
-                        .WithOne("Order")
-                        .HasForeignKey("RookieEShop.BackEnd.Models.Ordering", "CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("RookieEShop.BackEnd.Models.User", "User")
                         .WithMany("Orderings")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("Cart");
 
                     b.Navigation("User");
                 });
@@ -477,11 +434,6 @@ namespace RookieEShop.BackEnd.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("RookieEShop.BackEnd.Models.Cart", b =>
-                {
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Category", b =>
                 {
                     b.Navigation("Products");
@@ -489,15 +441,11 @@ namespace RookieEShop.BackEnd.Migrations
 
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Product", b =>
                 {
-                    b.Navigation("Carts");
-
                     b.Navigation("Rating");
                 });
 
             modelBuilder.Entity("RookieEShop.BackEnd.Models.User", b =>
                 {
-                    b.Navigation("Cart");
-
                     b.Navigation("Orderings");
                 });
 #pragma warning restore 612, 618
