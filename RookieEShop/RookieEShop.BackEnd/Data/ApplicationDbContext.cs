@@ -14,6 +14,8 @@ namespace RookieEShop.BackEnd.Data
 
 		public DbSet<Ordering> Orderings { get; set; }
 
+		public DbSet<OrderDetail> OrderDetails { get; set; }
+
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)
 		{
@@ -44,6 +46,16 @@ namespace RookieEShop.BackEnd.Data
 				.HasOne<User>(s => s.User)
 				.WithMany(x => x.Orderings)
 				.HasForeignKey(x => x.UserId);
+
+			modelBuilder.Entity<OrderDetail>()
+				.HasOne<Product>(s => s.Product)
+				.WithMany(x => x.OrderDetails)
+				.HasForeignKey(x => x.ProductId);
+
+			modelBuilder.Entity<OrderDetail>()
+				.HasOne<Ordering>(s => s.Order)
+				.WithMany(s => s.OrderDetail)
+				.HasForeignKey(x => x.OrderId);
 
 			modelBuilder.Entity<User>()
 				.ToTable("AspNetUsers");
