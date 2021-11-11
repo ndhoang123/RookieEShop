@@ -47,5 +47,16 @@ namespace RookieEShop.FrontEnd.Services
 				return false;
 			}
 		}
+
+		public async Task<IList<OrderVm>> GetAddress()
+		{
+			var userId = _httpContextAccessor.HttpContext.User.FindFirstValue("sub");
+
+			var response = await _client.GetAsync("api/Order/" + userId);
+
+			response.EnsureSuccessStatusCode();
+
+			return await response.Content.ReadAsAsync<IList<OrderVm>>();
+		}
 	}
 }

@@ -87,10 +87,10 @@ namespace RookieEShop.FrontEnd.Controllers
 		}
 
 		[Route("/ordering", Name = "ordering")]
-		public IActionResult Ordering()
+		public async Task<IActionResult> Ordering()
 		{
-			var cart = GetAllCart();
-			return View(cart);
+			var order = await _orderApiClient.GetAddress();
+			return View(order);
 		}
 
 		[Route("/cart", Name ="cart")]
