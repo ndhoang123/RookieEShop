@@ -4,8 +4,6 @@ using RookieEShop.BackEnd.Models;
 using RookieEShop.BackEnd.Services;
 using RookieEShop.Shared;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RookieEShop.BackEnd.Controllers
@@ -22,14 +20,14 @@ namespace RookieEShop.BackEnd.Controllers
 			_IOrderService = IOrderService;
 		}
 
-		//[HttpGet]
-		//[AllowAnonymous]
-		//public async Task<ActionResult> GetList(string userId)
-		//{
-		//	var listOrder = await _IOrderService.GetOrderByUserId(userId);
+		[HttpGet("{id}")]
+		[AllowAnonymous]
+		public async Task<ActionResult> GetList(string id)
+		{
+			var listOrder = await _IOrderService.GetAddressShipping(id);
 
-		//	return Ok(listOrder);
-		//}
+			return Ok(listOrder);
+		}
 
 		[HttpPost]
 		[AllowAnonymous]
@@ -37,13 +35,10 @@ namespace RookieEShop.BackEnd.Controllers
 		{
 			var orders = new Ordering
 			{
-				TotalMoney = order.TotalMoney,
-				NumberOfStuff = order.NumberOfStuff,
 				Name = order.ClientName,
 				Address = order.Address,
 				CreatedAt = DateTime.Now,
 				Phone = order.Phone,
-				StatusCart = "Processing",
 				UserId = order.UserId
 			};
 

@@ -7,7 +7,7 @@ namespace RookieEShop.BackEnd.Repositories
 {
 	public interface IOrderRepository
 	{
-		//Task<IEnumerable<OrderVkb>> GetOrderByUserId(string userId);
+		Task<IEnumerable<OrderVm>> GetAddressShipping(string userId);
 
 		Task<bool> AddOrder(Ordering order);
 

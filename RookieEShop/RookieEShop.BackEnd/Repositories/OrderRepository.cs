@@ -17,24 +17,21 @@ namespace RookieEShop.BackEnd.Repositories
 			_dbContext = dbContext;
 		}
 
-		//public async Task<IEnumerable<OrderVkb>> GetOrderByUserId(string userId)
-		//{
-		//	var listOrder = await _dbContext.Orderings
-		//							.Where(x => x.UserId.Equals(userId))
-		//							.Select(x => new OrderVkb
-		//							{
-		//								Id = x.Id,
-		//								Address = x.Address,
-		//								Status = x.StatusCart,
-		//								ClientName = x.Name,
-		//								Phone = x.Phone,
-		//								TotalMoney = x.TotalMoney,
-		//								CreatedAt = x.CreatedAt
-		//							})
-		//							.AsNoTracking()
-		//							.ToListAsync();
-		//	return listOrder;
-		//}
+		public async Task<IEnumerable<OrderVm>> GetAddressShipping(string userId)
+		{
+			var listOrder = await _dbContext.Orderings
+									.Where(x => x.UserId.Equals(userId))
+									.Select(x => new OrderVm
+									{
+										Address = x.Address,
+										ClientName = x.Name,
+										Phone = x.Phone,
+										CreatedAt = x.CreatedAt
+									})
+									.AsNoTracking()
+									.ToListAsync();
+			return listOrder;
+		}
 
 		public async Task<bool> AddOrder(Ordering order)
 		{
@@ -61,8 +58,6 @@ namespace RookieEShop.BackEnd.Repositories
 			var order = await _dbContext.Orderings
 								.Where(x => x.Id.Equals(id))
 								.SingleAsync();
-
-			order.StatusCart = edit.Status;
 
 			if(await _dbContext.SaveChangesAsync() > 0)
 			{
