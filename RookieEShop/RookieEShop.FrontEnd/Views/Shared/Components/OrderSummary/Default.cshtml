@@ -1,0 +1,33 @@
+﻿@model List<RookieEShop.Shared.CartVm>
+
+@{
+	decimal total = 0;
+}
+
+<table>
+	<tr>
+		<th colspan="2">Your order</th>
+	</tr>
+	@foreach (var cartitem in Model)
+	{
+		var thanhtien = cartitem.Quantity * cartitem.Price;
+		total += thanhtien;
+
+		<tr>
+			<td>@(cartitem.ProductName) x @(cartitem.Quantity)</td>
+			<td>@(thanhtien.ToString("n0")) VND</td>
+
+		</tr>
+	}
+	<tr>
+		<td>Total</td>
+		<td>@total.ToString("n0") VND</td>
+	</tr>
+
+	<tr>
+		<td>Shipping</td>
+		<td>Free shipping</td>
+	</tr>
+
+</table>
+<br>
