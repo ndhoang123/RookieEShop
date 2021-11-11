@@ -9,5 +9,7 @@ namespace RookieEShop.FrontEnd.Services
 	public interface ICartApiClient
 	{
 		Task<bool> PostCheckout(OrderVm order);
+
+		Task<List<CartVm>> GetAllCart();
 	}
 }

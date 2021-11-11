@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using RookieEShop.Shared;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,17 @@ namespace RookieEShop.FrontEnd.Services
 			{
 				return false;
 			}
+		}
+
+		public async Task<List<CartVm>> GetAllCart()
+		{
+			var session = _httpContextAccessor.HttpContext.Session;
+			string jsoncart = session.GetString("Cart");
+			if (jsoncart != null)
+			{
+				return JsonConvert.DeserializeObject<List<CartVm>>(jsoncart);
+			}
+			return new List<CartVm>();
 		}
 	}
 }

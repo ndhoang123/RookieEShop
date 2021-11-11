@@ -6,14 +6,18 @@
 
 @{
 	ViewData["Title"] = "Ordering Page";
-	decimal total = 0;
 }
 
 <div class="container">
 	<div class="title">
 		<h2>Product Order Form</h2>
 	</div>
-	<div class="d-flex">
+	<div class=" radio">
+		<label>
+			<input type="radio" name="ShippingAddressId" checked=""/>
+		</label>
+	</div>
+	<div class="d-flex collapse">
 		@using (Html.BeginForm("Checkout", "Cart", FormMethod.Post))
 		{
 			<label>
@@ -48,46 +52,7 @@
 		}
 
 		<div class="Yorder">
-			<table>
-				<tr>
-					<th colspan="2">Your order</th>
-				</tr>
-				@foreach (var cartitem in Model)
-				{
-					var thanhtien = cartitem.Quantity * cartitem.Price;
-					total += thanhtien;
-
-					<tr>
-						<td>@(cartitem.ProductName) x @(cartitem.Quantity)</td>
-						<td>@(thanhtien.ToString("n0")) VND</td>
-					</tr>
-				}
-				<tr>
-					<td>Total</td>
-					<td>@total.ToString("n0") VND</td>
-				</tr>
-
-				<tr>
-					<td>Shipping</td>
-					<td>Free shipping</td>
-				</tr>
-
-			</table><br>
-			<div>
-				<input type="radio" name="dbt" value="dbt" checked> Direct Bank Transfer
-			</div>
-			<p>
-				Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
-			</p>
-			<div>
-				<input type="radio" name="dbt" value="cd"> Cash on Delivery
-			</div>
-			<div>
-				<input type="radio" name="dbt" value="cd"> Paypal <span>
-					<img src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg" alt="" width="50">
-				</span>
-			</div>
-			@*<a asp-route="checkout" class="btn btn-success float-left">Checkout</a>*@
+			@await Component.InvokeAsync("OrderSummary")
 		</div><!-- Yorder -->
 	</div>
 </div>
