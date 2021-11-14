@@ -93,6 +93,12 @@ namespace RookieEShop.FrontEnd.Controllers
 			return View(order);
 		}
 
+		[Route("/cancelOrder", Name ="cancelOrder")]
+		public IActionResult CancelOrder()
+		{
+			return Redirect("~/");
+		}
+
 		[Route("/cart", Name ="cart")]
 		public IActionResult Cart()
 		{
