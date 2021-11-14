@@ -1,7 +1,7 @@
 ﻿$(function(){
 	function toggleCreateShippingAddress() {
-		var $createShipping = $('.create-shipping-address'),
-			shippingAddressId = $('input[name=ShippingAddressId]:checked').val();
+		var shippingAddressId = $('input[name=ShippingAddressId]:checked').val(),
+			$createShipping = $('.create-shipping-address');
 
 		if (shippingAddressId === "0") {
 			$createShipping.show();
@@ -10,6 +10,10 @@
 			$createShipping.hide();
 		}
 	}
+
+	$('input[name=ShippingAddressId]').on('change', function () {
+		toggleCreateShippingAddress();
+	});
 
 	toggleCreateShippingAddress();
 })
