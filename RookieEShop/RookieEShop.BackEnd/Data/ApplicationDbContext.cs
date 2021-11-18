@@ -47,9 +47,14 @@ namespace RookieEShop.BackEnd.Data
 				.WithMany(x => x.Orderings)
 				.HasForeignKey(x => x.UserId);
 
-			modelBuilder.Entity<OrderDetail>()
+			modelBuilder.Entity<Ordering>()
+				.HasOne(s => s.ShippingAddress)
+				.WithMany()
+				.HasForeignKey(x => x.ShippingAddressId);
+
+			modelBuilder.Entity<Ordering>()
 				.Property(x => x.OrderName)
-				.HasComputedColumnSql("N'RE'+ RIGHT('0000000'+CAST(OrderDetailId AS VARCHAR(7)),7)");
+				.HasComputedColumnSql("N'RE'+ RIGHT('0000000'+CAST(Id AS VARCHAR(7)),7)");
 
 			modelBuilder.Entity<OrderDetail>()
 				.HasOne<Product>(s => s.Product)
