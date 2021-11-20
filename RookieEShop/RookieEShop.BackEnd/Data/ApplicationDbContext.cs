@@ -16,6 +16,8 @@ namespace RookieEShop.BackEnd.Data
 
 		public DbSet<OrderDetail> OrderDetails { get; set; }
 
+		public DbSet<OrderAddress> OrderAddresses { get; set; }
+
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)
 		{
