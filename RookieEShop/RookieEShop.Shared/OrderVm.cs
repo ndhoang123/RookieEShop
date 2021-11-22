@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace RookieEShop.Shared
 {
 	public class OrderVm
 	{
-		public string ClientName { get; set; }
-		
-		public int Phone { get; set; }
+		public int OrderId { get; set; }
 
-		public string Address { get; set; }
+		public string OrderName { get; set; }
+
+		public string StatusCart { get; set; }
 
 		public int TotalMoney { get; set; }
 
@@ -16,6 +17,28 @@ namespace RookieEShop.Shared
 
 		public DateTime CreatedAt { get; set; }
 
-		public int Id { get; set; }
+		public DateTime BillDay { get; set; }
+
+		public DateTime DeliveryDay { get; set; }
+
+		public long ShippingAddressId { get; set; }
+
+		public string? Note { get; set; }
+
+		public string? Coupon { get; set; }
+
+		public string ShippingMethod { get; set; }
+
+		public decimal ShippingFee { get; set; }
+
+		public string PaymentMethod { get; set; }
+
+		public decimal PaymentFee { get; set; }
+
+		public decimal TaxAmount { get; set; }
+
+		public ICollection<OrderDetailVm> OrderDetail { get; set; }
+
+		public OrderAddressVm OrderAddressForm { get; set; }
 	}
 }
