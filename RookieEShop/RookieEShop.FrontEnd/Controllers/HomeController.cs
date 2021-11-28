@@ -18,7 +18,7 @@ namespace RookieEShop.FrontEnd.Controllers
 			_productClient = productClient;
 		}
 
-		public async Task< IActionResult> Index()
+		public async Task<IActionResult> Index()
 		{
 			var products = await _productClient.GetProducts();
 			return View(products);

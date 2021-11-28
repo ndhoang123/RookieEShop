@@ -153,14 +153,6 @@ namespace RookieEShop.FrontEnd.Controllers
 				OrderDetail = new List<OrderDetailVm>()
 			};
 
-			//cart.ForEach(x => order.OrderDetail.Add(new OrderDetailVm
-			//{
-			//	ProductId = x.ProductId,
-			//	Qty = x.Quantity,
-			//	Price = x.Price,
-			//	Discount = 0
-			//}));
-
 			foreach(var i in cart)
 			{
 				order.OrderDetail.Add(new OrderDetailVm

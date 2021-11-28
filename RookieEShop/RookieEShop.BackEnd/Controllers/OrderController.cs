@@ -49,8 +49,7 @@ namespace RookieEShop.BackEnd.Controllers
 				ShippingFee = order.ShippingFee,
 				PaymentFee = order.PaymentFee,
 				PaymentMethod = order.PaymentMethod,
-				OrderDetail = new List<OrderDetail>(),
-				ShippingAddress = new OrderAddress()
+				OrderDetail = new List<OrderDetail>()
 			};
 
 			foreach(var i in order.OrderDetail)
@@ -67,6 +66,7 @@ namespace RookieEShop.BackEnd.Controllers
 
 			if (order.ShippingAddressId == 0)
 			{
+				orders.ShippingAddress = new OrderAddress();
 				orders.ShippingAddress.Address = order.OrderAddressForm.HomeAddress;
 				orders.ShippingAddress.City = order.OrderAddressForm.OrderCity;
 				orders.ShippingAddress.District = order.OrderAddressForm.OrderDistrict;
