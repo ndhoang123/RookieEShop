@@ -38,7 +38,7 @@ namespace RookieEShop.FrontEnd.Services
 
 			response.EnsureSuccessStatusCode();
 
-			if (response.ReasonPhrase.Equals("GetRating"))
+			if (response.StatusCode.Equals(201))
 			{
 				return true;
 			}

@@ -123,6 +123,10 @@ namespace RookieEShop.FrontEnd.Controllers
 			return View();
 		}
 
+		public IActionResult Error()
+		{
+			return View();
+		}
 		
 		[HttpPost("paymenthandle")]
 		public async Task<IActionResult> PaymentHandle(string Shippingmethod, string Paymentmethod)
@@ -168,7 +172,7 @@ namespace RookieEShop.FrontEnd.Controllers
 
 			if (!payment)
 			{
-				return RedirectToAction("Success");
+				return RedirectToAction("Error");
 			}
 
 
