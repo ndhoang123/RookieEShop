@@ -31,6 +31,7 @@ namespace RookieEShop.BackEnd.Repositories
 														Id = x.ShippingAddress.Id
 													})
 													.AsNoTracking()
+													.Distinct()
 													.ToListAsync();
 			return model;
 		}
