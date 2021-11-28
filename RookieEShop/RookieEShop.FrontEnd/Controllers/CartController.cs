@@ -178,6 +178,7 @@ namespace RookieEShop.FrontEnd.Controllers
 		[Route("/success", Name = "success")]
 		public IActionResult Success()
 		{
+			HttpContext.Session.Clear();
 			return View();
 		}
 	}
