@@ -4,6 +4,7 @@ using RookieEShop.BackEnd.Models;
 using RookieEShop.BackEnd.Services;
 using RookieEShop.Shared;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RookieEShop.BackEnd.Controllers
@@ -47,7 +48,9 @@ namespace RookieEShop.BackEnd.Controllers
 				ShippingMethod = order.ShippingMethod,
 				ShippingFee = order.ShippingFee,
 				PaymentFee = order.PaymentFee,
-				PaymentMethod = order.PaymentMethod
+				PaymentMethod = order.PaymentMethod,
+				OrderDetail = new List<OrderDetail>(),
+				ShippingAddress = new OrderAddress()
 			};
 
 			foreach(var i in order.OrderDetail)
@@ -57,11 +60,12 @@ namespace RookieEShop.BackEnd.Controllers
 					ProductId = i.ProductId, 
 					Discount = i.Discount,
 					Price = i.Price,
-					Qty = i.Qty
+					Qty = i.Qty,
+					Order = orders
 				});
 			}
 
-			if (_IOrderAddress.GetCurrentAddress(order.ShippingAddressId) == null)
+			if (order.ShippingAddressId == 0)
 			{
 				orders.ShippingAddress.Address = order.OrderAddressForm.HomeAddress;
 				orders.ShippingAddress.City = order.OrderAddressForm.OrderCity;

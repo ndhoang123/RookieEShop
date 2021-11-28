@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using RookieEShop.BackEnd.Models;
 using RookieEShop.Shared;
 using System;
 using System.Collections.Generic;
