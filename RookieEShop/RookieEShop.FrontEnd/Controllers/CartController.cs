@@ -84,7 +84,7 @@ namespace RookieEShop.FrontEnd.Controllers
 			return RedirectToAction(nameof(Cart));
 		}
 
-		[Route("/ordering", Name = "ordering")]
+		[Route("/orderform", Name = "orderform")]
 		public async Task<IActionResult> Ordering()
 		{
 			var order = await _checkoutApiClient.GetShipping();
