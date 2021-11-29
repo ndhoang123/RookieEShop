@@ -32,7 +32,14 @@
 				{
 					@await Html.PartialAsync("_CartPartial")
 				}
-				<partial name="_LoginPartial" />
+				<div class="dropdown">
+					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" 
+							aria-haspopup="true" aria-expanded="false">
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<partial name="_LoginPartial" />
+					</div>
+				</div>
 			</div>
 		</nav>
 	</header>
