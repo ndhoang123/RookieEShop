@@ -49,7 +49,7 @@ namespace RookieEShop.FrontEnd.Services
 			}
 		}
 
-		public async Task<IList<OrderVm>> GetAddress()
+		public async Task<IList<OrderVm>> GetHistory()
 		{
 			var userId = _httpContextAccessor.HttpContext.User.FindFirstValue("sub");
 

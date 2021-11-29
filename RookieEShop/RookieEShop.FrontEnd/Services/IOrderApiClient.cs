@@ -8,6 +8,6 @@ namespace RookieEShop.FrontEnd.Services
 	{
 		Task<bool> CreateOrder(OrderVm cart);
 
-		Task<IList<OrderVm>> GetAddress();
+		Task<IList<OrderVm>> GetHistory();
 	}
 }
