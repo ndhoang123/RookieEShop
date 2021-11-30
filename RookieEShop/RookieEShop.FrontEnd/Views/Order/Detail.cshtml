@@ -1,0 +1,117 @@
+﻿
+@section Styles {
+	<link rel="stylesheet" href="~/css/historystyle.css" />
+}
+
+@{
+	ViewData["Title"] = "Order Detail";
+}
+
+<div class="bottom">
+	<div class="heading">
+		<span>@ViewData["Title"]</span>
+		<span class="split"> - </span>
+		<span class="status">Successfully</span>
+	</div>
+	<div class="create-date">
+		<span>Created At:</span>
+		22:54 08/06/2021
+	</div>
+	<div class="information">
+		<div class="col">
+			<div class="title">Address</div>
+			<div class="content">
+				<p class="name">A</p>
+				<p class="address">
+					<span>Address: </span>A abc street
+				</p>
+				<p class="phone">
+					<span>Phone:</span> 09696969
+				</p>
+			</div>
+		</div>
+		<div class="col">
+			<div class="title">Delivery method</div>
+			<div class="content">
+				<p class="name">A</p>
+				<p class="address">
+					<span>Address: </span>A abc street
+				</p>
+				<p class="phone">
+					<span>Phone:</span> 09696969
+				</p>
+			</div>
+		</div>
+		<div class="col">
+			<div class="title">Payment method</div>
+			<div class="content">
+				<p class="name">A</p>
+				<p class="address">
+					<span>Address: </span>A abc street
+				</p>
+				<p class="phone">
+					<span>Phone:</span> 09696969
+				</p>
+			</div>
+		</div>
+	</div>
+	<table class="tbl">
+		<thead>
+			<tr>
+				<th>Product</th>
+				<th>Price</th>
+				<th>Qty</th>
+				<th>Discount</th>
+				<th>Temp caculate</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					<div class="product-item">
+						<img src="https://salt.tikicdn.com/cache/200x200/ts/product/1b/3f/9f/f240b369353d46803770c2887027ab4c.jpg"
+							 alt="Tai Nghe Có Dây Nhét Tai Sennheiser CX 80S - Hàng Chính Hãng">
+						<div class="product-info">
+							<a href="" class="product-name">Tai Nghe Có Dây Nhét Tai Sennheiser CX 80S - Hàng Chính Hãng</a>
+						</div>
+					</div>
+				</td>
+				<td class="price">499.000 ₫</td>
+				<td class="quantity">1</td>
+				<td class="discount-amount">50.000 ₫</td>
+				<td class="raw-total">449.000 ₫</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="4">
+					<span>Temp Calculate</span>
+				</td>
+				<td>499.999VND</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<span>Discount</span>
+				</td>
+				<td>10.000VND</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<span>Shipping fee</span>
+				</td>
+				<td>10.000VND</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<span>Sum</span>
+				</td>
+				<td>
+					<span class="sum">453.000VND</span>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+	<a href="#" class="btn btn-secondary" id="btn3">Cancel Order</a>
+	<a href="#" class="btn btn-success" id="btn2">Tracking</a>
+	<a href="#" id="btn1">&lt;&lt; Back to the order list</a>
+</div>
