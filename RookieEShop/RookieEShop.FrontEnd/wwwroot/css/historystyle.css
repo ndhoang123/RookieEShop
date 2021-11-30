@@ -273,3 +273,9 @@ a{
     line-height: 1.42857;
     padding-top: 9px;
 }
+
+a[disabled="disabled"] {
+    pointer-events: none;
+    opacity: .4;
+    cursor: default !important;
+}
