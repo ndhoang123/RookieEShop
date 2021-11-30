@@ -12,6 +12,10 @@ namespace RookieEShop.Shared
 
 		public decimal Price { get; set; }
 
+		public string ProductName { get; set; }
+
+		public string ThumbnailImageUrl { get; set; }
+
 		public decimal? Discount { get; set; }
 
 		public int Qty { get; set; }
