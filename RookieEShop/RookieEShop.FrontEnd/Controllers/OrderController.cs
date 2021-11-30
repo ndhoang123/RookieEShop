@@ -31,7 +31,7 @@ namespace RookieEShop.FrontEnd.Controllers
 		public async Task<IActionResult> Detail(int id)
 		{
 			var history = await _orderApiClient.GetHistory();
-			var detail = history.Where(x => x.OrderId.Equals(id));
+			var detail = history.Where(x => x.OrderId.Equals(id)).First();
 			return View(detail);
 		}
 	}
