@@ -23,7 +23,7 @@
 			<tr>
 				<th scope="row">@(i++)</th>
 				<td><a asp-route="history" 
-					   asp-route-id="@(index.OrderId)">@(index.OrderName)</a></td>
+					   asp-route-id="@(index.OrderId)">#@(index.OrderName)</a></td>
 				<td>@(index.StatusCart)</td>
 				<td>@(index.CreatedAt)</td>
 				<td>@(index.DeliveryDay)</td>
