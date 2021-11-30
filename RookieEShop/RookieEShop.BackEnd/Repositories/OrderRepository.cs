@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RookieEShop.BackEnd.Data;
 using RookieEShop.BackEnd.Models;
+using RookieEShop.BackEnd.Services;
 using RookieEShop.Shared;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,35 +12,22 @@ namespace RookieEShop.BackEnd.Repositories
 	public class OrderRepository : IOrderRepository
 	{
 		private readonly ApplicationDbContext _dbContext;
+		private readonly IStorageService _storageService;
 
-		public OrderRepository(ApplicationDbContext dbContext)
+		public OrderRepository(ApplicationDbContext dbContext, IStorageService storageService)
 		{
 			_dbContext = dbContext;
+			_storageService = storageService;
 		}
 
 		public async Task<IEnumerable<OrderVm>> GetAddressShipping(string userId)
 		{
 			var listOrder = await _dbContext.Orderings
-									.Include(x => x.OrderDetail)
+									.Include(x => x.OrderDetail).ThenInclude(x => x.Product)
 									.Include(x => x.ShippingAddress)
 									.Where(x => x.UserId.Equals(userId))
 									.AsNoTracking()
 									.ToListAsync();
-
-			List<OrderDetailVm> getDetails = new List<OrderDetailVm>();
-			foreach(var i in listOrder)
-			{
-				foreach(var k in i.OrderDetail)
-				{
-					getDetails.Add(new OrderDetailVm
-					{
-						Qty = k.Qty,
-						Discount = k.Discount,
-						ProductId = k.ProductId,
-						Price = k.Price
-					});
-				}
-			}
 
 			var listVm = listOrder.Select(x => new OrderVm
 			{
@@ -58,7 +46,15 @@ namespace RookieEShop.BackEnd.Repositories
 				PaymentMethod = x.PaymentMethod,
 				ShippingAddressId = x.ShippingAddressId,
 				OrderName = x.OrderName,
-				OrderDetail = getDetails,
+				OrderDetail = x.OrderDetail.Select(index => new OrderDetailVm
+				{
+					Qty = index.Qty,
+					Discount = index.Discount,
+					ProductId = index.ProductId,
+					Price = index.Price,
+					ProductName = index.Product.Name,
+					ThumbnailImageUrl = _storageService.GetFileUrl(index.Product.ImageFileName)
+				}).ToList(),
 				OrderAddressForm = new OrderAddressVm
 				{
 					ContactName = x.ShippingAddress.Name,
@@ -77,7 +73,7 @@ namespace RookieEShop.BackEnd.Repositories
 		{
 			_dbContext.Orderings.Add(order);
 
-			if(await _dbContext.SaveChangesAsync() > 0)
+			if (await _dbContext.SaveChangesAsync() > 0)
 			{
 				return true;
 			}
@@ -90,7 +86,7 @@ namespace RookieEShop.BackEnd.Repositories
 
 		public async Task<bool> ChangeStatus(int id, OrderEdit edit)
 		{
-			if(edit == null)
+			if (edit == null)
 			{
 				return false;
 			}
@@ -99,7 +95,7 @@ namespace RookieEShop.BackEnd.Repositories
 								.Where(x => x.Id.Equals(id))
 								.SingleAsync();
 
-			if(await _dbContext.SaveChangesAsync() > 0)
+			if (await _dbContext.SaveChangesAsync() > 0)
 			{
 				return true;
 			}
