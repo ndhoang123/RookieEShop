@@ -6,8 +6,10 @@ namespace RookieEShop.FrontEnd.Services
 {
 	public interface IOrderApiClient
 	{
+		Task<IList<OrderVm>> GetHistory();
+
 		Task<bool> CreateOrder(OrderVm cart);
 
-		Task<IList<OrderVm>> GetHistory();
+		Task<bool> UpdateOrderStatus(int id, OrderEdit order);
 	}
 }

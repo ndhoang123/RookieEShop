@@ -59,5 +59,22 @@ namespace RookieEShop.FrontEnd.Services
 
 			return await response.Content.ReadAsAsync<IList<OrderVm>>();
 		}
+
+		public async Task<bool> UpdateOrderStatus(int id, OrderEdit order)
+		{
+			var response = await _client.PutAsJsonAsync("/api/Order/" + id.ToString(), order);
+
+			response.EnsureSuccessStatusCode();
+
+			if (response.ReasonPhrase.Equals("No Content"))
+			{
+				return true;
+			}
+
+			else
+			{
+				return false;
+			}
+		}
 	}
 }
