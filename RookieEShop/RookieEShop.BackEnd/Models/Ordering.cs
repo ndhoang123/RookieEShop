@@ -12,6 +12,7 @@ namespace RookieEShop.BackEnd.Models
 			BillDate = DateTime.Now;
 			DeliveryDate = DateTime.Now.AddDays(3);
 			StatusCart = "New";
+			isActive = true;
 		}
 
 		public int Id { get; set; }
@@ -44,6 +45,8 @@ namespace RookieEShop.BackEnd.Models
 		public string PaymentMethod { get; set; }
 
 		public decimal PaymentFee { get; set; }
+
+		public bool isActive { get; set; }
 
 		public long ShippingAddressId { get; set; }
 
