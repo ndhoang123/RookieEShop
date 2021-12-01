@@ -3,6 +3,7 @@ using RookieEShop.BackEnd.Data;
 using RookieEShop.BackEnd.Models;
 using RookieEShop.BackEnd.Services;
 using RookieEShop.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -96,6 +97,7 @@ namespace RookieEShop.BackEnd.Repositories
 								.SingleAsync();
 
 			order.StatusCart = edit.Status;
+			order.LastUpdated = DateTime.Now;
 
 			if (await _dbContext.SaveChangesAsync() > 0)
 			{
