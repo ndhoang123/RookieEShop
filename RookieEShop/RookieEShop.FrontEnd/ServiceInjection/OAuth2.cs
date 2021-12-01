@@ -4,9 +4,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace RookieEShop.FrontEnd.ServiceInjection
 {
-	public static class Auth2
+	public static class OAuth2
 	{
-		public static IServiceCollection AddAuth2(this IServiceCollection services, IConfiguration configuration)
+		public static IServiceCollection AddOAuth2(this IServiceCollection services, IConfiguration configuration)
 		{
 			services.AddAuthentication(options =>
 			{
