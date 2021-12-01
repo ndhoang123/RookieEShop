@@ -91,6 +91,7 @@ namespace RookieEShop.BackEnd.Controllers
 		}
 
 		[HttpPut("{id}")]
+		[AllowAnonymous]
 		public async Task<ActionResult> ChangeOrderStatus(int id, OrderEdit edit)
 		{
 			if (id <= 0) return StatusCode(400);

@@ -95,6 +95,8 @@ namespace RookieEShop.BackEnd.Repositories
 								.Where(x => x.Id.Equals(id))
 								.SingleAsync();
 
+			order.StatusCart = edit.Status;
+
 			if (await _dbContext.SaveChangesAsync() > 0)
 			{
 				return true;
