@@ -22,9 +22,12 @@ namespace RookieEShop.FrontEnd.Controllers
 			return View();
 		}
 
-		public IActionResult Tracking()
+		[Route("order/tracking/{id:int}", Name ="order/tracking")]
+		public async Task<IActionResult> Tracking(int id)
 		{
-			return View();
+			var history = await _orderApiClient.GetHistory();
+			var detail = history.Where(x => x.OrderId.Equals(id)).First();
+			return View(detail);
 		}
 
 		public async Task<IActionResult> History()
@@ -46,7 +49,8 @@ namespace RookieEShop.FrontEnd.Controllers
 		{
 			var order = new OrderEdit
 			{
-				Status = "Cancel"
+				Status = "Cancel",
+				UpdateStatus = "Cancel the order"
 			};
 
 			var isSuccess = await _orderApiClient.UpdateOrderStatus(id, order);
