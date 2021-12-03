@@ -71,9 +71,9 @@ namespace RookieEShop.BackEnd.Data
 				.HasForeignKey(x => x.OrderId);
 
 			modelBuilder.Entity<OrderTracking>()
-				.HasOne(s => s.OrderDetail)
+				.HasOne(s => s.Ordering)
 				.WithMany(s => s.OrderTrackings)
-				.HasForeignKey(x => x.OrderDetailId);
+				.HasForeignKey(x => x.OrderingId);
 
 			modelBuilder.Entity<User>()
 				.ToTable("AspNetUsers");

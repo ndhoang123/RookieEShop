@@ -15,8 +15,8 @@ namespace RookieEShop.BackEnd.Models
 		[StringLength(450)]
 		public string OrderInformation { get; set; }
 
-		public int OrderDetailId { get; set; }
+		public int OrderingId { get; set; }
 
-		public OrderDetail OrderDetail { get; set; }
+		public Ordering Ordering { get; set; }
 	}
 }

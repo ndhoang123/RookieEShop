@@ -60,5 +60,7 @@ namespace RookieEShop.BackEnd.Models
 		public User User { get; set; }
 
 		public ICollection<OrderDetail> OrderDetail { get; set; }
+
+		public ICollection<OrderTracking> OrderTrackings { get; set; }
 	}
 }
