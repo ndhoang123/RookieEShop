@@ -40,5 +40,7 @@ namespace RookieEShop.Shared
 		public ICollection<OrderDetailVm> OrderDetail { get; set; }
 
 		public OrderAddressVm OrderAddressForm { get; set; }
+
+		public ICollection<OrderTrackingVm> OrderTracking { get; set; }
 	}
 }
