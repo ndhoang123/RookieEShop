@@ -118,6 +118,6 @@
 	{
 		<a asp-route="cancelorder" asp-route-id="@Model.OrderId" class="btn btn-secondary" id="btn3">Cancel Order</a>
 	}
-	<a href="#" class="btn btn-success" id="btn2">Tracking</a>
+	<a asp-action="Tracking" asp-controller="Order" class="btn btn-success" id="btn2">Tracking</a>
 	<a asp-action="History" asp-controller="Order" id="btn1">&lt;&lt; Back to the order list</a>
 </div>

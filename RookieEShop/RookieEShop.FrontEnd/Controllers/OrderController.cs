@@ -22,6 +22,11 @@ namespace RookieEShop.FrontEnd.Controllers
 			return View();
 		}
 
+		public IActionResult Tracking()
+		{
+			return View();
+		}
+
 		public async Task<IActionResult> History()
 		{
 			var history = await _orderApiClient.GetHistory();
