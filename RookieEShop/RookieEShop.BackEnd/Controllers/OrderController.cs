@@ -49,8 +49,17 @@ namespace RookieEShop.BackEnd.Controllers
 				ShippingFee = order.ShippingFee,
 				PaymentFee = order.PaymentFee,
 				PaymentMethod = order.PaymentMethod,
-				OrderDetail = new List<OrderDetail>()
+				OrderDetail = new List<OrderDetail>(),
+				OrderTrackings = new List<OrderTracking>()
 			};
+
+			orders.OrderTrackings.Add(new OrderTracking
+			{
+				Status = order.StatusCart,
+				Updated = order.CreatedAt,
+				OrderInformation = "Your order is received",
+				Ordering = orders
+			});
 
 			foreach(var i in order.OrderDetail)
 			{
