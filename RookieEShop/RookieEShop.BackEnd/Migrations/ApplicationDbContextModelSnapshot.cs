@@ -232,6 +232,34 @@ namespace RookieEShop.BackEnd.Migrations
                     b.ToTable("OrderDetails");
                 });
 
+            modelBuilder.Entity("RookieEShop.BackEnd.Models.OrderTracking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("OrderDetailId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OrderInformation")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Status")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderDetailId");
+
+                    b.ToTable("OrderTrackings");
+                });
+
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Ordering", b =>
                 {
                     b.Property<int>("Id")
@@ -509,6 +537,17 @@ namespace RookieEShop.BackEnd.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("RookieEShop.BackEnd.Models.OrderTracking", b =>
+                {
+                    b.HasOne("RookieEShop.BackEnd.Models.OrderDetail", "OrderDetail")
+                        .WithMany("OrderTrackings")
+                        .HasForeignKey("OrderDetailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OrderDetail");
+                });
+
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Ordering", b =>
                 {
                     b.HasOne("RookieEShop.BackEnd.Models.OrderAddress", "ShippingAddress")
@@ -557,6 +596,11 @@ namespace RookieEShop.BackEnd.Migrations
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("RookieEShop.BackEnd.Models.OrderDetail", b =>
+                {
+                    b.Navigation("OrderTrackings");
                 });
 
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Ordering", b =>

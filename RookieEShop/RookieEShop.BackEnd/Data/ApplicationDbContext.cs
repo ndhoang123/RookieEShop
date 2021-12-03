@@ -18,6 +18,8 @@ namespace RookieEShop.BackEnd.Data
 
 		public DbSet<OrderAddress> OrderAddresses { get; set; }
 
+		public DbSet<OrderTracking> OrderTrackings { get; set; }
+
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)
 		{
@@ -67,6 +69,11 @@ namespace RookieEShop.BackEnd.Data
 				.HasOne<Ordering>(s => s.Order)
 				.WithMany(s => s.OrderDetail)
 				.HasForeignKey(x => x.OrderId);
+
+			modelBuilder.Entity<OrderTracking>()
+				.HasOne(s => s.OrderDetail)
+				.WithMany(s => s.OrderTrackings)
+				.HasForeignKey(x => x.OrderDetailId);
 
 			modelBuilder.Entity<User>()
 				.ToTable("AspNetUsers");
