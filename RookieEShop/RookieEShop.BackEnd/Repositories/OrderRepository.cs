@@ -26,6 +26,7 @@ namespace RookieEShop.BackEnd.Repositories
 			var listOrder = await _dbContext.Orderings
 									.Include(x => x.OrderDetail).ThenInclude(x => x.Product)
 									.Include(x => x.ShippingAddress)
+									.Include(x => x.OrderTrackings)
 									.Where(x => x.UserId.Equals(userId))
 									.AsNoTracking()
 									.ToListAsync();
@@ -63,7 +64,13 @@ namespace RookieEShop.BackEnd.Repositories
 					OrderCity = x.ShippingAddress.City,
 					OrderDistrict = x.ShippingAddress.District,
 					PhoneNumber = x.ShippingAddress.Phone
-				}
+				},
+				OrderTracking = x.OrderTrackings.Select(index => new OrderTrackingVm
+				{
+					OrderInformation = index.OrderInformation,
+					Status = index.Status,
+					Updated = index.Updated
+				}).ToList()
 			}).ToList();
 
 
@@ -98,6 +105,12 @@ namespace RookieEShop.BackEnd.Repositories
 
 			order.StatusCart = edit.Status;
 			order.LastUpdated = DateTime.Now;
+			order.OrderTrackings.Add(new OrderTracking
+			{
+				OrderInformation = edit.UpdateStatus,
+				Status = edit.Status,
+				Updated = order.LastUpdated
+			});
 
 			if (await _dbContext.SaveChangesAsync() > 0)
 			{
