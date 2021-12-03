@@ -53,11 +53,16 @@ body{
 
 .information > div:first-child{
     margin-left: 0px;
+    padding-left: 0px;
 }
 
 .information > div{
     width: 33.3333%;
     margin: 0px 5px;
+}
+
+.information > div:last-child{
+    padding-right: 0px;
 }
 
 .col {
