@@ -6,7 +6,7 @@ RookieEShop is a e-commerce website, where user can view and afford book.
 ![LogicArchitecture](imgforReadme/assignment-architecture.PNG)
 
 ## Tech stack
-The main programming language is Csharp, with .Net (5.0) framework, SQL Server, Entity framework and Identity Server.
+The main programming language is Csharp and javascript, with .Net (5.0) framework, SQL Server, Entity framework, Identity Server, ReactJS, Redux, JQuery, HTML, CSS.
 
 ## Features
 #### Anonymous user
@@ -15,13 +15,11 @@ The main programming language is Csharp, with .Net (5.0) framework, SQL Server, 
 - View product detail
 - Register account
 #### Signed-in user
-- Rate product
-- Comment, including image and word (Only comment by word: Updated 27/06/2021)
+- Product: rating, comment
 - Cart
 - Ordering
 - Payment
-- View the history order
-- View the order detail, tracking (developing)
+- View the order: detail, history, and tracking
 #### Admin (Must authentication)
 - Modify, create products
 - Modify, create categories
