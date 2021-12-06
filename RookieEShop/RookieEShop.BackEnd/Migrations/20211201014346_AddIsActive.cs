@@ -2,23 +2,23 @@
 
 namespace RookieEShop.BackEnd.Migrations
 {
-    public partial class updatePriceinDb : Migration
+    public partial class AddIsActive : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<decimal>(
-                name: "Price",
-                table: "Carts",
-                type: "decimal(18,2)",
+            migrationBuilder.AddColumn<bool>(
+                name: "isActive",
+                table: "Orderings",
+                type: "bit",
                 nullable: false,
-                defaultValue: 0m);
+                defaultValue: false);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Price",
-                table: "Carts");
+                name: "isActive",
+                table: "Orderings");
         }
     }
 }

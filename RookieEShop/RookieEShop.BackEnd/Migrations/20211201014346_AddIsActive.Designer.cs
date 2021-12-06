@@ -10,8 +10,8 @@ using RookieEShop.BackEnd.Data;
 namespace RookieEShop.BackEnd.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210726075904_updatePriceinDb")]
-    partial class updatePriceinDb
+    [Migration("20211201014346_AddIsActive")]
+    partial class AddIsActive
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -156,36 +156,6 @@ namespace RookieEShop.BackEnd.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("RookieEShop.BackEnd.Models.Cart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
-
-                    b.ToTable("Carts");
-                });
-
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -201,6 +171,69 @@ namespace RookieEShop.BackEnd.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("RookieEShop.BackEnd.Models.OrderAddress", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("District")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Phone")
+                        .HasMaxLength(450)
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderAddresses");
+                });
+
+            modelBuilder.Entity("RookieEShop.BackEnd.Models.OrderDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal?>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Qty")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderDetails");
+                });
+
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Ordering", b =>
                 {
                     b.Property<int>("Id")
@@ -208,37 +241,60 @@ namespace RookieEShop.BackEnd.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("BillDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
+                    b.Property<string>("CouponName")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("DeliveryDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("NumberOfStuff")
-                        .HasColumnType("int");
+                    b.Property<string>("OrderName")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComputedColumnSql("N'RE'+ RIGHT('0000000'+CAST(Id AS VARCHAR(7)),7)");
 
-                    b.Property<int>("Phone")
-                        .HasColumnType("int");
+                    b.Property<string>("OrderNote")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<decimal>("PaymentFee")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("PaymentMethod")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<long>("ShippingAddressId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("ShippingFee")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ShippingMethod")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("StatusCart")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TotalMoney")
-                        .HasColumnType("int");
+                    b.Property<decimal>("TaxAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<bool>("isActive")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CartId")
-                        .IsUnique();
+                    b.HasIndex("ShippingAddressId");
 
                     b.HasIndex("UserId");
 
@@ -433,28 +489,30 @@ namespace RookieEShop.BackEnd.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RookieEShop.BackEnd.Models.Cart", b =>
+            modelBuilder.Entity("RookieEShop.BackEnd.Models.OrderDetail", b =>
                 {
+                    b.HasOne("RookieEShop.BackEnd.Models.Ordering", "Order")
+                        .WithMany("OrderDetail")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("RookieEShop.BackEnd.Models.Product", "Product")
-                        .WithMany("Carts")
+                        .WithMany("OrderDetails")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RookieEShop.BackEnd.Models.User", "User")
-                        .WithOne("Cart")
-                        .HasForeignKey("RookieEShop.BackEnd.Models.Cart", "UserId");
+                    b.Navigation("Order");
 
                     b.Navigation("Product");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Ordering", b =>
                 {
-                    b.HasOne("RookieEShop.BackEnd.Models.Cart", "Cart")
-                        .WithOne("Order")
-                        .HasForeignKey("RookieEShop.BackEnd.Models.Ordering", "CartId")
+                    b.HasOne("RookieEShop.BackEnd.Models.OrderAddress", "ShippingAddress")
+                        .WithMany()
+                        .HasForeignKey("ShippingAddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -462,7 +520,7 @@ namespace RookieEShop.BackEnd.Migrations
                         .WithMany("Orderings")
                         .HasForeignKey("UserId");
 
-                    b.Navigation("Cart");
+                    b.Navigation("ShippingAddress");
 
                     b.Navigation("User");
                 });
@@ -495,27 +553,25 @@ namespace RookieEShop.BackEnd.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("RookieEShop.BackEnd.Models.Cart", b =>
-                {
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Category", b =>
                 {
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("RookieEShop.BackEnd.Models.Ordering", b =>
+                {
+                    b.Navigation("OrderDetail");
+                });
+
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Product", b =>
                 {
-                    b.Navigation("Carts");
+                    b.Navigation("OrderDetails");
 
                     b.Navigation("Rating");
                 });
 
             modelBuilder.Entity("RookieEShop.BackEnd.Models.User", b =>
                 {
-                    b.Navigation("Cart");
-
                     b.Navigation("Orderings");
                 });
 #pragma warning restore 612, 618

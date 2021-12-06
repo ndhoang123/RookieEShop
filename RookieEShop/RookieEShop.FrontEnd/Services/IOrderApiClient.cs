@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using RookieEShop.Shared;
-using System;
+﻿using RookieEShop.Shared;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RookieEShop.FrontEnd.Services
 {
 	public interface IOrderApiClient
 	{
+		Task<IList<OrderVm>> GetHistory();
+
 		Task<bool> CreateOrder(OrderVm cart);
+
+		Task<bool> UpdateOrderStatus(int id, OrderEdit order);
 	}
 }

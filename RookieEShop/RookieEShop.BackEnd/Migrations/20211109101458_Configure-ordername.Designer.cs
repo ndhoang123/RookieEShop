@@ -10,8 +10,8 @@ using RookieEShop.BackEnd.Data;
 namespace RookieEShop.BackEnd.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211105093916_DeleteCartDb")]
-    partial class DeleteCartDb
+    [Migration("20211109101458_Configure-ordername")]
+    partial class Configureordername
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -171,6 +171,51 @@ namespace RookieEShop.BackEnd.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("RookieEShop.BackEnd.Models.OrderDetail", b =>
+                {
+                    b.Property<int>("OrderDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("BillDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeliveryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OrderName")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComputedColumnSql("N'RE'+ RIGHT('0000000'+CAST(OrderDetailId AS VARCHAR(7)),7)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Qty")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StatusCart")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("OrderDetailId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderDetails");
+                });
+
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Ordering", b =>
                 {
                     b.Property<int>("Id")
@@ -187,16 +232,7 @@ namespace RookieEShop.BackEnd.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumberOfStuff")
-                        .HasColumnType("int");
-
                     b.Property<int>("Phone")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StatusCart")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TotalMoney")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -397,6 +433,25 @@ namespace RookieEShop.BackEnd.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("RookieEShop.BackEnd.Models.OrderDetail", b =>
+                {
+                    b.HasOne("RookieEShop.BackEnd.Models.Ordering", "Order")
+                        .WithMany("OrderDetail")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RookieEShop.BackEnd.Models.Product", "Product")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Ordering", b =>
                 {
                     b.HasOne("RookieEShop.BackEnd.Models.User", "User")
@@ -439,8 +494,15 @@ namespace RookieEShop.BackEnd.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("RookieEShop.BackEnd.Models.Ordering", b =>
+                {
+                    b.Navigation("OrderDetail");
+                });
+
             modelBuilder.Entity("RookieEShop.BackEnd.Models.Product", b =>
                 {
+                    b.Navigation("OrderDetails");
+
                     b.Navigation("Rating");
                 });
 

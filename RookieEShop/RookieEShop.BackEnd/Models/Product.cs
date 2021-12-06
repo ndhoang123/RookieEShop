@@ -28,6 +28,8 @@ namespace RookieEShop.BackEnd.Models
 
 		public Category Category { get; set; }
 
+		public ICollection<OrderDetail> OrderDetails { get; set; }
+
 		public ICollection<Rating> Rating { get; set; }
 	}
 }

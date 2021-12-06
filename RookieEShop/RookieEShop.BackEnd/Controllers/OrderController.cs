@@ -5,7 +5,6 @@ using RookieEShop.BackEnd.Services;
 using RookieEShop.Shared;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RookieEShop.BackEnd.Controllers
@@ -16,20 +15,22 @@ namespace RookieEShop.BackEnd.Controllers
 	public class OrderController : Controller
 	{
 		private readonly IOrderService _IOrderService;
+		private readonly IOrderAddressService _IOrderAddress;
 
-		public OrderController (IOrderService IOrderService)
+		public OrderController (IOrderService IOrderService, IOrderAddressService IOrderAddress)
 		{
 			_IOrderService = IOrderService;
+			_IOrderAddress = IOrderAddress;
 		}
 
-		//[HttpGet]
-		//[AllowAnonymous]
-		//public async Task<ActionResult> GetList(string userId)
-		//{
-		//	var listOrder = await _IOrderService.GetOrderByUserId(userId);
+		[HttpGet("{id}")]
+		[AllowAnonymous]
+		public async Task<ActionResult> GetList(string id)
+		{
+			var listOrder = await _IOrderService.GetAddressShipping(id);
 
-		//	return Ok(listOrder);
-		//}
+			return Ok(listOrder);
+		}
 
 		[HttpPost]
 		[AllowAnonymous]
@@ -37,15 +38,55 @@ namespace RookieEShop.BackEnd.Controllers
 		{
 			var orders = new Ordering
 			{
-				TotalMoney = order.TotalMoney,
-				NumberOfStuff = order.NumberOfStuff,
-				Name = order.ClientName,
-				Address = order.Address,
 				CreatedAt = DateTime.Now,
-				Phone = order.Phone,
-				StatusCart = "Processing",
-				UserId = order.UserId
+				UserId = order.UserId,
+				TaxAmount = order.TaxAmount,
+				DeliveryDate = order.DeliveryDay,
+				BillDate = order.BillDay,
+				CouponName = order.Coupon,
+				OrderNote = order.Note,
+				ShippingMethod = order.ShippingMethod,
+				ShippingFee = order.ShippingFee,
+				PaymentFee = order.PaymentFee,
+				PaymentMethod = order.PaymentMethod,
+				OrderDetail = new List<OrderDetail>(),
+				OrderTrackings = new List<OrderTracking>()
 			};
+
+			orders.OrderTrackings.Add(new OrderTracking
+			{
+				Status = order.StatusCart,
+				Updated = order.CreatedAt,
+				OrderInformation = "Your order is received",
+				Ordering = orders
+			});
+
+			foreach(var i in order.OrderDetail)
+			{
+				orders.OrderDetail.Add(new OrderDetail 
+				{ 
+					ProductId = i.ProductId, 
+					Discount = i.Discount,
+					Price = i.Price,
+					Qty = i.Qty,
+					Order = orders
+				});
+			}
+
+			if (order.ShippingAddressId == 0)
+			{
+				orders.ShippingAddress = new OrderAddress();
+				orders.ShippingAddress.Address = order.OrderAddressForm.HomeAddress;
+				orders.ShippingAddress.City = order.OrderAddressForm.OrderCity;
+				orders.ShippingAddress.District = order.OrderAddressForm.OrderDistrict;
+				orders.ShippingAddress.Name = order.OrderAddressForm.ContactName;
+				orders.ShippingAddress.Phone = order.OrderAddressForm.PhoneNumber;
+			}
+
+			else
+			{
+				orders.ShippingAddressId = order.ShippingAddressId;
+			}
 
 			if (await _IOrderService.AddOrder(orders))
 			{
@@ -59,6 +100,7 @@ namespace RookieEShop.BackEnd.Controllers
 		}
 
 		[HttpPut("{id}")]
+		[AllowAnonymous]
 		public async Task<ActionResult> ChangeOrderStatus(int id, OrderEdit edit)
 		{
 			if (id <= 0) return StatusCode(400);

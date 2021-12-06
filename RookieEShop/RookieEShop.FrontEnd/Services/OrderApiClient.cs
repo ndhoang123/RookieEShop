@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using RookieEShop.BackEnd.Models;
 using RookieEShop.Shared;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,35 @@ namespace RookieEShop.FrontEnd.Services
 
 			response.EnsureSuccessStatusCode();
 
-			if (response.ReasonPhrase.Equals("GetRating"))
+			if (response.StatusCode.Equals(201))
+			{
+				return true;
+			}
+
+			else
+			{
+				return false;
+			}
+		}
+
+		public async Task<IList<OrderVm>> GetHistory()
+		{
+			var userId = _httpContextAccessor.HttpContext.User.FindFirstValue("sub");
+
+			var response = await _client.GetAsync("api/Order/" + userId);
+
+			response.EnsureSuccessStatusCode();
+
+			return await response.Content.ReadAsAsync<IList<OrderVm>>();
+		}
+
+		public async Task<bool> UpdateOrderStatus(int id, OrderEdit order)
+		{
+			var response = await _client.PutAsJsonAsync("/api/Order/" + id.ToString(), order);
+
+			response.EnsureSuccessStatusCode();
+
+			if (response.ReasonPhrase.Equals("No Content"))
 			{
 				return true;
 			}

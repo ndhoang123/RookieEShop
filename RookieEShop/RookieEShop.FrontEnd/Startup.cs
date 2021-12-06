@@ -1,16 +1,11 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
-using RookieEShop.FrontEnd.Services;
+using RookieEShop.FrontEnd.ServiceInjection;
 using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net.Http.Headers;
-using RookieEShop.FrontEnd.ServiceInjection;
 
 namespace RookieEShop.FrontEnd
 {
@@ -31,7 +26,7 @@ namespace RookieEShop.FrontEnd
 
 			JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
-			services.AddAuth2(Configuration);
+			services.AddOAuth2(Configuration);
 
 			services.AddApiClient();
 

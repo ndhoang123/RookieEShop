@@ -19,7 +19,9 @@ The main programming language is Csharp, with .Net (5.0) framework, SQL Server, 
 - Comment, including image and word (Only comment by word: Updated 27/06/2021)
 - Cart
 - Ordering
-- View the history order (Developing)
+- Payment
+- View the history order
+- View the order detail, tracking (developing)
 #### Admin (Must authentication)
 - Modify, create products
 - Modify, create categories

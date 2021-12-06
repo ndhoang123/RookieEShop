@@ -1,0 +1,103 @@
+﻿@model RookieEShop.Shared.OrderVm
+
+@section Styles {
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" />
+	<link rel="stylesheet" href="~/css/Tracking.css" />
+}
+
+@{
+	ViewData["Title"] = "Order tracking";
+	var i = 0;
+	var max = Model.OrderTracking.Count - 1;
+}
+
+<div class="contain">
+	<div class="tracking-layout">
+		<div class="tracking-layout-inner">
+			<div class="order-heading">
+				<h3>Track order #@(Model.OrderName)</h3>
+				<a asp-route="history" asp-route-id="@Model.OrderId" class="view-detail">View this order detail</a>
+			</div>
+			<div class="card">
+				<div class="row d-flex justify-content-center">
+					<div class="col-12">
+						<ul id="progressbar" class="text-center">
+							<li class="step0 @(Model.StatusCart == "New" ? "active" : "")"></li>
+							<li class="step0 @(Model.StatusCart == "Shipped" ? "active" : "") "></li>
+							<li class="step0 @(Model.StatusCart == "Route" ? "active" : "")"></li>
+							<li class="step0 @(Model.StatusCart == "Arrived" ? "active" : "")"></li>
+						</ul>
+					</div>
+				</div>
+				<div class="content">
+					<div class="content-img">
+						<img src="~/image/Tracking/9nnc9Et.png" alt="Processed Icon" class="icon">
+						<p class="content-title">Order<br>Processed</p>
+					</div>
+					<div class="content-img">
+						<img src="~/image/Tracking/u1AzR7w.png" alt="Shipped icon" class="icon">
+						<p class="content-title">Order<br>Shipped</p>
+					</div>
+					<div class="content-img">
+						<img src="~/image/Tracking/TkPm63y.png" alt="Route icon" class="icon">
+						<p class="content-title">Order<br>En Route</p>
+					</div>
+					<div class="content-img">
+						<img src="~/image/Tracking/HdsziHP.png" alt="Arrived" class="icon">
+						<p class="content-title">Order<br>Arrived</p>
+					</div>
+				</div>
+			</div>
+			<div class="order-info">
+				<div class="order-status">
+					<div class="order-status-heading">
+						Tracking detail: <span class="delivery-text"> @Model.StatusCart </span>
+					</div>
+					<div class="order-status-progress">
+						@foreach (var index in Model.OrderTracking)
+						{
+							<div class="progress-step @(index.Status == "New" ? ((max == 0) ? "first active" : "first") : (i == max ? "active" : ""))">
+								<div class="step-bar">
+									<span class="step-bar-circle"></span>
+									<span class="step-bar-line"></span>
+								</div>
+								<div class="step-info">
+									<div class="step-info-status-text">@index.OrderInformation</div>
+									<div class="step-info-substate-text"></div>
+									<div class="step-info-hint"></div>
+									<div class="step-info-time">@index.Updated</div>
+									<div class="step-info-divider"></div>
+								</div>
+							</div>
+							i++;
+						}
+
+					</div>
+				</div>
+				<div class="order-items">
+					<p class="item-list-title">Package including:</p>
+					<div class="items">
+						@foreach (var index in Model.OrderDetail)
+						{
+							<div class="item">
+								<div class="image"
+									 style="background-image: url(https://localhost:44305/@index.ThumbnailImageUrl); width: 80px; height: 111px">
+									<span class="qty">
+										x
+										@index.Qty
+									</span>
+								</div>
+								<div class="info">
+									<a href="#" class="name">
+										@index.ProductName
+									</a>
+								</div>
+							</div>
+						}
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

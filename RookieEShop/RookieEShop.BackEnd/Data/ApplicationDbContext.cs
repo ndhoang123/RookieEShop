@@ -14,6 +14,12 @@ namespace RookieEShop.BackEnd.Data
 
 		public DbSet<Ordering> Orderings { get; set; }
 
+		public DbSet<OrderDetail> OrderDetails { get; set; }
+
+		public DbSet<OrderAddress> OrderAddresses { get; set; }
+
+		public DbSet<OrderTracking> OrderTrackings { get; set; }
+
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)
 		{
@@ -44,6 +50,30 @@ namespace RookieEShop.BackEnd.Data
 				.HasOne<User>(s => s.User)
 				.WithMany(x => x.Orderings)
 				.HasForeignKey(x => x.UserId);
+
+			modelBuilder.Entity<Ordering>()
+				.HasOne(s => s.ShippingAddress)
+				.WithMany()
+				.HasForeignKey(x => x.ShippingAddressId);
+
+			modelBuilder.Entity<Ordering>()
+				.Property(x => x.OrderName)
+				.HasComputedColumnSql("N'RE'+ RIGHT('0000000'+CAST(Id AS VARCHAR(7)),7)");
+
+			modelBuilder.Entity<OrderDetail>()
+				.HasOne<Product>(s => s.Product)
+				.WithMany(x => x.OrderDetails)
+				.HasForeignKey(x => x.ProductId);
+
+			modelBuilder.Entity<OrderDetail>()
+				.HasOne<Ordering>(s => s.Order)
+				.WithMany(s => s.OrderDetail)
+				.HasForeignKey(x => x.OrderId);
+
+			modelBuilder.Entity<OrderTracking>()
+				.HasOne(s => s.Ordering)
+				.WithMany(s => s.OrderTrackings)
+				.HasForeignKey(x => x.OrderingId);
 
 			modelBuilder.Entity<User>()
 				.ToTable("AspNetUsers");

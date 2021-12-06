@@ -1,0 +1,33 @@
+﻿@model IList<RookieEShop.Shared.OrderVm>
+
+@{
+	ViewData["Title"] = "History";
+	var i = 1;
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Order</th>
+			<th scope="col">Status</th>
+			<th scope="col">Created At</th>
+			<th scope="col">Delivery Date</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var index in Model)
+		{
+			<tr>
+				<th scope="row">@(i++)</th>
+				<td><a asp-route="history" 
+					   asp-route-id="@(index.OrderId)">#@(index.OrderName)</a></td>
+				<td>@(index.StatusCart)</td>
+				<td>@(index.CreatedAt)</td>
+				<td>@(index.DeliveryDay)</td>
+			</tr>
+		}
+	</tbody>
+</table>

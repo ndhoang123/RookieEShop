@@ -14,16 +14,14 @@ namespace RookieEShop.FrontEnd.Controllers
 	{
 		private readonly ICartApiClient _cartApiClient;
 		private readonly IOrderApiClient _orderApiClient;
+		private readonly ICheckoutApiClient _checkoutApiClient;
 
-		public CartController(ICartApiClient cartApiClient, IOrderApiClient orderApiClient)
+		public CartController(ICartApiClient cartApiClient, IOrderApiClient orderApiClient,
+			ICheckoutApiClient checkoutApiClient)
 		{
 			_cartApiClient = cartApiClient;
 			_orderApiClient = orderApiClient;
-		}
-
-		public IActionResult Index()
-		{
-			return View();
+			_checkoutApiClient = checkoutApiClient;
 		}
 
 		List<CartVm> GetAllCart()
@@ -86,11 +84,16 @@ namespace RookieEShop.FrontEnd.Controllers
 			return RedirectToAction(nameof(Cart));
 		}
 
-		[Route("/ordering", Name = "ordering")]
-		public IActionResult Ordering()
+		[Route("/orderform", Name = "orderform")]
+		public async Task<IActionResult> Ordering()
 		{
-			var cart = GetAllCart();
-			return View(cart);
+			var order = await _checkoutApiClient.GetShipping();
+			return View(order);
+		}
+
+		public IActionResult CancelOrder()
+		{
+			return Redirect("~/");
 		}
 
 		[Route("/cart", Name ="cart")]
@@ -99,38 +102,87 @@ namespace RookieEShop.FrontEnd.Controllers
 			return View(GetAllCart());
 		}
 
-		[Authorize]
-		[Route("/checkout", Name ="checkout")]
+
+		[Route("/checkout", Name = "checkout")]
 		[HttpPost("[controller]")]
-		public async Task<IActionResult> Checkout(string lname, string fname, string city,
-			string state, string houseadd, string email, string phone)
+		public IActionResult Checkout(DeliveryInformationVm model) // The function cant get the value from the view
 		{
-			var order = CreateCheckout(lname, fname, city, state, houseadd, email, phone);
-			var isDone = await _orderApiClient.CreateOrder(order);
-			if (!isDone)
-			{
-				DeleteCart();
-				return View();
-			}
+			var session = HttpContext.Session;
+
+			string jsonModel = JsonConvert.SerializeObject(model);
+
+			session.SetString("model", jsonModel);
+
+			return RedirectToAction("Payment");
+		}
+
+		[Route("/payment", Name = "payment")]
+		public IActionResult Payment()
+		{
 			return View();
 		}
 
-		private OrderVm CreateCheckout(string lname, string fname, string city,
-			string state, string houseadd, string email, string phone)
+		public IActionResult Error()
 		{
+			return View();
+		}
+		
+		[HttpPost("paymenthandle")]
+		public async Task<IActionResult> PaymentHandle(string Shippingmethod, string Paymentmethod)
+		{
+			string jsoncart = HttpContext.Session.GetString("model");
+			var model = new DeliveryInformationVm();
 			var cart = GetAllCart();
+			if (jsoncart != null)
+			{
+				model = JsonConvert.DeserializeObject<DeliveryInformationVm>(jsoncart);
+			}
 
 			var order = new OrderVm
 			{
-				ClientName = fname + " " + lname,
-				Phone = Convert.ToInt32(phone),
-				Address = houseadd + " " + state + " " + city,
+				BillDay = DateTime.Now,
 				CreatedAt = DateTime.Now,
-				Status = "Processing"
+				DeliveryDay = Shippingmethod.Equals("30000") ? DateTime.Now.AddHours(2) : DateTime.Now.AddDays(3),
+				ShippingFee = Int32.Parse(Shippingmethod),
+				ShippingMethod = Shippingmethod.Equals("30000") ? "Faster" : "Standard",
+				PaymentMethod = Paymentmethod,
+				PaymentFee = Paymentmethod.Equals("COD") ? 0 : 10000,
+				Coupon = null,
+				Note = null,
+				StatusCart = "New",
+				TaxAmount = 0.1M,
+				ShippingAddressId = model.ShippingAddressId,
+				OrderAddressForm = model.NewAddress,
+				OrderDetail = new List<OrderDetailVm>()
 			};
 
+			foreach(var i in cart)
+			{
+				order.OrderDetail.Add(new OrderDetailVm
+				{
+					ProductId = i.ProductId,
+					Discount = 0,
+					Price = i.Price,
+					Qty = i.Quantity
+				});
+			}
 
-			return order;
+			var payment = await _orderApiClient.CreateOrder(order);
+
+			if (!payment)
+			{
+				return RedirectToAction("Error");
+			}
+
+
+			return RedirectToAction("Success");
+		}
+
+		[Route("/success", Name = "success")]
+		public IActionResult Success()
+		{
+			HttpContext.Session.Clear();
+			return View();
 		}
 	}
 }
