@@ -23,6 +23,7 @@ namespace RookieEShop.BackEnd.Repositories
 		public async Task<IEnumerable<ProductVm>> ListAllProduct()
 		{
 			var productList = await _context.Products
+				.Include(x => x.Category)
 				.Where(x => x.IsDisableProduct.Equals(false))
 				.AsNoTracking()
 				.ToListAsync();
@@ -36,7 +37,8 @@ namespace RookieEShop.BackEnd.Repositories
 				Year = x.Year,
 				Publisher = x.Publisher,
 				Description = x.Description,
-				ThumbnailImageUrl = _storageService.GetFileUrl(x.ImageFileName)
+				ThumbnailImageUrl = _storageService.GetFileUrl(x.ImageFileName),
+				CategoryName = x.Category.Name
 			})
 				.ToList();
 
@@ -45,7 +47,11 @@ namespace RookieEShop.BackEnd.Repositories
 
 		public async Task<ProductVm> ListDetailProduct(int id)
 		{
-			var detailProduct = await _context.Products.FindAsync(id);
+			var detailProduct = await _context.Products
+									.Include(x => x.Category)
+									.Where(x => x.Id.Equals(id))
+									.AsNoTracking()
+									.SingleAsync();
 			
 			if(detailProduct == null)
 			{
@@ -61,7 +67,8 @@ namespace RookieEShop.BackEnd.Repositories
 				Publisher = detailProduct.Publisher,
 				Year = detailProduct.Year,
 				Author = detailProduct.Author,
-				ThumbnailImageUrl = _storageService.GetFileUrl(detailProduct.ImageFileName)
+				ThumbnailImageUrl = _storageService.GetFileUrl(detailProduct.ImageFileName),
+				CategoryName = detailProduct.Category.Name
 			};
 
 			return ProductVm;
@@ -70,6 +77,7 @@ namespace RookieEShop.BackEnd.Repositories
 		public async Task<IEnumerable<ProductVm>> GetProductByCategory(int categoryiD)
 		{
 			var product = await _context.Products.Where(x => x.CategoryID == categoryiD)
+				.Include(x => x.Category)
 				.AsNoTracking()				
 				.ToListAsync();
 
@@ -87,7 +95,8 @@ namespace RookieEShop.BackEnd.Repositories
 				Publisher = x.Publisher,
 				Year = x.Year,
 				Author = x.Author,
-				ThumbnailImageUrl = _storageService.GetFileUrl(x.ImageFileName)
+				ThumbnailImageUrl = _storageService.GetFileUrl(x.ImageFileName),
+				CategoryName = x.Category.Name
 			}).ToList();
 
 			return ProductVm;
