@@ -7,52 +7,182 @@
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 	@RenderSection("Styles", false);
 </head>
 <body>
-	<header>
-		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-			<div class="container">
-				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RookieEShop</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-						aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-					<ul class="navbar-nav flex-grow-1">
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-						</li>
-						<li class="nav-item">
-							@await Component.InvokeAsync("CategoryMenu")
-						</li>
-					</ul>
-				</div>
-				@if (User.Identity.IsAuthenticated)
-				{
-					@await Html.PartialAsync("_CartPartial")
-				}
-				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" 
-							aria-haspopup="true" aria-expanded="false">
-					</button>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<partial name="_LoginPartial" />
+	<div class="siteHeader">
+		<header>
+			<div class="siteHeader-top">
+				<div class="siteHeader-content">
+					<a href="/" class="siteHeader-logo" aria-label="RookieEShop Home"
+					   title="RookieEShopHome">RookieEShop</a>
+					<div class="searchBox searchBox-navBar">
+						<form autocomplete="off" action="/search" class="searchBox-form" role="search"
+							  aria-label="Search for books to add to your shelves">
+							<input type="text" class="searchBox-input seachBox_input-navBar" placeholder="Search Books"
+								   aria-label="Search books" aria-controls="searchResults">
+							<input type="hidden" name="qid">
+							<button type="submit" class="searchBox-icon-search searchBox-icon gr-iconButton"
+									aria-label="Search"></button>
+						</form>
+					</div>
+					<!-- Head bar with logged in-->
+					<div class="siteHeader-personal">
+						<ul class="siteHeader-personal-nav">
+							<li class="personal-nav-listItem">
+								<div class="dropdown dropdown-notification">
+									<a href="#" class="dropdown-trigger dropdown-trigger-notification dropdown-trigger-personalNav" role="button" aria-haspopup="true" aria-expanded="false" title="Notifications">
+										<span class="personalNav-icon personalNav-notifications" aria-label="Notifications"></span>
+									</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="siteHeader-personal">
+						<ul class="siteHeader-personal-nav">
+							<li class="personal-nav-listItem">
+								<div class="dropdown dropdown-notification">
+									<a href="#" class="dropdown-trigger dropdown-trigger-notification dropdown-trigger-personalNav" role="button" aria-haspopup="true" aria-expanded="false" title="Cart">
+										<span class="personalNav-icon personalNav-shoppingCart" aria-label="Cart"></span>
+									</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="siteHeader-personal">
+						<ul class="siteHeader-personal-nav">
+							<li class="personal-nav-listItem">
+								<div class="dropdown dropdown-notification">
+									<a id="userAvatar" class="dropdown-trigger dropdown-trigger-notification dropdown-trigger-personalNav " role="button" aria-haspopup="true" aria-expanded="true" title="Avatar">
+										<span class="personalNav-icon personalNav-userAvatar" aria-label="Avatar"></span>
+									</a>
+									<div class="dropdownMenu" id="dropdownMenu">
+										<div class="subNav subNav-profile gr-box gr-box-withShadowLarge">
+											<span class="subNav-link gr-h3 gr-h3-noMargin">
+												<span>Hoang Nguyen</span>
+											</span>
+											<ul>
+												<li class="menuLink" role="menuitem">
+													<span>
+														<a href="#" class="subNav-link">Profile</a>
+													</span>
+												</li>
+												<li class="menuLink" role="menuitem">
+													<span>
+														<a href="#" class="subNav-link">Language</a>
+													</span>
+												</li>
+												<li class="menuLink" role="menuitem">
+													<span>
+														<a href="#" class="subNav-link">Order history</a>
+													</span>
+												</li>
+												<li class="menuLink" role="menuitem">
+													<span>
+														<a href="#" class="subNav-link">Change password</a>
+													</span>
+												</li>
+												<li class="menuLink" role="menuitem">
+													<span>
+														<a href="#" class="subNav-link borderTop">Sign out</a>
+													</span>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
-		</nav>
-	</header>
+			<div class="menu-nav">
+				<div class="dropdown">
+					<button class="dropdown-btn">
+						<p class="dropdown-title">Nation</p>
+						<span>
+							<img src="~/image/Home-page/dropdown.svg" alt="dropdown">
+						</span>
+					</button>
+					<div class="dropdown-content">
+						@await Component.InvokeAsync("CategoryMenu")
+					</div>
+				</div>
+			</div>
+		</header>
+	</div>
 	<div class="container">
-		<br />
-		<main role="main" class="pb-3">
-			@RenderBody()
-		</main>
+		@RenderBody()
 	</div>
 
-	<footer class="border-top footer text-muted">
-		<div class="container">
-			&copy; 2021 - RookieEShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+	<footer class="mainfooter" role="contentinfo">
+		<div class="footer-middle">
+			<div class="container">
+				<div class="row footer-row">
+					<div class="col-md-3 col-sm-6">
+						<!--Column1-->
+						<div class="footer-pad">
+							<h4>Heading 1</h4>
+							<ul class="list-unstyled">
+								<li><a href="#"></a></li>
+								<li><a href="#">Payment Center</a></li>
+								<li><a href="#">Contact Directory</a></li>
+								<li><a href="#">Forms</a></li>
+								<li><a href="#">News and Updates</a></li>
+								<li><a href="#">FAQs</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<!--Column1-->
+						<div class="footer-pad">
+							<h4>Heading 2</h4>
+							<ul class="list-unstyled">
+								<li><a href="#">Website Tutorial</a></li>
+								<li><a href="#">Accessibility</a></li>
+								<li><a href="#">Disclaimer</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+								<li><a href="#">FAQs</a></li>
+								<li><a href="#">Webmaster</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<!--Column1-->
+						<div class="footer-pad">
+							<h4>Heading 3</h4>
+							<ul class="list-unstyled">
+								<li><a href="#">Parks and Recreation</a></li>
+								<li><a href="#">Public Works</a></li>
+								<li><a href="#">Police Department</a></li>
+								<li><a href="#">Fire</a></li>
+								<li><a href="#">Mayor and City Council</a></li>
+								<li>
+									<a href="#"></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<h4>Follow Us</h4>
+						<ul class="social-network social-circle">
+							<li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="row footer-row">
+					<div class="col-md-12 copy">
+						<p class="text-center">&copy; Copyright 2021 - RookieEshop. All rights reserved.</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</footer>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
