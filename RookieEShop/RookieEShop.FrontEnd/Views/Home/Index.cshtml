@@ -2,18 +2,301 @@
 
 @{ ViewData["Title"] = "Home Page"; }
 
-<div class="row mt-4">
-	@foreach (var product in Model)
-	{
-		<div class="col-md-4">
-			<div class="card mb-4 shadow-sm">
-				<a class="nav-link text-dark" href="~/Product/ProductDetail?productId=@product.Id">
-					<img class="bd-placeholder-img card-img-top" src="https://localhost:44305/@product.ThumbnailImageUrl" />
-					<div class="card-body">
-						<h3 class="card-text">@product.Name</h3>
-						<p class="card-text"><strong>Price:</strong> @String.Concat(String.Format("{0:#,##0}", product.Price), "VND")</p>
-					</div>
-				</a>
-			</div>
-		</div>}
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="~/image/Home-page/book.jpg" alt="Los Angeles" id="carousel-img">
+                </div>
+            </div>
+        </div>
+        <div class="category-header">
+            <h2 class="category-header-title">Vietnam</h2>
+            <a href="#" class="category-header-link">
+                <button class="button-no-outline">More<span>&#8594;</span></button>
+            </a>
+        </div>
+        <div class="row product-list">
+            <div class="col-xs-6 col-md-3">
+                <div class="card mb-4" style="height: 507.297px;">
+                    <a href="#">
+                        <img src="~/image/Home-page/Book/522888.jpg" class="card-img-top" alt="Truyen kieu">
+                        <div class="card-body">
+                            <h5 class="card-title product-name">Kieu's tale</h5>
+                            <p class="card-text product-price">$54.7900</p>
+                            <ul class="list-inline product-ratings">
+                                <li>
+                                    <div class="rating-container rating-xs rating-animate rating-disabled">
+                                        <div class="rating">
+                                            <span class="empty-stars">
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                            </span>
+                                            <span class="filled-stars" style="width: 0%;">
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+            </div>
+		</div>
+        <div class="category-header">
+            <h2 class="category-header-title">Vietnam</h2>
+            <a href="#" class="category-header-link">
+                <button class="button-no-outline">More<span>&#8594;</span></button>
+            </a>
+        </div>
+        <div class="row product-list">
+            <div class="col-xs-6 col-md-3">
+                <div class="card mb-4" style="height: 507.297px;">
+                    <a href="#">
+                        <img src="~/image/Home-page/Book/522888.jpg" class="card-img-top" alt="Truyen kieu">
+                        <div class="card-body">
+                            <h5 class="card-title product-name">Kieu's tale</h5>
+                            <p class="card-text product-price">$54.7900</p>
+                            <ul class="list-inline product-ratings">
+                                <li>
+                                    <div class="rating-container rating-xs rating-animate rating-disabled">
+                                        <div class="rating">
+                                            <span class="empty-stars">
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                            </span>
+                                            <span class="filled-stars" style="width: 0%;">
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <div class="card mb-4" style="height: 507.297px;">
+                    <a href="#">
+                        <img src="~/image/Home-page/Book/522888.jpg" class="card-img-top" alt="Truyen kieu">
+                        <div class="card-body">
+                            <h5 class="card-title product-name">Kieu's tale</h5>
+                            <p class="card-text product-price">$54.7900</p>
+                            <ul class="list-inline product-ratings">
+                                <li>
+                                    <div class="rating-container rating-xs rating-animate rating-disabled">
+                                        <div class="rating">
+                                            <span class="empty-stars">
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                            </span>
+                                            <span class="filled-stars" style="width: 0%;">
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <div class="card mb-4" style="height: 507.297px;">
+                    <a href="#">
+                        <img src="~/image/Home-page/Book/522888.jpg" class="card-img-top" alt="Truyen kieu">
+                        <div class="card-body">
+                            <h5 class="card-title product-name">Kieu's tale</h5>
+                            <p class="card-text product-price">$54.7900</p>
+                            <ul class="list-inline product-ratings">
+                                <li>
+                                    <div class="rating-container rating-xs rating-animate rating-disabled">
+                                        <div class="rating">
+                                            <span class="empty-stars">
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                            </span>
+                                            <span class="filled-stars" style="width: 0%;">
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <div class="card mb-4" style="height: 507.297px;">
+                    <a href="#">
+                        <img src="~/image/Home-page/Book/522888.jpg" class="card-img-top" alt="Truyen kieu">
+                        <div class="card-body">
+                            <h5 class="card-title product-name">Kieu's tale</h5>
+                            <p class="card-text product-price">$54.7900</p>
+                            <ul class="list-inline product-ratings">
+                                <li>
+                                    <div class="rating-container rating-xs rating-animate rating-disabled">
+                                        <div class="rating">
+                                            <span class="empty-stars">
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                            </span>
+                                            <span class="filled-stars" style="width: 0%;">
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                                <span class="star">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <div class="reviewer">
+                                            <span>(15 reviewers)</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+	</div>
 </div>
