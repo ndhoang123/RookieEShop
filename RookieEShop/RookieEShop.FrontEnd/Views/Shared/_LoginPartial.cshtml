@@ -1,10 +1,92 @@
 ﻿@if (User.Identity.IsAuthenticated)
 {
-	<span class="dropdown-item">Hello <a class="text-dark" asp-controller="Account" asp-action="MyProfile"> @User.Identity.Name</a></span>
-	<a class="dropdown-item" asp-controller="Order" asp-action="History">History</a>
-	<a class="dropdown-item" asp-controller="Account" asp-action="SignOut">Sign out</a>
+	<div class="siteHeader-personal">
+		<ul class="siteHeader-personal-nav">
+			<li class="personal-nav-listItem">
+				<div class="dropdown dropdown-notification">
+					<a href="#" class="dropdown-trigger dropdown-trigger-notification dropdown-trigger-personalNav" role="button" aria-haspopup="true" aria-expanded="false" title="Notifications">
+						<span class="personalNav-icon personalNav-notifications" aria-label="Notifications"></span>
+					</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="siteHeader-personal">
+		<ul class="siteHeader-personal-nav">
+			<li class="personal-nav-listItem">
+				<div class="dropdown dropdown-notification">
+					<a asp-route="cart" class="dropdown-trigger dropdown-trigger-notification dropdown-trigger-personalNav" role="button" aria-haspopup="true" aria-expanded="false" title="Cart">
+						<span class="personalNav-icon personalNav-shoppingCart" aria-label="Cart"></span>
+					</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="siteHeader-personal">
+		<ul class="siteHeader-personal-nav">
+			<li class="personal-nav-listItem">
+				<div class="dropdown dropdown-notification">
+					<a id="userAvatar" class="dropdown-trigger dropdown-trigger-notification dropdown-trigger-personalNav " role="button" aria-haspopup="true" aria-expanded="true" title="Avatar">
+						<span class="personalNav-icon personalNav-userAvatar" aria-label="Avatar"></span>
+					</a>
+					<div class="dropdownMenu" id="dropdownMenu">
+						<div class="subNav subNav-profile gr-box gr-box-withShadowLarge">
+							<span class="subNav-link gr-h3 gr-h3-noMargin">
+								<span> @User.Identity.Name</span>
+							</span>
+							<ul>
+								<li class="menuLink" role="menuitem">
+									<span>
+										<a asp-controller="Account" asp-action="MyProfile" class="subNav-link">Profile</a>
+									</span>
+								</li>
+								<li class="menuLink" role="menuitem">
+									<span>
+										<a href="#" class="subNav-link">Language</a>
+									</span>
+								</li>
+								<li class="menuLink" role="menuitem">
+									<span>
+										<a asp-controller="Order" asp-action="History" class="subNav-link">Order history</a>
+									</span>
+								</li>
+								<li class="menuLink" role="menuitem">
+									<span>
+										<a href="#" class="subNav-link">Change password</a>
+									</span>
+								</li>
+								<li class="menuLink" role="menuitem">
+									<span>
+										<a asp-controller="Account" asp-action="SignOut" class="subNav-link borderTop">Sign out</a>
+									</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
 }
 else
 {
-	<a class="dropdown-item" asp-controller="Account" asp-action="SignIn">Sign in</a>
+	<ul class="siteHeader-personal">
+		<li class="siteHeader-topItem siteHeader_topItem-signedIn">
+			<img src="~/image/Home-page/shopping-cart.svg" alt="cart" id="siteHeader-cart">
+		</li>
+		<li class="siteHeader-topItem siteHeader_topItem-signedIn">
+			<a asp-controller="Account" asp-action="SignIn" class="siteHeader-topLink">Sign In</a>
+		</li>
+		<li class="siteHeader-topItem siteHeader_topItem-signedIn">
+			<a href="#" class="siteHeader-topLink">Join</a>
+		</li>
+		<li class="siteHeader-topItem siteHeader_topItem-signedIn">
+			<div class="siteHeader-language">
+				<img src="~/image/Home-page/English.svg" alt="English icon">
+				<span>
+					<img src="~/image/Home-page/dropdown.svg" alt="dropdown icon">
+				</span>
+			</div>
+		</li>
+	</ul>
 }
