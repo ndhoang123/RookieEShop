@@ -3,6 +3,7 @@ using RookieEShop.BackEnd.Data;
 using RookieEShop.BackEnd.Models;
 using RookieEShop.BackEnd.Services;
 using RookieEShop.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,10 +41,8 @@ namespace RookieEShop.BackEnd.Repositories
 				Description = x.Description,
 				ThumbnailImageUrl = _storageService.GetFileUrl(x.ImageFileName),
 				CategoryName = x.Category.Name,
-				Ratings = x.Rating.Select(index => new RatingVm { 
-					Val = index.Val,
-					Comment= index.Comment
-				})
+				AvgResult = Math.Floor(x.Rating.Select(x => x.Val).DefaultIfEmpty().Average()),
+				CountResult = x.Rating.Count()
 			})
 				.ToList();
 
@@ -75,11 +74,8 @@ namespace RookieEShop.BackEnd.Repositories
 				Author = detailProduct.Author,
 				ThumbnailImageUrl = _storageService.GetFileUrl(detailProduct.ImageFileName),
 				CategoryName = detailProduct.Category.Name,
-				Ratings = detailProduct.Rating.Select(index => new RatingVm
-				{
-					Val = index.Val,
-					Comment = index.Comment
-				})
+				AvgResult = Math.Floor(detailProduct.Rating.Select(x => x.Val).DefaultIfEmpty().Average()),
+				CountResult = detailProduct.Rating.Count()
 			};
 
 			return ProductVm;
@@ -109,11 +105,8 @@ namespace RookieEShop.BackEnd.Repositories
 				Author = x.Author,
 				ThumbnailImageUrl = _storageService.GetFileUrl(x.ImageFileName),
 				CategoryName = x.Category.Name,
-				Ratings = x.Rating.Select(index => new RatingVm
-				{
-					Val = index.Val,
-					Comment = index.Comment
-				})
+				AvgResult = Math.Floor(x.Rating.Select(x => x.Val).DefaultIfEmpty().Average()),
+				CountResult = x.Rating.Count()
 			}).ToList();
 
 			return ProductVm;

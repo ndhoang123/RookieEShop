@@ -24,6 +24,8 @@ namespace RookieEShop.Shared
 
 		public string CategoryName { get; set; }
 
-		public IEnumerable<RatingVm> Ratings { get; set; }
+		public double AvgResult { get; set; }
+
+		public int CountResult { get; set; }
 	}
 }
