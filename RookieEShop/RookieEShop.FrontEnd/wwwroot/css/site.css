@@ -608,6 +608,10 @@ ul {
 	padding: 1.25rem;
 }
 
+.card a:hover{
+	text-decoration: none;
+}
+
 .product-list a {
 	text-decoration: none;
 }
@@ -627,6 +631,7 @@ ul {
 .product-ratings {
 	padding-left: 50%;
 	padding-top: -10px;
+	list-style: none;
 }
 
 .rating-disabled {
@@ -634,7 +639,11 @@ ul {
 }
 
 .product-ratings li .rating-container .reviewer {
-	padding-left: 20px;
+	padding-left: 5px;
+}
+
+.col-6 a:hover {
+	text-decoration: none;
 }
 
 /*FOOTER*/

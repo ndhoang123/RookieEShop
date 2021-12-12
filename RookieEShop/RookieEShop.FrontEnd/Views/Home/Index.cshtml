@@ -32,44 +32,24 @@
 						<div class="card-body">
 							<h5 class="card-title product-name">@item.Name</h5>
 							<p class="card-text product-price">@String.Concat(String.Format("{0:#,##0}", item.Price), "VND")</p>
-							<ul class="list-inline product-ratings">
+							<ul class="product-ratings">
 								<li>
 									<div class="rating-container rating-xs rating-animate rating-disabled">
 										<div class="rating">
-											<span class="empty-stars">
-												<span class="star">
-													<i class="fa fa-star-o"></i>
-												</span>
-												<span class="star">
-													<i class="fa fa-star-o"></i>
-												</span>
-												<span class="star">
-													<i class="fa fa-star-o"></i>
-												</span>
-												<span class="star">
-													<i class="fa fa-star-o"></i>
-												</span>
-												<span class="star">
-													<i class="fa fa-star-o"></i>
-												</span>
-											</span>
-											<span class="filled-stars" style="width: 0%;">
-												<span class="star">
-													<i class="fa fa-star"></i>
-												</span>
-												<span class="star">
-													<i class="fa fa-star"></i>
-												</span>
-												<span class="star">
-													<i class="fa fa-star"></i>
-												</span>
-												<span class="star">
-													<i class="fa fa-star"></i>
-												</span>
-												<span class="star">
-													<i class="fa fa-star"></i>
-												</span>
-											</span>
+											@for (var star = 0; star < item.AvgResult; star++)
+											{
+												<span class="fas fa-star checked yellowcolor"></span>
+											}
+											@for (var star = 0; star < 5 - item.AvgResult; star++)
+											{
+												<span class="far fa-star"></span>
+											}
+											@if (item.CountResult != 0)
+											{
+												<div class="reviewer">
+													<span>(@item.CountResult reviewers)</span>
+												</div>
+											}
 										</div>
 									</div>
 								</li>
