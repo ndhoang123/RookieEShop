@@ -23,5 +23,7 @@ namespace RookieEShop.Shared
 		public string ThumbnailImageUrl { get; set; }
 
 		public string CategoryName { get; set; }
+
+		public IEnumerable<RatingVm> Ratings { get; set; }
 	}
 }

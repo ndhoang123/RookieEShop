@@ -24,6 +24,7 @@ namespace RookieEShop.BackEnd.Repositories
 		{
 			var productList = await _context.Products
 				.Include(x => x.Category)
+				.Include(x => x.Rating)
 				.Where(x => x.IsDisableProduct.Equals(false))
 				.AsNoTracking()
 				.ToListAsync();
@@ -38,7 +39,11 @@ namespace RookieEShop.BackEnd.Repositories
 				Publisher = x.Publisher,
 				Description = x.Description,
 				ThumbnailImageUrl = _storageService.GetFileUrl(x.ImageFileName),
-				CategoryName = x.Category.Name
+				CategoryName = x.Category.Name,
+				Ratings = x.Rating.Select(index => new RatingVm { 
+					Val = index.Val,
+					Comment= index.Comment
+				})
 			})
 				.ToList();
 
@@ -49,6 +54,7 @@ namespace RookieEShop.BackEnd.Repositories
 		{
 			var detailProduct = await _context.Products
 									.Include(x => x.Category)
+									.Include(x => x.Rating)
 									.Where(x => x.Id.Equals(id))
 									.AsNoTracking()
 									.SingleAsync();
@@ -68,16 +74,22 @@ namespace RookieEShop.BackEnd.Repositories
 				Year = detailProduct.Year,
 				Author = detailProduct.Author,
 				ThumbnailImageUrl = _storageService.GetFileUrl(detailProduct.ImageFileName),
-				CategoryName = detailProduct.Category.Name
+				CategoryName = detailProduct.Category.Name,
+				Ratings = detailProduct.Rating.Select(index => new RatingVm
+				{
+					Val = index.Val,
+					Comment = index.Comment
+				})
 			};
 
 			return ProductVm;
 		}
 
-		public async Task<IEnumerable<ProductVm>> GetProductByCategory(int categoryiD)
+		public async Task<IEnumerable<ProductVm>> GetProductByCategory(int categoryid)
 		{
-			var product = await _context.Products.Where(x => x.CategoryID == categoryiD)
+			var product = await _context.Products.Where(x => x.CategoryID == categoryid)
 				.Include(x => x.Category)
+				.Include(x => x.Rating)
 				.AsNoTracking()				
 				.ToListAsync();
 
@@ -96,7 +108,12 @@ namespace RookieEShop.BackEnd.Repositories
 				Year = x.Year,
 				Author = x.Author,
 				ThumbnailImageUrl = _storageService.GetFileUrl(x.ImageFileName),
-				CategoryName = x.Category.Name
+				CategoryName = x.Category.Name,
+				Ratings = x.Rating.Select(index => new RatingVm
+				{
+					Val = index.Val,
+					Comment = index.Comment
+				})
 			}).ToList();
 
 			return ProductVm;
