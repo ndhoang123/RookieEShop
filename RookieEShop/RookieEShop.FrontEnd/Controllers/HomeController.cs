@@ -22,6 +22,7 @@ namespace RookieEShop.FrontEnd.Controllers
 			_categoryApiClient = categoryApiClient;
 		}
 
+		[Route("")]
 		public async Task<IActionResult> Index()
 		{
 			var products = await _productClient.GetProducts();
@@ -35,6 +36,7 @@ namespace RookieEShop.FrontEnd.Controllers
 			return View(listProduct);
 		}
 
+		[Route("Privacy", Name = "Privacy")]
 		public IActionResult Privacy()
 		{
 			return View();
