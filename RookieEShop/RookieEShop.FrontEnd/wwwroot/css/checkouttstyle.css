@@ -1,8 +1,9 @@
-﻿@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
+﻿@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto:wght@300&display=swap');
 
 body {
 	background: url('http://all4desktop.com/data_images/original/4236532-background-images.jpg');
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'Playfair Display', serif;
+	font-family: 'Roboto', sans-serif;
 	color: #262626;
 	margin: 5% 0;
 }

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using RookieEShop.Shared;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace RookieEShop.FrontEnd.Services
@@ -30,6 +31,8 @@ namespace RookieEShop.FrontEnd.Services
 			var accessToken = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
 
 			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+			ratingCreateRequest.userId = _httpContextAccessor.HttpContext.User.FindFirstValue("sub");
 
 			var response = await _client.PostAsJsonAsync("api/Rating", ratingCreateRequest);
 

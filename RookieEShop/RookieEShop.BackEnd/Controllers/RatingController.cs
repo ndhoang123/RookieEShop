@@ -76,13 +76,11 @@ namespace RookieEShop.BackEnd.Controllers
 		[AllowAnonymous]
 		public async Task<ActionResult<RatingVm>> CreateRating(RatingCreateRequest ratingCreateRequest)
 		{
-			var userId = _httpContextAccessor.HttpContext.User.FindFirstValue("sub");
-
 			var rating = new Rating
 			{
 				Val = ratingCreateRequest.Val,
 				ProductId = ratingCreateRequest.ProductId,
-				UserId = userId,
+				UserId = ratingCreateRequest.userId,
 				Comment = ratingCreateRequest.Comment
 			};
 

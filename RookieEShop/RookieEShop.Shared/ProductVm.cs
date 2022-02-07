@@ -21,5 +21,11 @@ namespace RookieEShop.Shared
 		public string Description { get; set; }
 
 		public string ThumbnailImageUrl { get; set; }
+
+		public string CategoryName { get; set; }
+
+		public double AvgResult { get; set; }
+
+		public int CountResult { get; set; }
 	}
 }

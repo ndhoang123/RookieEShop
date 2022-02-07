@@ -2,18 +2,63 @@
 
 @{ ViewData["Title"] = "Home Page"; }
 
-<div class="row mt-4">
-	@foreach (var product in Model)
-	{
-		<div class="col-md-4">
-			<div class="card mb-4 shadow-sm">
-				<a class="nav-link text-dark" href="~/Product/ProductDetail?productId=@product.Id">
-					<img class="bd-placeholder-img card-img-top" src="https://localhost:44305/@product.ThumbnailImageUrl" />
-					<div class="card-body">
-						<h3 class="card-text">@product.Name</h3>
-						<p class="card-text"><strong>Price:</strong> @String.Concat(String.Format("{0:#,##0}", product.Price), "VND")</p>
-					</div>
-				</a>
-			</div>
-		</div>}
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+	<!-- Indicators -->
+	<ol class="carousel-indicators">
+		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+	</ol>
+	<!-- Wrapper for slides -->
+	<div class="carousel-inner">
+		<div class="item active">
+			<img src="~/image/Home-page/book.jpg" alt="Los Angeles" id="carousel-img">
+		</div>
+	</div>
 </div>
+@foreach (var category in ViewBag.categories)
+{
+	<div class="category-header">
+		<h2 class="category-header-title">@category.Name</h2>
+		<a asp-controller="Category" asp-action="Index" asp-route-id="@category.Id" class="category-header-link">
+			<button class="button-no-outline">More<span>&#8594;</span></button>
+		</a>
+	</div>
+	<div class="row product-list">
+		@foreach (var item in Model.Where(x => x.CategoryName.Equals(category.Name)))
+		{
+			<div class="col-xs-6 col-md-3">
+				<div class="card mb-4" style="height: 507.297px;">
+					<a href="~/Product/ProductDetail?productId=@item.Id">
+						<img src="https://localhost:44305/@item.ThumbnailImageUrl" class="card-img-top" alt="@item.Name">
+						<div class="card-body">
+							<h5 class="card-title product-name">@item.Name</h5>
+							<p class="card-text product-price">@String.Concat(String.Format("{0:#,##0}", item.Price), "VND")</p>
+							<ul class="product-ratings">
+								<li>
+									<div class="rating-container rating-xs rating-animate rating-disabled">
+										<div class="rating">
+											@for (var star = 0; star < item.AvgResult; star++)
+											{
+												<span class="fas fa-star checked yellowcolor"></span>
+											}
+											@for (var star = 0; star < 5 - item.AvgResult; star++)
+											{
+												<span class="far fa-star"></span>
+											}
+											@if (item.CountResult != 0)
+											{
+												<div class="reviewer">
+													<span>(@item.CountResult reviewers)</span>
+												</div>
+											}
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</a>
+				</div>
+			</div>
+
+		}
+	</div>
+}

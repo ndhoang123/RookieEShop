@@ -38,7 +38,7 @@ namespace RookieEShop.FrontEnd.Services
 
 			response.EnsureSuccessStatusCode();
 
-			if (response.StatusCode.Equals(201))
+			if (response.ReasonPhrase.Equals("Created"))
 			{
 				return true;
 			}
