@@ -16,7 +16,7 @@ namespace RookieEShop.FrontEnd.ServiceInjection
 				.AddCookie("Cookies")
 				.AddOpenIdConnect("oidc", options =>
 				{
-					options.Authority = configuration["HostUrls:Host"];
+					options.Authority = configuration["HostVSCode:Host"];
 					options.RequireHttpsMetadata = true;
 					options.GetClaimsFromUserInfoEndpoint = true;
 

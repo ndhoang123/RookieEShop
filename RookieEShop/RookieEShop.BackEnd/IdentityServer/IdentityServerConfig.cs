@@ -68,9 +68,9 @@ namespace RookieEShop.BackEnd.IdentityServer
                     RequireConsent = false,
                     RequirePkce = true,
                     
-                    RedirectUris =           { configuration["ClientUrl:swagger:RedirectUris"] },
-                    PostLogoutRedirectUris = { configuration["ClientUrl:swagger:PostLogoutRedirectUris"] },
-                    AllowedCorsOrigins =     { configuration["ClientUrl:swagger:AllowedCorsOrigins"] },
+                    RedirectUris =           { configuration["ClientUrl:swaggerVsCode:RedirectUris"] },
+                    PostLogoutRedirectUris = { configuration["ClientUrl:swaggerVsCode:PostLogoutRedirectUris"] },
+                    AllowedCorsOrigins =     { configuration["ClientUrl:swaggerVsCode:AllowedCorsOrigins"] },
 
                     AllowedScopes = new List<string>
                     {
