@@ -1,8 +1,4 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
-using IdentityServer4;
+﻿using IdentityServer4;
 using IdentityServer4.Models;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
@@ -50,6 +46,16 @@ namespace RookieEShop.BackEnd.IdentityServer
                     RedirectUris = { configuration["ClientUrl:mvc:RedirectUris"] },
 
                     PostLogoutRedirectUris = { configuration["ClientUrl:mvc:PostLogoutRedirectUris"] },
+
+                    AllowOfflineAccess = true,
+
+                    AccessTokenLifetime = 2592000,
+
+                    IdentityTokenLifetime = 2592000,
+
+                    RefreshTokenExpiration = TokenExpiration.Sliding,
+
+                    SlidingRefreshTokenLifetime = 2592000,
 
                     AllowedScopes = new List<string>
                     {
@@ -100,7 +106,16 @@ namespace RookieEShop.BackEnd.IdentityServer
                     },
 
                     AllowOfflineAccess = true,
-                    AllowAccessTokensViaBrowser = true
+
+                    AllowAccessTokensViaBrowser = true,
+
+                    AccessTokenLifetime = 2592000,
+
+                    IdentityTokenLifetime = 2592000,
+
+                    RefreshTokenExpiration = TokenExpiration.Sliding,
+
+                    SlidingRefreshTokenLifetime = 2592000
                 },
             };
     }
