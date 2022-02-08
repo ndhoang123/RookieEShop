@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using RookieEShop.Shared;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace RookieEShop.FrontEnd.Services
@@ -26,15 +28,16 @@ namespace RookieEShop.FrontEnd.Services
 			_client = _httpClientFactory.CreateClient("owner");
 		}
 
+		[Authorize]
 		public async Task<bool> PostRating(RatingCreateRequest ratingCreateRequest)
 		{
-			var accessToken = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
-
-			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
 			ratingCreateRequest.userId = _httpContextAccessor.HttpContext.User.FindFirstValue("sub");
 
-			var response = await _client.PostAsJsonAsync("api/Rating", ratingCreateRequest);
+			var json = JsonConvert.SerializeObject(ratingCreateRequest);
+
+			var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+			var response = await _client.PostAsync("api/Rating", data);
 
 			response.EnsureSuccessStatusCode();
 
