@@ -17,16 +17,18 @@
 				var i = 0;
 				<div class=" radio">
 					<label>
-						<input type="radio" name="ShippingAddressId" checked="@(++i == 1 ? "checked" : null)" value="@(address.Id)" />
+						<input type="radio" name="ShippingAddressId" checked="@(++i == 1 ? "checked" : null)" value="@(address.Id)"/>
 						<strong>@address.ContactName</strong><br />
 						@address.HomeAddress <br />
+						@address.OrderDistrict <br />
+						@address.OrderCity <br />
 						@address.PhoneNumber
 					</label>
 				</div>
 			}
 			<div class="radio">
 				<label>
-					<input type="radio" name="ShippingAddressId" checked="@(Model.ShippingAddressId == 0 ? "checked" : null)" value="0" />
+					<input type="radio" id="newRadio" name="ShippingAddressId" checked="@(Model.ShippingAddressId == 0 ? "checked" : null)" value="0">
 					@ViewData["Add"]
 				</label>
 			</div>
@@ -34,11 +36,11 @@
 			<div class="create-shipping-address collapse">
 				<label>
 					<span class="fname">Name <span class="required">*</span></span>
-					<input asp-for="NewAddress.ContactName" type="text" >
+					<input asp-for="NewAddress.ContactName" type="text">
 				</label>
 				<label>
 					<span>Town / City <span class="required">*</span></span>
-					<input asp-for="NewAddress.OrderCity" type="text">
+					<input asp-for="NewAddress.OrderCity" type="text" >
 				</label>
 				<label>
 					<span>District <span class="required">*</span></span>
@@ -46,7 +48,7 @@
 				</label>
 				<label>
 					<span>Street Address <span class="required">*</span></span>
-					<input asp-for="NewAddress.HomeAddress" type="text" placeholder="House number and street name">
+					<input asp-for="NewAddress.HomeAddress" type="text" placeholder="House number and street name" >
 				</label>
 				<label>
 					<span>Phone <span class="required">*</span></span>
@@ -55,7 +57,7 @@
 			</div>
 			<div class="form-group">
 				<div class="text-right">
-					<button type="submit" class="btn btn-success">Finish the order</button>
+					<button type="submit" class="btn btn-success" id="addOrder">Finish the order</button>
 				</div>
 			</div>
 		</form>
