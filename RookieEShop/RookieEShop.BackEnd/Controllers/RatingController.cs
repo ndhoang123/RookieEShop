@@ -73,7 +73,6 @@ namespace RookieEShop.BackEnd.Controllers
 		}
 
 		[HttpPost]
-		[AllowAnonymous]
 		public async Task<ActionResult<RatingVm>> CreateRating(RatingCreateRequest ratingCreateRequest)
 		{
 			var rating = new Rating
@@ -96,7 +95,6 @@ namespace RookieEShop.BackEnd.Controllers
 		}
 
 		[HttpDelete("{id}")]
-		[AllowAnonymous]
 		public async Task<IActionResult> DeleteRating(int id)
 		{
 			if (id <= 0) return StatusCode(400);

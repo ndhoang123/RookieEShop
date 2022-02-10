@@ -1,8 +1,4 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
-using IdentityServer4;
+﻿using IdentityServer4;
 using IdentityServer4.Models;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
@@ -51,6 +47,16 @@ namespace RookieEShop.BackEnd.IdentityServer
 
                     PostLogoutRedirectUris = { configuration["ClientUrl:mvc:PostLogoutRedirectUris"] },
 
+                    AllowOfflineAccess = true,
+
+                    AccessTokenLifetime = 2592000,
+
+                    IdentityTokenLifetime = 2592000,
+
+                    RefreshTokenExpiration = TokenExpiration.Sliding,
+
+                    SlidingRefreshTokenLifetime = 2592000,
+
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
@@ -68,9 +74,9 @@ namespace RookieEShop.BackEnd.IdentityServer
                     RequireConsent = false,
                     RequirePkce = true,
                     
-                    RedirectUris =           { configuration["ClientUrl:swagger:RedirectUris"] },
-                    PostLogoutRedirectUris = { configuration["ClientUrl:swagger:PostLogoutRedirectUris"] },
-                    AllowedCorsOrigins =     { configuration["ClientUrl:swagger:AllowedCorsOrigins"] },
+                    RedirectUris =           { configuration["ClientUrl:swaggerVsCode:RedirectUris"] },
+                    PostLogoutRedirectUris = { configuration["ClientUrl:swaggerVsCode:PostLogoutRedirectUris"] },
+                    AllowedCorsOrigins =     { configuration["ClientUrl:swaggerVsCode:AllowedCorsOrigins"] },
 
                     AllowedScopes = new List<string>
                     {
@@ -100,7 +106,16 @@ namespace RookieEShop.BackEnd.IdentityServer
                     },
 
                     AllowOfflineAccess = true,
-                    AllowAccessTokensViaBrowser = true
+
+                    AllowAccessTokensViaBrowser = true,
+
+                    AccessTokenLifetime = 2592000,
+
+                    IdentityTokenLifetime = 2592000,
+
+                    RefreshTokenExpiration = TokenExpiration.Sliding,
+
+                    SlidingRefreshTokenLifetime = 2592000
                 },
             };
     }

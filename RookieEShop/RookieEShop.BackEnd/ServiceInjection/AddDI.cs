@@ -17,8 +17,6 @@ namespace RookieEShop.BackEnd.ServiceInjection
 			services.AddTransient<IProductRepository, ProductRepository>();
 			services.AddTransient<IOrderService, OrderService>();
 			services.AddTransient<IOrderRepository, OrderRepository>();
-			services.AddTransient<IOrderDetailService, OrderDetailService>();
-			services.AddTransient<IOrderDetailRepository, OrderDetailRepository>();
 			services.AddTransient<IOrderAddressService, OrderAddressService>();
 			services.AddTransient<IOrderAddressRespository, OrderAddressRepository>();
 			services.AddTransient<ICheckOutRepository, CheckoutRepository>();
