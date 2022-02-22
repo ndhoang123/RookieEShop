@@ -11,7 +11,7 @@
 				<img class="bd-placeholder-img card-img-top" src="https://localhost:44305/@Model.ThumbnailImageUrl" />
 			</div>
 			<div class="col-8">
-				<div class="card-body">
+				<div class="card-body" style="max-width: 500px">
 					<p class="card-text">Author: @Model.Author</p>
 					<div class="row" id="reviews">
 						<div class="col-6">
@@ -67,7 +67,7 @@
 						</form>
 						<a asp-route="addcart"
 						   asp-route-productId="@Model.Id"
-						   class="btn btn-secondary btn-lg btn-block">Add to Cart</a>
+						   class="btn btn-secondary btn-lg btn-block mt-2">Add to Cart</a>
 					}
 				</div>
 			</div>
