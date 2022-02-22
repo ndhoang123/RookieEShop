@@ -267,7 +267,6 @@ a {
 .searchBox-icon {
 	display: inline-block;
 	height: 19px;
-	position: absolute;
 	width: 18px;
 }
 
@@ -695,6 +694,16 @@ footer {
 			padding-top: 10px;
 		}
 
+
+.btn-form-search{
+	position: relative;
+}
+
+.btn-icon-search{
+	position: absolute;
+	margin-right: 5px;
+	z-index: 3;
+}
 
 /*SOCİAL İCONS*/
 

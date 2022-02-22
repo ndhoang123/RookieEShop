@@ -19,7 +19,7 @@ label, table {
 		padding-right: 10px;
 	}
 
-input[type="text"], input[type="tel"], input[type="email"], select {
+.create-shipping-address input[type="text"], input[type="tel"], input[type="email"], select {
 	width: 70%;
 	height: 30px;
 	padding: 5px 10px;
@@ -65,15 +65,15 @@ p {
 	display: block;
 	color: #888;
 	margin: 0;
-	padding-left: 25px;
+	/* padding-left: 25px; */
 }
 
 button {
 	width: 30%;
-	margin-top: 10px;
-	padding: 10px;
+	/* margin-top: 10px;
+	padding: 10px; */
 	border: none;
-	border-radius: 30px;
+	/* border-radius: 30px; */
 	background: #52ad9c;
 	color: #fff;
 	font-size: 15px;
@@ -82,5 +82,4 @@ button {
 
 	button:hover {
 		cursor: pointer;
-		background: #428a7d;
 	}
