@@ -705,6 +705,19 @@ footer {
 	z-index: 3;
 }
 
+.card-number {
+    width: 20px;
+    height: 20px;
+    background-color: grey;
+    color: white;
+    border-radius: 50%;
+    position: absolute;
+    text-align: center;
+    margin-top: 10px;
+    top: 0;
+    right: 0;
+}
+
 /*SOCİAL İCONS*/
 
 /* footer social icons */

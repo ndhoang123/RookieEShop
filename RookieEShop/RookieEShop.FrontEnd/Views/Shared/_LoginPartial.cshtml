@@ -1,4 +1,17 @@
-﻿@if (User.Identity.IsAuthenticated)
+﻿@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+	var session = HttpContextAccessor.HttpContext.Session;
+	string jsoncart = session.GetString("Cart");
+	List<CartCreateRequest> cart = null;
+	if(jsoncart != null){
+		cart = JsonConvert.DeserializeObject<List<CartCreateRequest>>(jsoncart);
+	}
+}
+
+@if (User.Identity.IsAuthenticated)
 {
 	<div class="siteHeader-personal">
 		<ul class="siteHeader-personal-nav">
@@ -18,6 +31,7 @@
 					<a asp-route="cart" class="dropdown-trigger dropdown-trigger-notification dropdown-trigger-personalNav" role="button" aria-haspopup="true" aria-expanded="false" title="Cart">
 						<span class="personalNav-icon personalNav-shoppingCart" aria-label="Cart"></span>
 					</a>
+					<div class="card-number">@(jsoncart == null ? 0 : cart.Count)</div>
 				</div>
 			</li>
 		</ul>
