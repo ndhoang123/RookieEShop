@@ -1,19 +1,256 @@
 ﻿@model IList<RookieEShop.Shared.ProductVm>
 
-@{ ViewData["Title"] = "Home Page"; }
+@{ ViewData["Title"] = @Model[0].CategoryName + " Page"; }
 
-<div class="row mt-4">
-	@foreach (var product in Model)
-	{
-		<div class="col-md-4">
-			<div class="card mb-4 shadow-sm">
-				<a class="nav-link text-dark" href="~/Product/ProductDetail?productId=@product.Id">
-					<img class="bd-placeholder-img card-img-top" src="https://localhost:44305/@product.ThumbnailImageUrl" />
-					<div class="card-body">
-						<h3 class="card-text">@product.Name</h3>
-						<p class="card-text">@product.Price VND</p>
-					</div>
-				</a>
-			</div>
-		</div>}
-</div>
+@section Styles {
+	<link rel="stylesheet" href="~/css/Category.css" />
+}
+
+<div class="main-container col2-left-layout no-margin-top">
+        <div class="main">
+            <div>
+                <div class="container" style="background-color: transparent!important;">
+                    <div class="mb-breadcrumbs">
+                        <div id="ves-breadcrumbs" class="breadcrumbs hidden-xs">
+                            <div class="container-inner breadcrumbs">
+                                <ol class="breadcrumb">
+                                    <li class="home">
+                                        <a href="/" title="Go main page">HOME</a>
+                                        <span>/</span>
+                                    </li>
+                                    <li class="category1">
+                                        <strong>@Model[0].CategoryName</strong>
+                                        <span>/</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="container-inner">
+                    <div class="d-flex justify-content-center">
+                        <div class="col-left sidebar col-lg-3 col-md-3 col-sm-12 col-xs-12" style="padding-left: 0px;">
+                            <div class="mb-left">
+                                <div class="mb-mana-catalog-leftnav">
+                                    <div class="block block-layered-nav">
+                                        <div class="block-content">
+                                            <dl class="narrow-by-list" id="narrow-by-list-0">
+                                                <dt class="even">Price</dt>
+                                                <dd class="even">
+                                                    <ol class="m-filter-css-checkboxes">
+                                                        <li>
+                                                            <a id="price-m-0" class="m-checkbox"
+                                                            title="0VND - 150000VND" onclick="priceChange(0, 150000)">0VND - 150000VND</a>
+                                                        </li>
+                                                        <li>
+                                                            <a id="price-m-1" class="m-checkbox"
+                                                            title="150000VND - 300000VND" onclick="priceChange(150000, 300000)">150000VND - 300000VND</a>
+                                                        </li>
+                                                        <li>
+                                                            <a id="price-m-2" class="m-checkbox"
+                                                            title="300000VND - 450000VND" onclick="priceChange(300000, 450000)">300000VND - 450000VND</a>
+                                                        </li>
+                                                        <li>
+                                                            <a id="price-m-3" class="m-checkbox"
+                                                            title="450000VND - 600000VND" onclick="priceChange(450000, 600000)">450000VND - 600000VND</a>
+                                                        </li>
+                                                        <li>
+                                                            <a id="price-m-4" class="m-checkbox"
+                                                            title="600000VND - 750000VND" onclick="priceChange(600000, 750000)">600000VND - 750000VND</a>
+                                                        </li>
+                                                        <li>
+                                                            <a id="price-m-5" class="m-checkbox"
+                                                            title="750000VND - upper" onclick="priceChange(750000, 9999999)">750000VND - upper</a>
+                                                        </li>
+                                                    </ol>
+                                                </dd>
+                                                <div class="menu-attribute">
+                                                    <dt class="odd">Genres</dt>
+                                                    <dd class="odd">
+                                                        <ol class="m-filter-css-checkboxes" style="height: 60px;">
+                                                            <li>
+                                                                <a class="m-checkbox" id="m-left-attr-genres1161215" title="Comedy">Comedy</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="m-checkbox" id="m-left-attr-genres1161216" title="Drama">Drama</a>
+                                                            </li>
+                                                        </ol>
+                                                    </dd>
+                                                    <dt class="odd">Rating</dt>
+                                                    <dd class="odd">
+                                                        <ol class="m-filter-css-checkboxes star" style="height: 190px;">
+                                                            <li>
+                                                                <a class="m-checkbox d-flex align-items-center" onclick="starChange(5)" title="Five stars">
+                                                                    <p style="font-size: 12px;" class="d-flex align-items-center mb-0">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#fdd835" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#fdd835" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#fdd835" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#fdd835" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#fdd835" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#fdd835" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#fdd835" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#fdd835" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#fdd835" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#fdd835" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                    </p>
+                                                                    <span class="text">5 stars</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="m-checkbox d-flex align-items-center" onclick="starChange(4)" title="Four stars">
+                                                                    <p style="font-size: 12px;" class="d-flex align-items-center mb-0">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#fdd835" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#fdd835" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#fdd835" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#fdd835" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#fdd835" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#fdd835" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#fdd835" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#fdd835" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#b8b8b8" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#b8b8b8" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                    </p>
+                                                                    <span class="text">4 stars</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="m-checkbox d-flex align-items-center" onclick="starChange(3)" title="Three stars">
+                                                                    <p style="font-size: 12px;" class="d-flex align-items-center mb-0">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#fdd835" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#fdd835" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#fdd835" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#fdd835" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#fdd835" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#fdd835" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#b8b8b8" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#b8b8b8" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#b8b8b8" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#b8b8b8" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                    </p>
+                                                                    <span class="text">3 stars</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="m-checkbox d-flex align-items-center" onclick="starChange(2)" title="Two stars">
+                                                                    <p style="font-size: 12px;" class="d-flex align-items-center mb-0">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#fdd835" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#fdd835" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#fdd835" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#fdd835" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#b8b8b8" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#b8b8b8" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#b8b8b8" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#b8b8b8" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#b8b8b8" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#b8b8b8" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                    </p>
+                                                                    <span class="text">2 stars</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="m-checkbox d-flex align-items-center" onclick="starChange(1)" title="One star">
+                                                                    <p style="font-size: 12px;" class="d-flex align-items-center mb-0">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#fdd835" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#fdd835" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#b8b8b8" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#b8b8b8" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#b8b8b8" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#b8b8b8" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#b8b8b8" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#b8b8b8" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 12 12" class="star-icon"><g fill="none" fill-rule="evenodd"><path fill="#b8b8b8" transform="matrix(-1 0 0 1 11 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path><path fill="#b8b8b8" transform="translate(1 1)" d="M5 0v8.476L1.91 10l.424-3.562L0 3.821l3.353-.678L5 0z"></path></g></svg>
+                                                                    </p>
+                                                                    <span class="text">1 star</span>
+                                                                </a>
+                                                            </li>
+                                                        </ol>
+                                                    </dd>
+                                                </div>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-main col-lg-9 col-md-9 col-sm-12 col-xs-12 col-res-main-body">
+                            <div class="mb-content">
+                                <div class="mb-category-products">
+                                    <p class="note-msg" style="display: none;">The item is not existed. Please re-try again!</p>
+                                    <div class="category-products row">
+                                        <div class="toolbar-top">
+                                            <div class="toolbar col-sm-12 col-xs-12 col-md-12">
+                                                <div class="sorter col-sm-4 col-xs-6 col-md-4">
+                                                    <div class="sorting-col align-items-center">
+                                                        <div class="dropdown-res">
+                                                            <p>Sorting by:</p>
+                                                        </div>
+                                                        <div class="sort-by dropdownres dropdownres-select">
+                                                            <div class="selectBox">
+                                                                <span class="selected selected-order">Price</span>
+                                                                <span class="selectArrow selectArrow-order"></span>
+                                                                <div class="selectOptions selectOptions-order" style="display: none;">
+                                                                    <span class="selectOption selectOption-order" value="min-prices" selected="\"selected\"">Prices</span>
+                                                                    <span class="selectOption selectOption-order" value="created_at">Newest</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pager col-sm-8 col-xs-5 col-md-8 hidden-xs">
+                                                    <div class="hidden-sm hidden-xs">
+                                                        <div class="limiter hidden1-xs">
+                                                            <div class="select-sort-by dropdownres">
+                                                                <div class="selectBox selectBox-limit">
+                                                                    <span class="selected selected-limit">12 products</span>
+                                                                    <span class="selectArrow selectArrow-limit"></span>
+                                                                    <div class="selectOptions selectOptions-limit" style="display: none;">
+                                                                        <span class="selectOption selectOption-limit" value="12" selected="\"selected\"">12 products</span>
+                                                                        <span class="selectOption selectOption-limit" value="24">24 products</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <ul id="products_grid" class="products-grid res-top">
+                                            @foreach(var product in Model){
+												<li>
+													<div class="item-inner">
+														<div class="ma-box-content">
+															<div class="products clearfix">
+																<div class="product images-container">
+																	<a href="~/Product/ProductDetail?productId=@product.Id" title="@product.Name" class="product-image">
+																		<span class="product-image">
+																			<img src="https://localhost:5001/@product.ThumbnailImageUrl" alt="@product.Name" class="lazyloaded" width="200" height="200">
+																		</span>
+																	</a>
+																</div>
+															</div>
+															<h2 class="product-name-no-elipsis p-name-list">
+																<a href="~/Product/ProductDetail?productId=@product.Id">@product.Name</a>
+															</h2>
+															<div class="price-label">
+																<span id="product-price-001">
+																	<span class="price">
+																		<p class="special-price">
+																			<span class="price">@product.Price&nbsp;VND</span>
+																		</p>
+																	</span>
+																</span>
+															</div>
+															<div class="rating-content">
+																<div class="ratings">
+																	<div class="rating-box">
+																		<div class="rating" style="width: @((product.AvgResult/5)*100)%;"></div>
+																	</div>
+																	<div class="amount">@(product.CountResult)</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</li>
+											}
+                                        </ul>
+                                        <div class="toolbar-bottom">
+                                            <div class="toolbar col-sm-12 col-xs-12 col-md-12">
+                                                <div class="pager col-sm-12 col-xs-12 col-md-12">
+                                                    <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="pages" id="pagination" data-value="@ViewBag.countProducts">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@section scripts{
+	<script src="~/js/category.js"></script>
+}

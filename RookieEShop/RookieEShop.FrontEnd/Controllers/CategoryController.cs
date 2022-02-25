@@ -16,6 +16,7 @@ namespace RookieEShop.FrontEnd.Controllers
 		public async Task<IActionResult> Index(int id)
 		{
 			var products = await _productApiClient.GetProductsByCategories(id);
+			ViewBag.countProducts = products.Count;
 			return View(products); 
 		}
 	}
