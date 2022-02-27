@@ -35,14 +35,6 @@ namespace RookieEShop.FrontEnd.Services
 			return await response.Content.ReadAsAsync<ProductVm>();
 		}
 
-		public async Task<IList<ProductVm>> GetProductsByCategories(int categoryId)
-		{
-			var response = await _client.GetAsync("api/Product/(categoryid)?categoryiD=" + categoryId.ToString());
-
-			response.EnsureSuccessStatusCode();
-
-			return await response.Content.ReadAsAsync<IList<ProductVm>>();
-		}
 
 		public async Task<RatingResultVm> GetRatingResult(int categoryId)
 		{
