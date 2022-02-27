@@ -20,6 +20,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.17" />
     <ProjectReference Include="..\RookieEShop.BackEnd\RookieEShop.BackEnd.csproj" />
     <ProjectReference Include="E:\Coding\RookieEShop\RookieEShop.Shared\RookieEShop.Shared.csproj" />
   </ItemGroup>
